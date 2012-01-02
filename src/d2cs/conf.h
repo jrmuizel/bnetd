@@ -17,6 +17,7 @@
  */
 #ifndef INCLUDED_CONFFILE_H
 #define INCLUDED_CONFFILE_H
+#include <stdint.h>
 
 typedef enum
 {
@@ -32,7 +33,7 @@ typedef struct
 	char const	* name;
 	int		offset;
 	e_conf_type	type;
-	int		def_value;
+	intptr_t	def_value;
 } t_conf_table;
 
 extern int conf_cleanup(t_conf_table * conf_table, void * param_data, int size);

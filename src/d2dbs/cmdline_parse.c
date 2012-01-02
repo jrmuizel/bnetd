@@ -46,10 +46,10 @@
 
 static t_conf_table param_conf_table[]={
 #ifdef USE_CHECK_ALLOC
-	{ "-m",			offsetof(t_param,memlog_file),	conf_type_str,  (int)DEFAULT_MEMLOG_FILE},
+	{ "-m",			offsetof(t_param,memlog_file),	conf_type_str,  (intptr_t)DEFAULT_MEMLOG_FILE},
 #endif
-	{ "-c",			offsetof(t_param,prefs_file),	conf_type_str,	(int)D2DBS_DEFAULT_CONF_FILE  },
-	{ "-l",			offsetof(t_param,logfile),	conf_type_str,  (int)NULL		},
+	{ "-c",			offsetof(t_param,prefs_file),	conf_type_str,	(intptr_t)D2DBS_DEFAULT_CONF_FILE  },
+	{ "-l",			offsetof(t_param,logfile),	conf_type_str,  (intptr_t)NULL		},
 	{ "-h",			offsetof(t_param,help),		conf_type_bool, 0			},
 	{ "--help",		offsetof(t_param,help),		conf_type_bool,	0			},
 	{ "-v",			offsetof(t_param,version),	conf_type_bool,	0			},
@@ -62,21 +62,19 @@ static t_conf_table param_conf_table[]={
 };
 
 static t_param cmdline_param;
-
-static char help_message[]="\
-Usage: d2cs [<options>]
-	-m <FILE>:		set memory debug logging file to FILE
-	-c <FILE>:		set configuration file to FILE
-	-l <FILE>:		set log to FILE
-	-h, --help:		show this help message and exit
-	-v, --version:		show version information and exit
-	-f, --foreground:	start in foreground mode (don`t daemonize)
-	-s, --stderr:		log to stderr instead of logging to file
-
-Notes:
-	1.You should always use absolute path here for all FILE names
-	2.-m option only works when compiled with USE_CHECK_ALLOC defined
-";
+static char help_message[]=\
+"Usage: d2cs [<options>]\n" \
+"	-m <FILE>:		set memory debug logging file to FILE\n" \
+"	-c <FILE>:		set configuration file to FILE\n" \
+"	-l <FILE>:		set log to FILE\n" \
+"	-h, --help:		show this help message and exit\n" \
+"	-v, --version:		show version information and exit\n" \
+"	-f, --foreground:	start in foreground mode (don`t daemonize)\n" \
+"	-s, --stderr:		log to stderr instead of logging to file\n" \
+"\n" \
+"Notes:\n" \
+"	1.You should always use absolute path here for all FILE names\n" \
+"	2.-m option only works when compiled with USE_CHECK_ALLOC defined\n";
 
 extern void cmdline_show_help(void)
 {

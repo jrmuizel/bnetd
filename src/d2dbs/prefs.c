@@ -43,13 +43,13 @@
 #include "common/setup_after.h"
 
 static t_conf_table prefs_conf_table[]={
-	{ "logfile",		offsetof(t_prefs,logfile),		conf_type_str,  (int)DEFAULT_LOG_FILE	},
-	{ "logfile-gs",		offsetof(t_prefs,logfile_gs),		conf_type_str,  (int)DEFAULT_LOG_FILE_GS},
-	{ "loglevels",		offsetof(t_prefs,loglevels),	conf_type_str,  (int)DEFAULT_LOG_LEVELS },
-	{ "servaddrs",		offsetof(t_prefs,servaddrs),	conf_type_str,	(int)D2DBS_SERVER_ADDRS	},
-	{ "gameservlist",	offsetof(t_prefs,gameservlist), conf_type_str,	(int)D2GS_SERVER_LIST	},
-	{ "charsavedir",	offsetof(t_prefs,charsavedir),  conf_type_str,	(int)D2DBS_CHARSAVE_DIR	},
-	{ "charinfodir",	offsetof(t_prefs,charinfodir),	conf_type_str,	(int)D2DBS_CHARINFO_DIR	},
+	{ "logfile",		offsetof(t_prefs,logfile),		conf_type_str,  (intptr_t)DEFAULT_LOG_FILE	},
+	{ "logfile-gs",		offsetof(t_prefs,logfile_gs),		conf_type_str,  (intptr_t)DEFAULT_LOG_FILE_GS},
+	{ "loglevels",		offsetof(t_prefs,loglevels),	conf_type_str,  (intptr_t)DEFAULT_LOG_LEVELS },
+	{ "servaddrs",		offsetof(t_prefs,servaddrs),	conf_type_str,	(intptr_t)D2DBS_SERVER_ADDRS	},
+	{ "gameservlist",	offsetof(t_prefs,gameservlist), conf_type_str,	(intptr_t)D2GS_SERVER_LIST	},
+	{ "charsavedir",	offsetof(t_prefs,charsavedir),  conf_type_str,	(intptr_t)D2DBS_CHARSAVE_DIR	},
+	{ "charinfodir",	offsetof(t_prefs,charinfodir),	conf_type_str,	(intptr_t)D2DBS_CHARINFO_DIR	},
 	{ "bak_charsavedir",offsetof(t_prefs,charsavebakdir),conf_type_str,	0			},
 	{ "bak_charinfodir",offsetof(t_prefs,charinfobakdir),conf_type_str,	0			},
 	{ "ladderdir",		offsetof(t_prefs,ladderdir),	conf_type_str,	0			},
