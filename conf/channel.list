@@ -1,0 +1,29 @@
+####################################################################################
+# channel.list  -  Configuration for permanent channels                      #
+#----------------------------------------------------------------------------------#
+#                                                                            #
+# These are the channels to create when the server starts up. This file does #
+# not change the channel that the client requests when it logs in, but it    #
+# can be used to give that channel a different "official" name.              #
+#                                                                            #
+# Quotes (") are required around the strings, but they are not allowed       #
+# inside them. An unquoted NULL means there is no entry for that position.   #
+#                                                                            #
+# NONE for special name uses the format "%s %s-%d", shortname, country, realm      #
+#                                       e.g. "D2CS-Starcraft USA-1"                #
+# NULL for country creates non-country specific channels                     #
+# -1 for max sets no limit to the number of users allowed in the channel     #
+# ----special name---- -----short name----- client bots- -ops- -log- ctry realm max#
+NONE                   "Starcraft"           STAR true  false false "USA"  NULL 30
+NONE                   "Brood War"           SEXP true  false false "USA"  NULL 30
+NONE                   "Starcraft Shareware" SSHR true  false false "USA"  NULL 30
+NONE                   "Diablo Retail"       DRTL true  false false "USA"  NULL 30
+NONE                   "War2BNE"             W2BN true  false false "USA"  NULL 30
+NONE                   "Diablo II"           D2DV true  false false "USA"  NULL 30
+#                                                                            #
+#"Blizzard Chat"            "Chat"           CHAT true  false false NULL   NULL -1
+#"Blizzard Support"         NULL             NULL false false false NULL   NULL -1
+"Bnetd Chat"                "Chat"           CHAT true  false false NULL   NULL -1
+"Bnetd Support"             NULL             NULL false false false NULL   NULL -1
+#                                                                            #
+####################################################################################

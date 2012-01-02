@@ -1,0 +1,25 @@
+Here are some projects on my TODO list (24 Jul 2000).
+
+- Check Ladder 8
+  I just need some real value to test it as I've already the Ladder
+  subroutines extracted.
+- Check Ladder 7
+  I'll need some real results to check it, after ladder-7 implementation
+  of course 
+- Speed optimisation for ladder computations
+  - Probability() using a table for small ranking differences
+    As it is unlikely that very high ranked players play against
+    very low ranked players, a table may be used for a given
+    rank differences interval. For greater differences, the
+    mathematical formula may still be used. This will allow to
+    limit it to a table of, for example, 255 double (-127 to 127)
+    that will catch most of the cases.
+  - Math expanding then factorisation. This is the best optimization
+    that could be done to these math functions but it'd render these
+    math expressions nearly impossible to understand.
+- Config option to set minimum number of game won before someone may enter
+  a ladder game. This would also allow playing ladder directly after account
+  creation (for example, for LAN parties) (except the client tries to enforce
+  this too.  I believe it is hardcoded to 10 normal wins).
+- Gimp script to convert to indexed with a correct palette for creation
+  of ad banners.

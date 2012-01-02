@@ -1,0 +1,941 @@
+
+CHANGELOG
+
+	This file contains a summary of the changes in each release.  The
+	details sometimes may be technical, and are usually vague for the sake
+	of brevity.
+
+
+WHAT'S NEW?
+
+	0.4.25
+	------
+	Fixed some Win32 compile errors in bniextract, bntrackd, and
+	Makefile.BORLAND.  Included latest BITS bugfixes.  Fixed messages so
+	that squelched users display an X on their icons.  Renamed MT_WARN to
+	MT_INFO.  BITS can now encrypt the passwords used to join servers to
+	the network.  Finally implemented proper squelching.... now the channel
+	icons reflect the ignore state (ignored players get a big red X over
+	their icons).  Fixed various spelling mistakes in comments.  Added
+	patch from Gediminas to improve the /con command.  Added a new user
+	attribute BNET\fakeclienttag which is useful for implementing alternate
+	channel icons.  Changed the default setting for allowing users to use
+	/con to true.  Fixed the rotate macros again :)  Added unknown auth
+	packet 17.  Fixed malloc(0) in message.c and added missing
+	message_destroy() to channel.c.  Added latest BITS patches to support
+	game options.  Updated CLIENT_CDKEY2 in bnet_protocol.h with new info
+	from Eurijk!  Started to implement cdkey encryption in clients.  Added
+	options to automatically change user/group of the server.  Added client
+	tag for Diablo II Expansion Pack.  Added CDKEY3 support for Diablo II
+	Expansion.  Updated the FAQ.  Updated client command line options to
+	support Diablo II and expansion.  Added Fred's autoupdate updates.
+	Added more autoconf checks and made the give_up_root_privileges stuff
+	use it.  Put more current information in TODO.  Massive search and
+	replace changes for message calls to separate the old MT flags from
+	the generic code.  Added null packet (keepalive) support for bots...
+	apparently some bots break without this.  Small protocol updates.
+	Applied the mail patch from Dizzy.  Added MSVC++ Makefile and config.h.
+	Made dummy DIR functions for Win32 (Dizzy has a better solution but
+	this gets things compiling for now).  Removed use of snprintf() in new
+	channel code.  Fixed some memory leaks on error and a removed fixed-
+	sized buffer in new channel code.  Fixed compat/mkdir.h to handle all
+	the horrible variations.  Added in some of the easy improvements from
+	the D2Close project: a new /reply command which makes replying to
+	whispers easier, better feedback on the watch commands, a summary of
+	how much memory was leaked with memtest on.  There is more to come
+	and most of it is not this trivial.  Fixed a tiny mail bug.  Added
+	Fred's message patch which allows the issue and motd to simulate the
+	user executing commands.  Added man page info for these.  Updated the
+	bnissue to include the connecting IP like on the real Battle.net.
+	Merged in lots of protocl updates from the Onlyer on the D2Close
+	project.  Fixed a few compiler warnings, typos, and memory leaks.
+	Added Dizzy's portable directory reading code and changed account.c to
+	use it.  Fixed some mail error handling.  More D2 LOD updates.  Version
+	1.09 packets implemented (still need to work out some details).  Made
+	the channel log message configurable.  Fixed some memory bugs in
+	channel.c.  Fixed a duplicate channel creation bug in channel.c.  Fixed
+	some cut and paste errors in client_connect.c.  Added clienttag
+	handling to the COUNTRYINFO109 packet.  Fixed the gameinfo bug in
+	connection.c pointed out by AsmodeusB.  Added parser and infrastructure
+	for a versioncheck table.  It still needs some work though.  Made some
+	new prefs options related to the versioncheck work.  Added new /tag and
+	/flag commands and a time argument to the shutdown command.  Shutdown
+	with a zero argument now cancels a previous shutdown.  Added an option
+	to save accounts by username instead of userid.  Tried to fix the
+	STARTGAME version macro mess.  Various little changes and compiler
+	warnings were fixed.  Improved shutdown messages.  Fixed a bug with
+	SERVER_AUTHREP1 and D2 LoD 1.0.8 clients.  Added packet dump capability
+	to bnftp.  Added in some changed from the d2closed tree including a
+	bug fix in check_alloc and some new packet definitions.  Marked the
+	game result 5 code as obsever.   Reworked server.c.  Fixed a typo in
+	the server.c select() support.  Major merging work with d2close branch.
+	Implemented the plug icon for UDP-less connections.  Added some aliases
+	for the mail sub-commands.  Added the /admin command and also an alias
+	for /operator.  Made kicking or banning of admins impossible thanks to
+	Yoss.  Fixed some include issues in d2cs.  Made the handling of different
+	connection types in bnetd/server.c standardized, fixed crashing bug with
+	IRC enabled and port 6112 already in use.  Implemented a telnet server
+	address list.  Added strings describing the listening socket type to
+	server.c.  Fixed some more d2cs includes.  Created compat/memmove.[ch].
+	Fixed missing includes in bnetd/server.h.
+
+	0.4.24
+	0.4.23 (This version was released as 0.4.24 by accident.)
+	------
+	More man page updates and consistency work.  Added missing packet size
+	check to handle_normal.c.  Fixed some (un)signed comparison issues in
+	various files.  Added psock shutdown flags to avoid using raw
+	constants.  Removed the d2char code because it wasn't being used and
+	needed some major work.  Added patches from Dizzy to allow for flooding
+	avoidance, allowing accounts to be locked and unlocked, allowing
+	started games to not be sent in the list of games to the client, and a
+	shutdown command.  Rewrote the linked list routines to use a list head
+	structure and avoid using double indirection since it caused very ugly
+	code and was confusing.  Also added macros to traverse linked lists
+	since that construct came up again and again.  Converted the code to
+	use the new routines and added create() and destroy() calls for several
+	lists that didn't have them before.  Removed most of the _get_first(),
+	_get_next() routines since it is just as easy to do things without
+	them.  Fixed some bugs in the new list routines.  Added runtime queries
+	for the terminal width to the client programs.  Added a SIGWINCH
+	handler to bnchat and changed the input routines to handle redrawing.
+	Fixed a bug in the client input routines that could cause ^U at the end
+	of a line to cause the screen to scroll down a line.  Made bnchat check
+	for login names that were too long because the server will reject the
+	packet and not send a reply.  Fixed a bug in the client input routines
+	which could cause garbage to be printed on the screen when using a very
+	narrow window equal to the width of the input prompt.  Added autoconf
+	checks for getenv(), ioctl(), and sys/ioctl.h.  Put a list of the
+	terminal handling "features" in the client man pages.  Removed annoying
+	pfree() hacks to do free poisoning and instead added check_alloc.[ch]
+	and hooks in main and setup.h to allow for malloc(), realloc(), and
+	free() poisoning with no changes to the calling interface.  Added a
+	missing destroy_list() in connection.c.  Organized setup.h a little.
+	Included debugging programs in the debug directory.  Added in calls
+	to list_purge() in appropriate places.  Incorporated new BITS work from
+	Typhoon.  Played with game "creation" in bnchat to allow for easy
+	developmental testing from the command line.  Fixed problems from
+	missing part of the patch to fix gettimeofday().  Finally did the
+	ladder rewrite and also moved the calculations into ladder_calc.c.  Not
+	tested very well.  Added control-t support in the input routines of the
+	clients.  Fixed a bug introduced in the new ladder activation code.
+	Included current BITS patch from Typhoon.  Included documentation
+	updates and a GIMP palette file from Denis.  Added some ladder calc
+	speed-ups, more documentation updates, and support for DynKey from
+	Denis.  Applied BITS update to use ids instead of account names.
+	Applied ladder-7, ladder optimization, and timezone patch from Denis.
+	Applied an overlooked patch from Denis to optimize ladder-8.  Included
+	more protocol info determined by Denis in bnet_protocol.h and also in
+	bnettime.c.  Updated client_connect.c to use GMT and local times for
+	system and local timestamps.  Added a quick patch from Gediminas to
+	hide IP addresses from non-admins.  YABP (yet another bits patch) :)
+	This one fixes some memory handling problems.  Added client detection
+	of timezone offset from GMT.  Added a stripped-down version of the
+	tracking server to the distribution.  Made /time use the client's and
+	server's timezones.  Updated the address for Dizzy.  Added some lines
+	to the motd and removed the bnetd.nmsu.edu reference.  Updated the
+	tracking code to use psock_*, autoconf, and the list.c code.  Added
+	checks to the list shutdown routines to check for NULL list heads in
+	case there were problems during startup.  Fix some network includes in
+	bits.c and time_t problems with quota.h.  Fixed sed expression in
+	Makefile.in to not use the \? operator since it doesn't work
+	everywhere.  Inserted missing "not" in bind() error message.  Removed
+	uses of 0, 1, and 2 constants for stdin, stdout, and stderr file
+	numbers.  Integrated several patches from Jung-woo which improve the
+	usability of the server by allowing disconnects to only be counted to
+	the first disconnected player (the most likely suspect), printing an
+	affirmative message after using /watch, and by disconnecting "dobae"
+	flood attackers.  Wrote a man page for bntrackd.  Updated bntrackd to
+	support long options.  Added latest BITS patch which begins to add
+	game support.  Typhoon pointed out another mistake in strncasecmp().
+	Fixed include and const issues in game_rules.[ch].  Fixed some long
+	string constants in usage() functions.  Added packet for Diablo II
+	open Battle.net account creation.  Memory checking routines now work
+	with current glibc because the #define tricks are moved into
+	setup_after.h; setup.h is renamed to setup_before.h.  Fixed some
+	warnings in the BITS code.  Incorporated the BNI utilities and fixed
+	some errors with the byte swapping.  Moved source files into
+	subdirectories with their own include files.  Made the BNI utilities
+	use the autoconf macros.  Fixed some indenting and missing includes in
+	include files.  Started implementation of a hashtable type to replace
+	the use of lists in account.c.  This should speed things up for servers
+	with lots of users.  Finished hashtable changeover.  Added more
+	debugging tracebacks in account.c and hashtable.c.  Fixed some bugs in
+	the TGA RLE compression.  Made new header to support specific bit-sized
+	integers which handles all the ugly detection, etc.  Converted the
+	hashing code, bniutils, and bn_type to use it.  Added packing attribute
+	to protocol typedefs and added macros for other useful GCC attributes
+	in setup_before.h.  Added some more autoconf checks and a compatibility
+	header for broken stat() implementations.  Added simple realm and
+	character types and supporting functions.  Renamed handle_normal.[ch]
+	to handle_bnet.[ch] to match the scheme used by the other files.
+	Fixed session key comparisons and enabled them again.  Only print a new
+	UDP address if it is different from the previous one.  More BITS
+	updates from Typhoon to support game lists.  Updated config.h.win32
+	with new autoconf tests.  Did some more documentation and coding for
+	Diablo II.  Massive unnecessary rename of "normal" connections to
+	"bnet" connections :)  Fixed multiple realm support, documented lots of
+	Diablo II auth packet types and fixed the avatar display in Diablo II.
+	Port numbers may now be specified as /etc/services entries.  Modified
+	handling of command line arguments in the bniutils to allow use of
+	stdin and stdout.  Fixed chat icon in channels.  Now administrators can
+	always use announce.  Fixed some include problems that broke Win32.
+	Updated Borland Makefile to look like the Unix one.  Moved the rotate
+	macros from various .c files into a common header.  Fixed rotation by
+	zero bits to be portable.  Updated bnpass to use the same command-line
+	options as the rest of the programs.  Updated the bnpass man page and
+	fixed some minor problems in others.  The server will now print the
+	default configuration file location when printing the usage.
+	Incorporated latest BITS patch.  Added a quick hack to make the BW
+	1.08 alpha patch work.  Added direct telnet support.  Added the issue
+	file (bot connection greeting).  Added the chpass command so that
+	admins may reset passwords and bot-only users can change passwords.
+	Latest BITS patch makes cross-server game play work.  This entry is
+	getting way too long; future entries will be broken up by prerelease.
+	Oops, bots weren't having their quota checked.  Fixed possible use of
+	NULL chatname in message.c.
+
+	0.4.22
+	------
+	Fixed reporting of 256x256 maps.  Fixed reporting of 8 maxplayers.
+	Filename months for game reports are now 1-12 instead of 0-11. Added
+	bnhelp entry for /fortune.  Fixed gametrans file parsing to handle
+	tabs.  Added BITS cleanup from Typhoon.  Added -pedantic option to
+	--with-warn options.  Fixed buffer overflow in Win32 type reporting.
+	Added more BITS support from Typhoon.  Now /w works!  Added latest
+	ladder patches from D.Moreaux supporting five player ladder.
+	Documented the infamous registry snooping packet (current clients will
+	safely ignore it).  Added network address type to addr.[ch] to make
+	supporting networks in config files easier.  Added fourth field to the
+	gametrans file so that internal LAN servers which also have connections
+	from outside possible.  Added autoupdate patch from Rob which adds a
+	config file to specify which version to update to by client type.
+	Fixed potential crash in account.c due to free()ing non-malloc()ed
+	memory when account creation failed.  Fixed subtle bug in
+	network.c/packet.c where the packet size was assumed to be valid in the
+	header before it was read.  Fixed sending of COMPREPLY packet to avoid
+	hanging Diablo.  Added account pointer to unget name functions and
+	added a chatname in addition to account name.  Added win32 fixes from
+	Phil.  The config.h.win32 needed updating and a couple of headers were
+	missing from bnetd.c.  A mistake with the #ifdef's in gettimeofday.c
+	caused a compile error and runprog will cause compile errors if fork()
+	and wait() aren't available.  Split bnetd.c into one file per protocol.
+	Moved the duplicated connect code from bnchat and bnstat to
+	client_connect.c.  Also finished client support for using other ports
+	than 6112.  Added channel logging capabilities.  Updated BITS support
+	from Typhoon.  Now channel messages should work!  Included Borland
+	Makefile and instructions for Win32.  Fixed a bug in the compatibility
+	routine strcasecmp() where equality was assumed if one string was a
+	starting substring of the other.  Finally updated the man pages and
+	added new pages for bnstat, bnproxy, and bnbot.  Added BITS loopback
+	support patch from Typhoon.  Added packet size checks in packet.c
+	which allow for the initial zero value.  Made the initial connection
+	handshake look like a normal packet.  Moved connection type detection
+	and sending of udptests out of server.c.
+
+	0.4.21
+	------
+	Deleted some unused stuff in Makefile.in and added rules to make it
+	more GNU compliant (though I don't plan to make it 100% so).  Fixed
+	module names in eventlog() calls.  Fixed /ladderupdate for Brood Wars
+	clients.  Also fixed a bug where ladder_make_active() would print an
+	error and return on an empty ladder instead of zeroing the active
+	statistics.  Move the ftime() stuff to a gettimeofday() emulation
+	function.  Made a uname() emulation routine for Win32 and other
+	platforms.  Added patches from Rob to support hidden game addresses
+	and idle time displays.  Incorporated some of Typhoon's BITS patch.
+	Moved UDP test code into a separate file to reduce code duplication.
+	Added response for PING requests when connections are not logged in.
+	Added _doprnt() support.  The /gameinfo command now prints more
+	information.  Added more BITS stuff.  Fixed some typos in the udptest
+	stuff.  Put in the ban patch from Gediminas and reorganized it some.
+	Added handling of SIGPIPE from send() (longstanding bug) and EPROTO
+	from accept().  Fixed EPROTO to only be used when it is available.
+	Fixed bug where maxuserid was incremented for failed account creation
+	attempts.  Fixed reversed if for map authentication.  Fixed buffer
+	termination in command.c.  Added a /netinfo command to print IP
+	addresses and port numbers.  Added strerror() entries for more network
+	errors.  Made use of network error conditions robust against missing
+	definitions.  Added support for older SESSIONADDR packets.  Added check
+	for ladder "Disconnect is Loss" flag.  Integrated more BITS
+	modifications from Typhoon.  Moved conversion routines from bnetd.c to
+	game_conv.c.  Added the /whoami command.  Fixed some compile problems
+	when not using BITS or not using MEM_TEST.  Fixed address format in
+	dumpfile and bnetd.log.  Added dummy /beep and /nobeep commands.
+	Made /who not list the channel for banned users.  Added support for
+	entering an explanation in /ban and /kick commands.  Now the timer
+	command supports using colons to specify minutes and hours and it will
+	also print out the timer duration after setting it.  Fixed the /me
+	command to not print errors in the logfile when run from inside a game.
+	Moved several "info" messages down to "debug".  Added in more changes
+	from Typhoon including a README file for BITS.  Attempt to make timer
+	deletion and insertion ok from inside callbacks.  Changed STARTGAME4
+	handling to avoid printing errors in the logfile when a game already
+	exists.  Added NULL pointer tracking to account name functions.
+	Included updated patch from Dizzy to support command aliases.  Previous
+	flag values are now passed in with the new flags to fcntl() in
+	psock_ctl().  Changed game report date format to something
+	human-readable.  Added the Brood Wars ladder maps to the authentication
+	list.  Fixed a bug where main used a stale pointer for the pidfile on
+	shutdown.  Integrated patch from Rob to make use of the gameinfo
+	string.  Moved the gameinfo code around and added maxplayers support
+	and more info in game reports.  Applied Dizzy's patch to move the
+	helpfile code into its own file and support comments.  Fixed unsetting
+	the away and dnd strings.  Added checks for NULL values in the gameinfo
+	parsing.  Added a /fortune command.  Added patch from Roger to allow
+	admins to create accounts.  Incorporated more BITS support.  Finally
+	updated icons.bni to support Warcraft II BNE, Diablo II, and Starcraft
+	Japan.  Made gametrans a per-interface setting.  Added printout of
+	translated addresses to /gameinfo and /netinfo.  Added hack to allow
+	several calls to addr_get_addr_str() before the buffer is reused.
+	Fixed bug in /addacct where it always thought you didn't enter a
+	username.  Added maxplayers = 4 for Diablo gameinfo.  Fixed /help entry
+	for /addacct.
+
+	0.4.20
+	------
+	Make ladder initialization code also sort active ratings in case they
+	were modified outside of bnetd.  Fixed Makefile.in and bnetd.conf so
+	that the auto path configuration works again.  Added a patch to allow
+	the use of SO_KEEPALIVE on connections (patch courtesy of Damien).
+	Made hundreds of little changes to support multiple ladders per game
+	type.  Fixed ladder packets to contain the ladder "id" field which
+	selects which of multiple ladders to display or search.  Fixed the
+	connection.c icon code to support Warcraft II.  Added bnchat, bnftp,
+	and bnstat support for Warcraft II BNE.  Changed fopen() attributes
+	from "r" to "rb" in file.c.  Added configure checks and code changes
+	for missing fork(), setpgid(), getpid(), uname(), gettimeofday(),
+	sigaction(), sigaddset(), and sigprocmask().  Included new portable
+	socket header.  Got rid of config.h.generic and Makefile.generic
+	since I doubt anyone used them.  If getlogin() fails, use "unknown".
+	Added patch from Rob to check for ladder maps by name.  Fixed bugs
+	in time conversion functions: they were off by about 100 years, they
+	were in Mountain time instead of GMT, and they weren't numerically
+	stable.  Now we ignore the return of ftime().  Fixed prototype
+	mismatch with account_wrap ladder functions.  Added checks for Unix
+	socket includes in all .c files.  Use getsockopt() to check for
+	previous errors on UDP packets before using them again to avoid
+	misleading errors in the logfile.  Added config checks for termios
+	and fixed some errors in the psock.h and strn?casecmp() code.  Made
+	connection.c actually pay attention to the BNET\flags\initial setting.
+	Integrated (hopefully) final changes for Win32 support.  Moved the
+	file format pages from section 4 (device files) to section 5 (file
+	formats).  Removed some unused variables from the Makefile.in. Updated
+	code to handle UDP packets the same way as the TCP "packets".  Each
+	connection and game now remembers the proper IP and port for UDP
+	traffic.  Moved UDP test sending code into a separate function.  This
+	needs to be moved into bnetd.c eventually and the sendto() into
+	network.c.  Added a handle_unconn_packet() function for packets not
+	associated with a connection (UDP).
+
+	0.4.19
+	------
+	Fixed a bug in game report file names so that the year is human
+	readable.  Incorporated a patch from Oleg Drokin to make bnstat work
+	properly when not called from a tty (for example from a cgi-bin). Added
+	lots of new country codes to bnet_protocol.h.  Fixed a bug with the
+	output of the /whereis command where it would say a non password
+	protected game was password protected (thanks to Tril for reporting
+	this).  Added support for non wildcard interface binding (suggested by
+	Michael Matsumura).  Fixed a bug in bnetd.c where ladder stats were
+	reported.  If a player was on the ladder list and didn't previously
+	have a game time, the server used to send zero; it now sends Jan 1,
+	1970 0:00 GMT.  Incorporated a patch from Denis for more ladder
+	equations.  Only 5 and 7 player games are left.  Fixed previous fix
+	to handle all cases (I hope) for the double free() problem in game.c.
+	Separated the different protocols into separate headers.  Adopted
+	Linux kernel like error cleanup for server_process() to avoid code
+	duplication.  Removed excess quotations in bnchat output.  Added escape
+	and control character filtering to bnchat and bnftp output.  Moved the
+	include files out of the source directory and into their own.  Renamed
+	convert.h, field_types.h, and convert.c to bn_type.[ch].  Removed ugly
+	starttime global variable and made it local to server.c.  Changed the
+	way new accounts are initialized.  They no longer copy the
+	bnetd_default_user, and the lookup routines look in the default user if
+	the attribute is not found in the specified account.  The account code
+	now uses a temporary file to save accounts to minimize loss if the
+	server crashes while saving accounts.  Implemented cdkey2 messages and
+	fixed changepassack.  Version 1.06 of Starcraft should now work.  Fixed
+	a possible divide by zero in adbanner code.  Fixed new account temp
+	file to include full path.  Fixed adbanner tag passing.  Fixed tracking
+	error messages.  Fixed tracker bug where flags field was not
+	initialized.  Fixed tracker bug where remote address was not set.
+	Added support for join-game stat command.  Start of support for
+	Warcraft II BNE.  Fix for ladder screen not displaying.  Fix for crash
+	after /ladderactivate in ladder.c.  Also copy last game time into
+	active ladder statistics.  Ad banners are now displayed again after
+	adding missing counter increments to adbanner.c.
+
+	0.4.18
+	------
+	Added missing strftime() compatibility to bnftp.  Removed CHAT tags
+	from bnchat, bnstat, and bnftp.  Fixed bug in game.c that could cause a
+	double free of report data.  Added install rules to Makefile.in.  Made
+	config file automatically get path updates from Makefile.  Made server
+	use the location of the configuration directory when looking for the
+	default config file.
+
+	0.4.17
+	------
+	Fixed a small bug with client/server authentication.  Fixed a bug in
+	the list handling in tracker.c which could cause a crash if the last
+	tracking host could not have its name resolved.  Fixed the map
+	authorization bug introduced in the previous version and made game join
+	flags on accounts enforceable by denying map authorization.  Added a new
+	/timer command for reminders in both chat and gameplay modes.  Made the
+	date on report files more readable.  Fixed a bug in game_report which
+	could cause normal game results to be wrong.  Forced setting of game
+	starting time when maps are authenticated.  Added ladder fix up from
+	Denis.  Fixed some mistakes and omissions for LADDER and AD packet
+	types in bnet_protocol.h and bnetd.c.  Updated bnettime functions and
+	usage to allow for using all 64 bits of the number.  Made auto update a
+	configuration option.  Updated the latency testing code to use timers.
+	Made use of long long dependent on definition of HAVE_LONG_LONG.
+	Created a t_long_ab datatype to support "hand-crafted" 64-bit values.
+	Changed names on some files to be shorter and less confusing.  Made
+	file download packets have proper modification dates.
+
+	0.4.16
+	------
+	Fixed a few errors in bnet_protocol.h and documented some fields in the
+	compinfo packets.  Made bnchat only send CDKEY packets when emulating
+	Starcraft or Brood Wars and to send the 1b packet when emulating Diablo
+	Retail or Shareware.  Added patch for ladder games with six players
+	from Denis.  Fixed another bug in game.c which where an assignment was
+	missed which could cause games with several people to cause the server
+	to crash during or after the game.  Fixed the map authorization code to
+	always return 2 for ladder _maps_ and 1 for other maps (instead of 2
+	for ladder games and 1 for other games).
+
+	0.4.15.3
+	--------
+	Fixed a bug caused by a misplaced debug message in game.c which could
+	cause a crash.
+
+	0.4.15.2
+	--------
+	Fixed a bug in the channel code that could cause a crash under certain
+	conditions.  Updated most files to use the list_get_length() operation.
+
+	0.4.15.1
+	--------
+	Fixed a bug introduced in 0.4.15 in the GAMELISTREPLY code.  Made
+	game.c use the list.c code.
+
+	0.4.15
+	------
+	Fixed memory leak in adbanner.c.  Made memory deallocation in watch.c
+	immediate.  Cleaned up checks and debug eventlog()s in GAMELISTREPLY.
+	Mike Hindman changed clients to default to localhost if no server is
+	specified.  Added --client option to bnftp and --owner options to all
+	applicable clients.
+
+	0.4.14
+	------
+	Fixed a couple of bugs in watch.c which could cause crashes and memory
+	leaks.  Added pfree() everywhere for more memory debugging.  Fixed
+	packet.h so that the data array is exactly MAX_PACKET_LEN.  Made
+	packet_append_*() return errors on overflow.  Made the game list stuff
+	return as many games as could fit in the packet. Fixed a possible
+	memory leak in game.c.  Cleaned up error handling when adding a user to
+	a game and memory allocation fails.  Added a new config file for ad
+	banners so multiple banners are now supported and the SMK format is
+	properly supported.  Fixed a file leak in the channel configuration
+	parser.  Made clienttag arguments to / commands case-insensitive.
+	Added new /watchall and /unwatchall commands.
+
+	0.4.13
+	------
+	Added checks for server closing connection in bnchat.c and bnstat.c.
+	Made bnstat.c support printing only standard data or also BNETD
+	and/or FSGS specific attributes.  Made packet_set_type() and
+	packet_get_type() check to make sure the header is available.  Made raw
+	packets receive as much data as possible on each read and also check
+	for overflows.  Made listen socket in the server non-blocking to avoid
+	possible race condition with aborted connections (it would have made
+	RST DOS attacks possible).  Removed exception fd_set's from select
+	statements as we never used them anyway.  Added account attributes to
+	disallow creation and joining of normal/ladder games.  Created a
+	README.adbanner file.  Made server.c mung bot packets before sending
+	them to handle_packet() so that packet_get_line...() can be removed.
+	Added socket to many eventlogs() in handle_packet().  Figured out a
+	little info on the 1B packet.  Cleaned up and added some more example
+	packets in bnet_protocol.h.  Started implementation of bnproxy.
+	Removed port.h and made everything use the defines in setup.h instead.
+	Finished watch/unwatch implementation.  Fixed some backwards bn_int's
+	in CLIENT_COUNTRYINFO.  Added Diablo support.  Made bnchat and server
+	reject new accounts with spaces in the name.  Fixed bug with Diablo
+	support where game host left people could not rejoin the game.
+
+	0.4.12
+	------
+	Fixed small error in packet.c that caused file packet type strings to
+	always be "unknown".  Added replacement routines for strerror() and
+	strtoul() for machines that don't have them.  Added more checks for
+	header files, etc.  Cleaned up some error messages.  Added checks for
+	failed packet allocation in bnchat.c.  Wrote a simple utility to get
+	player info from the command line.  Made bnchat.c use proper packet
+	string reading routines.  Added replacement routine for strftime().
+	Made bnchat.c use select() to speed it up and use less CPU time
+	polling.  Added check and ifdefs for malloc.h.  Modified bnbot.c to use
+	select() like in bnchat.c.  Updated the README.ladder slightly.
+
+	0.4.11
+	------
+	Integrated the autoconf patch from Rob.  Great work Rob!  Fixed a typo
+	in the ladder calculations for four players.  Made bnchat print out the
+	Terms Of Service when creating a new account.
+
+	0.4.10
+	------
+	Fixed probability output format in ladder game reports.  Made map
+	authorization always return 2 even for non-ladder games on old clients.
+	Added the /ladderinfo command.  Finished bnbot.c (it needs a wrapper
+	script to handle commands/responses).  Made some of the command replies
+	closer to the actual messages on Battle.net.  Fixed some GAME_STATUS
+	values so that 1.04 and 1.05 (Brood Wars) clients will report when games
+	are full and when the game is over.  Changed game.c reports to avoid
+	giving everyone disconnects when someone leaves the game before it
+	starts.  Cleaned up some of the ladder implementation.  Added version
+	and help options to bnftp and bnbot.  Added missing include to fix
+	compile problems on FreeBSD in command.c
+	
+	0.4.9
+	-----
+	Incorporated the new tracking patch from Mark.  Changed handling of
+	game results to allow for ladder implementation.  Wrote support
+	routines for adjusting rating values.  Added packet descriptions to
+	packet dump.  Fixed the reversed DRTL tag in bnetd_default_user.  Fixed
+	result handling for GAME_REPORT to check for corrupted packets.
+	Updated bnclient to emulate different clients (based on patch from
+	Rob).  Implemented a simple file transfer program bnftp.  Moved common
+	routines from bnftp.c and bnchat.c to client.c.  Renamed bnclient to
+	bnchat.  Updated bnchat to allow password changes.  Calibrated the lag
+	bars so they should be the same as Battle.net.  Added the /gameinfo
+	command.  Added port and ANSI color command line options to bnclient.
+	Fixed a bug in the way shifts were performed in bnethash.c.  Added
+	-v/--version option to bnetd.  Added patches from the Debian package.
+	Incorporated large patch from Rob for ladder support for 2-4 players!
+	Included were several cleanups including removing the "connection
+	reset by peer" and 'no entry "" for user <foo>' messages which tended
+	to become annoying.  It also added game reports.  Modified the
+	account.c code to use the list ADT.  Fixed game status bugs by ignoring
+	9th bit in status field.  Added support for user searching in ladder
+	screen.  Added the /ladderactivate command to update the ladder stats.
+
+	0.4.8
+	-----
+	Fixed the error messages for /unban (thanks to Shin).  Made channel,
+	game, and settings strings dynamic.  Fixed the function names in some
+	error strings in packet.c.  Added setup.h for global #defines, etc.
+	Added patch from Rob that fixes Diablo game support.  Fixed a bug in
+	account.c which could cause the server to crash when lots of eight-bit
+	characters were used in profile entries when the account was saved.
+	Added simple hack to support using the server behind an address-
+	translating firewall.  Added the /kill command.  Added a configuration
+	option to turn off bnetd-specific /-commands.  Added account flags to
+	optionally disallow normal logins, password changes, and profile
+	changes.  Put address info in the output of the /games command and made
+	it take an argument to choose the types of games to list.
+
+	0.4.7
+	-----
+	Reworked account authorization flags and made wrapper functions.  Now
+	specific users can be marked as admins and will be able to use admin
+	commands even when they are not operators.  Also, the channel.list file
+	has two new fields: the first determines if bots are allowed in the
+	channel, the second determines if the channel will have operators.  The
+	operator setting can be overridden by a specific entry in a user's
+	account file for that channel.  A CREDITS file was added.  Also, the
+	restriction which did not allow users to enter channels with a
+	different clienttag has been removed.  A small bug with stars and
+	numbers on the user icons was fixed.  A customized icons.bni file is
+	now included with the distribution.  Removed some annoying eventlog
+	statements which filled the logs when bots were used and debug was
+	turned on.
+
+	0.4.6
+	-----
+	Added a couple of new preference settings.  Fixed channel icons (again)
+	so they show up for the correct people.  Reformatted this file.
+	Incorporated a big patch from Rob that:
+	- Changed the way games are handled in order to accommodate ladder
+	  games.  We really didn't count the number of users in a game before
+	  in the game structure as far as I can tell (just the 1st user).  Now
+	  we do, I added some extra debugging in case anyone runs into
+	  problems.
+	- Ladder games are playable now and the stats should go into the right
+	  place.  Of course no ranking is done and no rating is stored.  And
+	  the ladder button still will show just junk and search will still
+	  lock up the client.
+	- User icons should show all the time now (when icons.bni is present).
+	- If you have multiple users set in your registry that don't exist on
+	  the bnetd server you're logging into most of the "entry not found"
+	  messages won't appear in the log anymore.
+	- /games now shows the number of users in a game.
+	- some eventlog entries were modified to print the connection number.
+
+	0.4.5.1
+	-------
+	Removed extra channel_create() commands from main.c.  Fixed string
+	length checks in game.c to use proper sizes.  Made channel.list parse
+	check for duplicate channels.  Added a config file setting to turn
+	on/off the new channel creation verification.
+
+	0.4.5
+	-----
+	Cleaned up the byte swapping routines in convert.c.  Changed prefs.c to
+	allow quotes around strings values in bnetd.conf.  Added support for
+	\n only lines in bot support.  Made bot code ignore blank lines.
+	Changed the bnmotd to only use %I by default.  Fixed problem with
+	stderr not being constant on newer Red Hat and Debian systems.  Added
+	account, channel, and game string sanity checks.
+	Integrated patch from Rob:
+	- when you create a new channel you are prompted to create it
+	- user-created channels don't show up in the displayed channel list 
+	  The only exception is when the total # of channels is reported
+	  otherwise it is just those you have immediate access to
+	- games with passwords or games of a different client type don't show
+	  on the game list (but are counted in total # of games)
+	- There are default "permanent" channels that have no operator.
+
+	0.4.4
+	-----
+	Fixed \r and/or \n handling because different bots seem to handle them
+	differently.  Rewrote the message handling code to put all the
+	formatting decisions in message.c. Put channel message handling in
+	channel.c instead of connection.c, and changing the order to resemble
+	Battle.net more closely.
+	Incorporated patch from Rob:
+	- Move file-formatted-message code into message.c
+	- Add the /news command (thanks to 187 for this suggestion)
+	- Fix STATSREPLY for self in chat mode
+	- Added man pages
+
+	0.4.3
+	-----
+	Fixed the /help command entry for logout.  Added /quit as a /logout
+	alias.  Fixed the account login hashing.  Added bot events and the
+	MF_PLUG flag.  Changed misleading accountlist_save message.  Fixed
+	tracking startup messages to avoid printing the whole list every time.
+	Added the cute "No one hears you." messages.
+
+	0.4.2.1
+	-------
+	Changed main.c to use setpgid() instead of setpgrp() because it is more
+	portable.  Added errno.h to tracker.c.  Put an ifdef around the new
+	eventlog prototype so it is only used with gcc.
+
+	0.4.2
+	-----
+	Better bot support.  More strict handling of the strings in the STATS
+	packet handling parts of bnetd.c to fix possible crash (untested).
+	Finally included proper daemonizing code in main.c.  Added debugging
+	command /connections to look into more "lingering user" problems.
+	Tracking now supports multiple servers.  Restarts on SIGHUP now reread
+	the tracking server addresses.  Fixed /announce to do what it says, and
+	added an account attribute to allow administrators to turn it on/off
+	for certain (ab)users.  Fixed a bug in the list code.  Added GCC format
+	specifier for the eventlog() function to catch some more errors.  Also
+	converted connection.c to use list.c instead of an array.  From Oleg:
+	- The client now avoids printing the same data over and over.
+	- Added DEL and ^W handling into client "readline()" code.
+	- Entry line in client now scrolls at 80 columns.
+
+	0.4.1.1
+	-------
+	Separated all the combined NULL checks into separate ones with separate
+	messages.  Added checks for failed packet allocation.  Added temporary
+	debug statements in packet_append_string().
+
+	0.4.1
+	-----
+	Added namehash and uid fields to account structure to avoid loading
+	accounts when doing searches.  Accounts are unloaded after checking for
+	duplicate logins at startup.  Fixed a few include file problems.  Split
+	the TODO list into a separate file.  Added a %E formatter in the motd
+	to allow MT_ERROR output lines.
+
+	0.4
+	---
+	Incremented the version number for stable release.
+
+	0.3.ross32
+	----------
+	Added extra UDPTEST packet send in server.c.  Made double-login
+	handling configurable (deny-new or kick-old).  Fixed mis-count of users
+	logged in by adding a connlist_login_get_length() function as well as
+	adding a %a attribute in the motd file to show the total number of
+	accounts.
+
+	0.3.ross31
+	----------
+	Changed default location and description for tracking server to the
+	empty string.  Added a shorter timeout to UDPTEST packet waiting in
+	bnclient.c.  Added the /channels command to display current channels
+	and number of users in each.  Fixed a memory leak in server.c that
+	caused packets sent from clients to never be freed.
+
+	0.3.ross30.1
+	------------
+	Put the tracking server port back to 6113. Added logfile output for the
+	tracking server and port.
+
+	0.3.ross30
+	----------
+	Changed prefs.c to use eventlog.  Also added eventlog statements to
+	eventlog.c.  Fixed a bug where the /finger command could cause a server
+	crash if the account did not have a last login host field.
+
+	0.3.ross29
+	----------
+	Fixed a bug where connection lookups would always fail except for the
+	current user.  Now /ban will work with the #000000 form of account id
+	as well as account names.
+
+	0.3.ross28
+	----------
+	Fixed a bug in the /finger command that causes it to send an empty
+	message.  Added the body of the SIGHUP handling.  Made a few more
+	things configurable (latency interval, shutdown delay, allowing
+	creation of new accounts).  Added a default tracking server.  Fixed
+	a serious bug in the octal constant handling in account.c.  Added
+	checking of the allowoperator flag on user accounts so admins can turn
+	on/off operator privileges for specific users and channels.  Fixed a
+	bug in account.c where accounts were saved to disk too early (the
+	account might not be added into the list).
+
+	0.3.ross27
+	----------
+	Added sanity checks in bnetd.c for packet sizes and string handling.
+	Should fix crashes from packets with bad data.  (See FIXME for the two
+	packet handlers that were not updated).  Put Makefile options back the
+	way they were.  Added account saving.  If I did it right, it should act
+	like a cache.  For every sync period, if an account is accessed, its
+	"age" is cut in half, otherwise incremented.  If the age is over a
+	specified maximum, it is removed from memory.  If an account is
+	accessed when not in memory, it is automatically reloaded.  This is a
+	big change since we were hoping to go to 0.4 soon, so please test it!
+
+	0.3.ross26
+	----------
+	Added patch from Mark to enable tracking of server statistics.  Put in
+	workaround for Linux feature about reporting UDP errors into server.c,
+	this was uncovered by the tracking patch (if it failed to contact the
+	server, it would screw up the next connection).
+
+	0.3.ross25
+	----------
+	Added error checking to the hashing functions to avoid some crashes.
+	(Specifically, the server could core dump if hash_set_str was called
+	with a string <20 chars.)  Added sanity check to account_get_numattr.
+	Added /uptime command.  Added patch from Rob to enable saving of single
+	user accounts, and a check to save the accounts periodically.  Also
+	added an account dirty flag, and more reliable signal handling.
+	Created man/ src/ bin/ and sbin/ directories to clean up some of the
+	clutter that was building up in this directory.  Changed session key
+	verification to only print a warning instead of disallowing logins.
+
+	0.3.ross24
+	----------
+	Removed bad check for channel in CLIENT_MESSAGE.  Added randomized
+	session keys.  Fixed an error in bnethash.c that caused problems with
+	some compilers.
+
+	0.3.ross23
+	----------
+	From Rob's patch:
+	- Fixed some of the / commands to not core dump when used outside of a
+	  channel.
+	- Added channel_type function to determine what type of message to send
+	  as a response to a channel command.
+	- Changed the /stats command so that it is invoked on the caller if no
+	  argument is given.
+	Made the welcome banner never send a blank line, but instead a line
+	with a single space to avoid crashing clients.  Fixed a bug introduced
+	to the client with the -n switch so that it does not crash when invoked
+	with no arguments.
+
+	0.3.ross23
+	----------
+	Added per instruction help system thanks to Gediminas.  Changed client
+	not to print commands as chat text.  Added a /logout command for use by
+	the text client.  Added the CHANGEPASSACK packet to report on the
+	result of a password change (untested).  The CHANGELOG was split from
+	the README because it is so long and not necessarily of interest to
+	everybody :)
+
+	0.3.ross21
+	----------
+	Fixed the hashing algorithm to not be endian dependent (the data is
+	treated like it is little-endian), removed the binattr in preference
+	of writing 2 conversion routines: hash to string and string to hash.
+	The string is in big-endian order.  Also made the bnet_protocol.h use
+	bn_ints for the hashes where appropriate.  Additionally, added a -n
+	option to the client to create a new account.  Added real hostname
+	resolution in the motd file, and moved the JOIN, PART, and ADD message
+	code from various places to connection.c.
+
+	0.3.ross20
+	----------
+	From Rob's 19a patch:
+	Automatic software update feature now works.  You need a special MPQ
+	file to enable this.  As with all MPQ files, it needs to have the
+	header included with the file itself, bnetd won't send it.  With the
+	v1.05 Starcraft update, Blizzard modified the protocol slightly.  This
+	version handles these changes as well as the old protocol.
+	Also included:
+	Passwords work!  I am very happy about this.  To support it there is
+	a new attribute type in account files for binary data.  A very big
+	thank you to Descolada who gave us the hashing algorithm.
+
+	0.3.ross19
+	----------
+	Made the port numbers a config file option.  Fixed a stupid bug where
+	the reference count for games was not being initialized.  This is
+	probably the reason they were not always deleted.  Also changed the
+	motd not to give certain clients indigestion (the %W on a line by
+	itself).  The last two fixes were from reports from Rob.
+
+	0.3.ross18
+	----------
+	Integrated patches from Rob:
+	- Some detection and handling of the client version
+	Also made the account_wrap functions independent of the client tag that
+	is being used.  This simplifies adding support for new client types.
+	Added the Diablo Retail version tag so we no longer warn about it.
+	Also fixed the ad banner so that it had a colormap that matched what
+	the client expected.
+
+	0.3.ross17
+	----------
+	Patches from Rob:
+	- Some re-arranging of the client-server negotiation code to allow for
+	  auto-updates to be supported in the future.
+	- Fix wrong member size for SERVER_AUTHREPLY. 
+	- Add special case for the .mpq file because it already has a file
+	  header on it.
+	I also did some updating of the client code.  It is an ugly hack, but
+	it (mostly) works.  I need to figure out a way to format the messages
+	to look more like the Starcraft client shows them.  The account.c file
+	was split into wrapper functions and the real code.  The accessor
+	functions were updated, and bnetd.c now records more info from the
+	client.
+
+	0.3.ross16.1
+	----------
+	Fixed stupid bug in channel.c where no operator was selected for new
+	channels.
+
+	0.3.ross16
+	----------
+	Added more bot-handling code.  Reading raw packets works now.  Allowed
+	the motd file be able to specify the message type, and changed the file
+	so it looks more like the real one.  Added MF_OP to message flags to
+	mark the channel operator.  Added patches from Rob:
+	- Icon display now works, stars represent number of wins!
+	- Config file is now available.  Use kill -HUP to cause a re-read.
+
+	0.3.ross15
+	----------
+	Added type casts to avoid compiler warnings.
+
+	0.3.ross14
+	----------
+	Removed limits on account filename and max line lengths.  Added motd
+	file support.  Patches from Rob's 0.3.ross13a:
+	- STATSUPDATE doesn't send the name of the player so you have to assume
+	  you are updating the profile of the current player.
+	- Banner download now works and displays properly
+	- Added Ad Request Acknowledgment logging
+	- Added Ad Click handling (print-out only right now)
+
+	0.3.ross13
+	----------
+	Added missing message.h to channel.c.  Fixed bad eventlog levels for
+	connects and disconnects.  Fixed a couple of bugs in packet.c with the
+	new raw packet type.  Fixed a bug in server.c with the new raw packet
+	type.  Fixed the ^M chars in the tos.txt file to actually be control
+	characters.
+
+	0.3.ross12
+	----------
+	Incorporated patches from Rob.  This includes a new eventlog setup, a
+	missing initialization in the channel code, bnet time conversion code,
+	SEXP/PXES fix in the account code, a working version of the file
+	download stuff (now the Terms Of Service shows up correctly), fixed an
+	off by one error in the CLIENT_STARTGAME1 handling, new users now
+	default to UNRANKED and "Never Played", and the welcome banner.  Also
+	fixed a bug with empty account value fields.  Now the default account
+	is in a separate directory called "conf" which will hold the config
+	file in the future.  Fixed a bug where port numbers could show as
+	negative in the log file.
+
+	0.3.ross11
+	----------
+	The channel code now notifies users when they become operators.
+	Operators can not designate themselves as next in line.  Improved the
+	/games command.
+
+	0.3.ross10
+	----------
+	Added channel operator commands and fixed game starting.  This was only
+	tested with the 1.04 versions of the Starcraft and Brood Wars clients.
+	I also created a new generic list file instead of redoing it every time
+	the program needs a linked list.
+
+	0.3.ross9
+	---------
+	Fixed some return statements in account.c that were stupid and made the
+	HP/UX compiler mad.  Fixed a couple of off-by-one errors in game
+	password and info handling.  Fixed some mixed-up uses of game_type
+	versus protocol macros in game.c.  Brood Wars clients (and probably
+	Starcraft ones) are still having problems connecting to games, and I
+	guess it has been a problem for a while.
+
+	0.3.ross8
+	---------
+	Saves users under UID now instead of username.  Added string escaping
+	for things like " \n \t and stuff in the account files.  Removed -ansi
+	command line option from the compiler to fix problems Red Hat compiles.
+	Renamed socket and acct variables to avoid warnings.
+
+	0.3.ross7
+	---------
+	Added channel latency calculations and reporting.  The server also
+	stops accepting connections when it is shutting down.  Game stats now
+	put things in the proper SEXP/STAR categories.
+
+	0.3.ross6
+	---------
+	Added STATSUPDATE for changeable user descriptions, etc.  Fixed stupid
+	bug in the byte swapping routines.  Made a simple client for quick
+	testing (it does not even show channel text yet).  Fixed header stuff
+	for compilation under Solaris (2.6).  Remember to NULL out channel and
+	game fields of the connection structure.  Added ignore commands and
+	/help command (untested, likely broken).
+
+	0.3.ross5
+	---------
+	Added "accounts" and some basic stat tracking.  Added many packet
+	types, though few are used in a useful manner.  A rewrite of most of
+	the server, especially the packet queue and data encoding routines.
+	Added support for new versions of the game including Brood Wars.  Fixed
+	bugs like allowing multiple logins and locking up the client when
+	ladder stats were requested.  The server can also be shutdown "nicely"
+	now.
+
+	0.3
+	---
+	Game play finally works!
+
+	0.2
+	---
+	This is a complete rewrite.  There is very little code in common with
+	version 0.1.  Unlike version 0.1, this version does not spawn
+	processes, so it should be more efficient.  All connections are handled
+	in one process.  In addition to the functionality of 0.1, this version
+	supports chatting and a limited channel system.  (Users can change to
+	different channels and create new channels.)  No slash commands (e.g.
+	/whois) are implemented yet.
+

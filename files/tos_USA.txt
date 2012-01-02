@@ -1,0 +1,19 @@
+
+LEGAL NOTES
+
+ Blizzard Entertainment is a trademark of Davidson & Associates, Inc.
+ Battle.net is a trademark of Davidson & Associates, Inc.
+ Starcraft is a trademark of Davidson & Associates, Inc.
+ Diablo is a trademark of Davidson & Associates, Inc.
+
+ Neither this server nor the bnetd project are in any way affiliated
+ with Blizzard Entertainment
+
+ This server is distributed under the terms of the GPL
+ Use the /copyright command in the chat screen for more information
+
+
+TERMS OF SERVICE
+
+ Not likely :)
+

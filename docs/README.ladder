@@ -1,0 +1,91 @@
+
+README.ladder
+
+	This file contains information about ladder games, ranking, game
+	reports, etc.
+
+	
+INTRODUCTION
+
+	Welcome to Ladder play.
+
+	We have implemented Ladder play that should mimic the way Blizzard does
+	it on Battle.net, using an extended Elo rating system.  This computes a
+	probability to win and then assigns points based upon that probability
+	and the outcome of the game.  The number of possible points decreases
+	as a player advances.
+
+
+PLAYING
+
+	To create or join a ladder game a user must:
+	 - have won 10 or more regular games
+	 - select a game type of Ladder
+	 - select a map designated for Ladder play when selecting the game map,
+	   found in the ladder subdirectory under Browse
+	 - be using a Starcraft or Brood Wars client
+
+	(Note that Ladder games run only in Fast speed)
+
+	A player can use the Ladder button from the Chat screen to view current
+	standings.
+
+
+RANKINGS
+
+	Current rankings are computed automatically.  To make the current set
+	of ladder stats the active ones, an admin should run the
+	/ladderactivate command.  Blizzard usually makes new active ratings
+	available at midnight each day.  Note that where there is a tie in the
+	ratings the order is based off of other stats.  For example, if two
+	players have the same rating, the number of ladder wins will be used as
+	the tie breaker; if the wins are also the same, the total number of
+	games will be used, etc.
+
+
+REPORTS
+
+	Reports are generated for each ladder game.  A game report lists the
+	winner and losers in a game and their individual scores (for minerals,
+	units, etc) as seen at the end of a game.  By default only ladder games
+	get a game report written.  It is possible to generate a report for
+	non-ladder games by setting report_all_games to true in the bnetd.conf
+	file.
+
+	You can do what you like with these reports, Blizzard puts them into a
+	Forum for all to see.  They also use them to track abuse of ladder
+	games such as using bogus characters to beat up on in order to increase
+	their ladder ranking.
+
+
+LIMITATIONS
+
+	At the moment the following limitations exist:
+	 - a few of the more obscure rules (top 20 ranked players do not gain
+	   points for winning someone ranked 1001 or worse) are not
+	   implemented.
+	 - disconnects may not be logged properly
+	 - the last game played (time) field does not show properly under on
+	   the Ladder Rankings screen.
+	 - results for a 8 players game are still unchecked.
+
+
+STABILITY
+
+	Rob has run the server at a couple of LAN parties, and had mixed
+	results.  We believe that it is working ok now.  Both Rob and Ross have
+	run many two player ladder games successfully.  We would be interested
+	in hearing your results if you try the server out, bad or good.
+	(Actually, especially for bad results.)
+
+        Denis has also run the server in a couple a LAN parties with between
+	4 to 6 players. All seemed to be OK.
+
+LEGAL NOTES
+
+        Blizzard Entertainment is a trademark of Davidson & Associates, Inc.
+        Battle.net is a trademark of Davidson & Associates, Inc.
+        Starcraft is a trademark of Davidson & Associates, Inc.
+
+        The bnetd project is in no way affiliated with Blizzard Entertainment
+

@@ -1,0 +1,96 @@
+
+INSTALL
+
+	This file contains an outline for installing bnetd-0.4.25 on Unix-like
+	systems.  The process for Win32 is much different and documented in
+	docs/README.BORLAND.  If you use the MSVC++ compiler, the install
+	process has not been documented yet.
+
+
+STEPS
+
+	 1) All the source code is in the src directory.  First change to that
+	    directory with the "cd" command.
+
+	 2) Run the configure script.  If you get an error like "configure:
+	    command not found" try typing "./configure".  The command should
+	    print lots of progress messages and complete successfully.   This
+	    results in a Makefile and config.h customized for your system.  You
+	    may pass it options to modify the way the program is configured.
+	    Run configure with the "--help" options to display a list of
+	    avaliable options.  The most common need is to modify the location
+	    that the server should be installed.  The defaults for these
+	    values are:
+	     --prefix=/usr/local
+	     --bindir=/usr/local/bin
+	     --sbindir=/usr/local/sbin
+	     --localstatedir=/usr/local/var
+	     --sysconfdir=/usr/local/etc
+	     --mandir=/usr/local/man
+	    The directories "users", "reports", "files", and "chanlogs" will be
+	    created underneath the localstatedir directory during installation.
+	    You may want to use --localstatedir=/usr/local/var/bnetd or a
+	    similar variation.
+
+	 3) Now type "make".
+
+	 4) Hopefully there will be no errors during the compile.
+	    the server executable is "sbin/bnetd"
+	    the proxy executable is "sbin/bnproxy"
+	    the password encrypter is "bin/bnpass"
+	    the chat client executable is "bin/bnchat"
+	    the bot client executable is "bin/bnbot"
+	    the file download client executable is "bin/bnftp"
+	    the player stat client executable is "bin/bnstat"
+	    the BNI utilities are "bin/bnibuild" "bin/bniextract" "bin/bni2tga"
+	                          "bin/bnilist" "bin/tgainfo"
+
+	 5) You may now optionally type "make install".  This will copy the
+	    binaries, man pages, and configuration files to the directories you
+	    specified in step 2.  The configuration file will be automatically
+	    updated before it is copied to reflect the locations of the other
+	    files.  Be warned: if you already have configuration files in the
+	    destination directories, they will be overwritten.  If you run the
+	    "make install" command, you can skip to step 7.
+
+	 6) If you don't run "make install" you must copy the file named
+	    "bnetd.conf.in" to "bnetd.conf".  You will probably need to make
+	    changes to the file as descibed under step 7.
+
+	 7) Check the "bnetd.conf" file to verify it suits your preference
+	    before running the server.  Pay special attention to the files,
+	    tracking, and policy sections.  Note the filenames in this file are
+	    relative to the top (root) directory of the system, so it is best
+	    to use absolute paths.  If you do not want your server information
+	    to be sent to tracker.bnetd.org, leave the track time variable set
+	    to 0 (zero) and/or specify a different tracking server, otherwise
+	    set the time interval to something like 150 seconds.  You may also
+	    wish to edit channel.list, bnmotd.txt, and bnetd_default_user.
+	    Some files in the "files/" directory might also be of interest for
+	    those people who like to customize things.
+
+	 8) There is little or no reason to run this server under the root
+	    account, so consider creating a special account for it or run it as
+	    another unprivileged user.  Just make sure the bnetd files and
+	    directories are both readable and writable by that user.
+
+	 9) If you wish to run the server "in-place" (from the directory you
+	    compiled it in), make sure you are in the top level bnetd directory
+	    (the one with this file) and type "./sbin/bnetd -f".  This should
+	    start your server in the foreground.  You may also run it in the
+	    background by leaving off the "-f", but it will only work correctly
+	    if you used absolute paths as step 7 suggests.
+
+	10) If you ran "make install", you may start your server by simply
+	    typing "bnetd".  If you get an error like "bnetd: command not
+	    found" that means the server is not in your search path and you
+	    will need to type the full path of the binary (for example, type
+	    "/usr/local/sbin/bnetd").  The server will automatically background
+	    itself.
+
+	11) If there are problems, you may wish to look in the "bnetd.log" file
+	    for error messages.  If the server was unable to initialize the
+	    network, there may already be a bnetd server running on that
+	    computer or another program like bnchat or CDE (dtspcd) may be
+	    running and bound to TCP and/or UDP port 6112.
+

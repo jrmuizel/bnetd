@@ -1,0 +1,115 @@
+diff -ur bnetd-0.4.dist/conf/bnetd.conf bnetd-0.4/conf/bnetd.conf
+--- bnetd-0.4.dist/conf/bnetd.conf	Thu Apr 26 16:45:07 2001
++++ bnetd-0.4/conf/bnetd.conf	Thu Jun 21 19:39:51 2001
+@@ -9,11 +9,11 @@
+ # Do NOT use quotes around directories.
+ #
+ 
+-filedir = files/
+-userdir = users/
+-logfile = conf/bnetd.log
+-defacct = conf/bnetd_default_user
+-motdfile = conf/motd
++filedir = /var/lib/games/bnetd/files/
++userdir = /var/lib/games/bnetd/users/
++logfile = /var/log/bnetd/bnetd.log
++defacct = /etc/bnetd/bnetd_default_user
++motdfile = /var/lib/games/bnetd/files/motd
+ adfile = ad0512b.pcx
+ adlink = http://www.bnetd.org/
+ 
+@@ -27,7 +27,7 @@
+ #   error
+ # I leave debug on just in case
+ #loglevels = error,warn,info,debug
+-loglevels = error,warn,info
++loglevels = error,warn,info,debug
+ 
+ # time in seconds between account file updates, 0 means wait forever
+ usersync  = 300
+@@ -63,7 +63,7 @@
+ # Set track=0 to disable tracking.  Any other number will set number
+ # of seconds between tracking packets.  (Best to leave tracking interval
+ # alone.)
+-#track = 0
++track = 0
+ 
+ # Tracking server
+ #trackserv = foo.bar.com
+@@ -72,7 +72,7 @@
+ # UDP port on tracking server
+ # (We used 6114 in version 30, but that was mostly a
+ #  misunderstanding, we don't conflict with FSGS here)
+-trackport = 6113
++#trackport = 6113
+ 
+ # Can't use spaces in following values, for now.
+ # Change these to match your system
+diff -ur bnetd-0.4.dist/src/Makefile bnetd-0.4/src/Makefile
+--- bnetd-0.4.dist/src/Makefile	Thu Apr 26 16:45:07 2001
++++ bnetd-0.4/src/Makefile	Thu Jun 21 19:03:21 2001
+@@ -44,18 +44,23 @@
+ #LIBS	= -L${HOME}/lib/.linux-2.0.36 -lefence
+ #LIBS	= -L${HOME}/lib/.linux-2.0.36 -lmem_test -lefence
+ 
+-BNETDBIN	= ../sbin/bnetd
+-BNPROXYBIN	= ../sbin/bnproxy
+-BNCLIENTBIN	= ../bin/bnclient
+-BNPASSBIN	= ../bin/bnpass
+-BNBOTBIN	= ../bin/bnbot
++BNETDBIN	= bnetd
++BNPROXYBIN	= bnproxy
++BNCLIENTBIN	= bnclient
++BNPASSBIN	= bnpass
++BNBOTBIN	= bnbot
++
++# install to sbin
++BINS		= ${BNETDBIN}
++# ${BNPROXYBIN} # The proxy doesn't build cleanly just now...
+ 
+-BINS		= ${BNETDBIN} ${BNCLIENTBIN} ${BNPASSBIN}
++# install to bin
++BINS           += ${BNCLIENTBIN} ${BNPASSBIN} ${BNBOTBIN}
+ 
+ 
+ BNETOBJS	= main.o server.o connection.o message.o hexdump.o bnetd.o channel.o game.o command.o account.o account_wrap.o convert.o packet.o queue.o util.o network.o prefs.o timestamp.o list.o eventlog.o bnettime.o filetransfer.o bnethash.o bnethashconv.o
+ BNCLIENTOBJS	= bnclient.o packet.o queue.o convert.o hexdump.o network.o eventlog.o bnethash.o bnethashconv.o
+-BNPROXYOBJS	= bnproxy.o packet.o queue.o hexdump.o network.o
++BNPROXYOBJS	= proxy.o packet.o queue.o hexdump.o network.o
+ BNBOTOBJS	= bnbot.o
+ BNPASSOBJS	= bnpass.o bnethash.o eventlog.o
+ 
+@@ -74,6 +79,9 @@
+ 
+ ${BNETDBIN}:	${BNETOBJS}
+ 		${CC} ${BNETOBJS} -o $@ ${LIBS}
++
++${BNPROXYBIN}:	${BNPROXYOBJS}
++		${CC} ${BNPROXYOBJS} -o $@ ${LIBS}
+ 
+ clean:		
+ 		rm -f *.o *~ core ${BINS}
+diff -ur bnetd-0.4.dist/src/eventlog.c bnetd-0.4/src/eventlog.c
+--- bnetd-0.4.dist/src/eventlog.c	Thu Apr 26 16:45:07 2001
++++ bnetd-0.4/src/eventlog.c	Thu Jun 21 19:02:02 2001
+@@ -26,7 +26,7 @@
+ #define TIMELEN 32
+ #define MSGLEN 1024
+ 
+-static FILE *           eventstrm=stderr;
++static FILE *           eventstrm=NULL;
+ static t_eventlog_level currlevel=eventlog_level_warn|eventlog_level_error;
+ 
+ 
+diff -ur bnetd-0.4.dist/src/prefs.h bnetd-0.4/src/prefs.h
+--- bnetd-0.4.dist/src/prefs.h	Thu Apr 26 16:45:07 2001
++++ bnetd-0.4/src/prefs.h	Thu Jun 21 19:02:02 2001
+@@ -21,7 +21,7 @@
+ #ifndef INCLUDED_PREFS_PROTOS
+ #define INCLUDED_PREFS_PROTOS
+ 
+-#define DEFAULT_CONF_FILE "conf/bnetd.conf"
++#define DEFAULT_CONF_FILE "/etc/bnetd/bnetd.conf"
+ 
+ extern char const * preffile;
+ 

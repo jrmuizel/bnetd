@@ -1,0 +1,69 @@
+
+README.storage
+
+	This file contains information / requirements / design proposals
+	for a storage API that abstracts the storage of user account data.
+
+	Perhaps that will come in handy if we ever serve as many players
+	and games as The Real Battle Net Itself (tm) ;-)
+
+
+---------------------------------------------------------------------------
+-
+- *scratchpad*
+-
+---------------------------------------------------------------------------
+
+Possible Backends:
+	- plain directory - what we have now
+	- hashed directory - user 000481 is saved in ${datadir}/1/4/8/000 etc.
+	- (SQL) database backends - mysql, postgres etc.
+	- CVS (hey, just kidding ;-) )
+
+	- LDAP (Thanks, Marco Ziech)
+
+---------------------------------------------------------------------------
+
+Ross Combs <rocombs@cs.nmsu.edu>:
+
+1) The code in bnetd hangs onto account pointers for long periods
+   of time.
+2) The code compares pointers to see if accounts are the same.
+   Changing this would be a real pain.
+3) Some of the account.c code doesn't relate to the flat-file
+   implementation.
+
+So what needs to happen is that an API should be extracted from
+account.c which would allow implementation of various backends and
+also satisfy the code requirements above.
+
+---------------------------------------------------------------------------
+
+Stuff to remember:
+
+- configure.in :
+	--with-storage-plain,    // what we've got now
+	--with-storage-hashed,   // hashed directory - user 000481 is saved
+                                 // in ${datadir}/1/4/8/000 etc.
+	--with-storage-CVS,      // Hey, just kidding ;-)
+	--with-storage-mysql,
+	--with-storage-postgres,
+	--with-storage-DB2,      // Hey, we want to play with the big boys ;-)
+	--with-storage-LDAP,
+	...
+
+selection of necessary development libraries in configure.in
+
+#ifdef WITH_POSTGRES
+    register_storage("postgres")
+#endif
+
+---------------------------------------------------------------------------
+
+Mihai RUSU <dizzy@roedu.net>:
+
+> > - database backends - mysql, postgres etc.
+> well if you go into that then ill start do the logging in a database.
+> im thinking about game reports and even bnetd events.
+
+---------------------------------------------------------------------------

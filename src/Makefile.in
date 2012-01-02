@@ -1,0 +1,680 @@
+#
+# Copyright (C) 1999  Rob Crittenden (rcrit@greyoak.com)
+# Copyright (C) 1999,2000  Ross Combs (rocombs@cs.nmsu.edu)
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+#
+
+prefix		= @prefix@
+exec_prefix	= @exec_prefix@
+
+bindir		= @bindir@
+sbindir		= @sbindir@
+mandir		= @mandir@
+confdir		= @sysconfdir@
+sharedir	= @localstatedir@
+filesdir	= @localstatedir@/files
+usersdir	= @localstatedir@/users
+reportsdir	= @localstatedir@/reports
+chanlogsdir	= @localstatedir@/chanlogs
+charinfodir     = @localstatedir@/charinfo
+charsavedir     = @localstatedir@/charsave
+ladderdir       = @localstatedir@/ladders
+bak_charsavedir = @localstatedir@/bak/charsave
+bak_charinfodir = @localstatedir@/bak/charinfo
+
+SRC_SRCDIR	= @srcdir@
+SRC_BINDIR	= @srcdir@/../bin
+SRC_SBINDIR	= @srcdir@/../sbin
+SRC_MANDIR	= @srcdir@/../man
+SRC_CONFDIR	= @srcdir@/../conf
+SRC_SHAREDIR	= @srcdir@/../files
+SRC_SCRIPTDIR	= @srcdir@/../scripts
+
+SRC_ACDIR	= ${SRC_SRCDIR}/autoconf
+SRC_BNETDDIR	= ${SRC_SRCDIR}/bnetd
+SRC_D2CSDIR     = ${SRC_SRCDIR}/d2cs
+SRC_D2DBSDIR    = ${SRC_SRCDIR}/d2dbs
+SRC_BNIUTILSDIR	= ${SRC_SRCDIR}/bniutils
+SRC_BNPASSDIR	= ${SRC_SRCDIR}/bnpass
+SRC_BNPROXYDIR	= ${SRC_SRCDIR}/bnproxy
+SRC_BNTRACKDDIR	= ${SRC_SRCDIR}/bntrackd
+SRC_CLIENTDIR	= ${SRC_SRCDIR}/client
+SRC_COMMONDIR	= ${SRC_SRCDIR}/common
+SRC_COMPATDIR	= ${SRC_SRCDIR}/compat
+SRC_DEBUGDIR	= ${SRC_SRCDIR}/debug
+
+RMF		= rm -f
+
+RMDIR		= rmdir
+
+ECHO		= echo
+
+SED		= sed
+
+INSTALL		= @INSTALL@
+INSTALL_PROGRAM	= @INSTALL_PROGRAM@
+INSTALL_DATA	= @INSTALL_DATA@
+INSTALL_SCRIPT	= @INSTALL_SCRIPT@
+INSTALL_DIRS	= @INSTALL@ -d -m 755
+
+# CC set by configure
+# CFLAGS set by configure
+CPPFLAGS	= @DEFS@ @DEFINES@ -DBNETD_DEFAULT_CONF_FILE=\"${confdir}/bnetd.conf\" -DD2CS_DEFAULT_CONF_FILE=\"${confdir}/d2cs.conf\" -DD2DBS_DEFAULT_CONF_FILE=\"${confdir}/d2dbs.conf\" @CPPFLAGS@ -I"${SRC_SRCDIR}"
+COMPILE		= @CC@ @CFLAGS@ ${CPPFLAGS} -c
+#PREPROCESS	= @CPP@ ${CPPFLAGS}
+LINK		= @CC@ @CFLAGS@ @LDFLAGS@
+LINK_LIBS	= @LIBS@
+
+
+bnetd_SBIN	= ${SRC_SBINDIR}/bnetd
+bnetd_OBJECTS	= ${SRC_BNETDDIR}/main.o \
+${SRC_BNETDDIR}/server.o \
+${SRC_BNETDDIR}/connection.o \
+${SRC_BNETDDIR}/message.o \
+${SRC_BNETDDIR}/handle_init.o \
+${SRC_BNETDDIR}/handle_bnet.o \
+${SRC_BNETDDIR}/handle_file.o \
+${SRC_BNETDDIR}/handle_bot.o \
+${SRC_BNETDDIR}/handle_telnet.o \
+${SRC_BNETDDIR}/handle_bits.o \
+${SRC_BNETDDIR}/handle_irc.o \
+${SRC_BNETDDIR}/handle_udp.o \
+${SRC_BNETDDIR}/handle_auth.o \
+${SRC_BNETDDIR}/channel.o \
+${SRC_BNETDDIR}/channel_conv.o \
+${SRC_BNETDDIR}/game.o \
+${SRC_BNETDDIR}/command.o \
+${SRC_BNETDDIR}/account.o \
+${SRC_BNETDDIR}/account_wrap.o \
+${SRC_BNETDDIR}/prefs.o \
+${SRC_BNETDDIR}/tick.o \
+${SRC_BNETDDIR}/file.o \
+${SRC_BNETDDIR}/watch.o \
+${SRC_BNETDDIR}/ladder.o \
+${SRC_BNETDDIR}/ladder_calc.o \
+${SRC_BNETDDIR}/adbanner.o \
+${SRC_BNETDDIR}/timer.o \
+${SRC_BNETDDIR}/tracker.o \
+${SRC_BNETDDIR}/ipban.o \
+${SRC_BNETDDIR}/game_conv.o \
+${SRC_BNETDDIR}/gametrans.o \
+${SRC_BNETDDIR}/autoupdate.o \
+${SRC_BNETDDIR}/helpfile.o \
+${SRC_BNETDDIR}/mail.o \
+${SRC_BNETDDIR}/runprog.o \
+${SRC_BNETDDIR}/game_rule.o \
+${SRC_BNETDDIR}/realm.o \
+${SRC_BNETDDIR}/character.o \
+${SRC_BNETDDIR}/udptest_send.o \
+${SRC_BNETDDIR}/versioncheck.o \
+${SRC_BNETDDIR}/handle_d2cs.o \
+${SRC_BNETDDIR}/irc.o \
+${SRC_BNETDDIR}/query.o \
+${SRC_BNETDDIR}/bits.o \
+${SRC_BNETDDIR}/bits_va.o \
+${SRC_BNETDDIR}/bits_query.o \
+${SRC_BNETDDIR}/bits_packet.o \
+${SRC_BNETDDIR}/bits_net.o \
+${SRC_BNETDDIR}/bits_ext.o \
+${SRC_BNETDDIR}/bits_chat.o \
+${SRC_BNETDDIR}/bits_rconn.o \
+${SRC_BNETDDIR}/bits_login.o \
+${SRC_BNETDDIR}/bits_game.o \
+${SRC_BNETDDIR}/bits_motd.o \
+${SRC_COMMONDIR}/hexdump.o \
+${SRC_COMMONDIR}/bn_type.o \
+${SRC_COMMONDIR}/packet.o \
+${SRC_COMMONDIR}/queue.o \
+${SRC_COMMONDIR}/util.o \
+${SRC_COMMONDIR}/network.o \
+${SRC_COMMONDIR}/list.o \
+${SRC_COMMONDIR}/eventlog.o \
+${SRC_COMMONDIR}/bnettime.o \
+${SRC_COMMONDIR}/bnethash.o \
+${SRC_COMMONDIR}/bnethashconv.o \
+${SRC_COMMONDIR}/addr.o \
+${SRC_COMMONDIR}/hashtable.o \
+${SRC_COMMONDIR}/check_alloc.o \
+${SRC_COMMONDIR}/give_up_root_privileges.o \
+${SRC_COMMONDIR}/token.o \
+${SRC_COMMONDIR}/proginfo.o \
+${SRC_COMPATDIR}/pdir.o \
+${SRC_COMPATDIR}/inet_aton.o \
+${SRC_COMPATDIR}/inet_ntoa.o \
+${SRC_COMPATDIR}/strdup.o \
+${SRC_COMPATDIR}/strerror.o \
+${SRC_COMPATDIR}/strtoul.o \
+${SRC_COMPATDIR}/strftime.o \
+${SRC_COMPATDIR}/strcasecmp.o \
+${SRC_COMPATDIR}/strncasecmp.o \
+${SRC_COMPATDIR}/psock.o \
+${SRC_COMPATDIR}/uname.o \
+${SRC_COMPATDIR}/gettimeofday.o \
+${SRC_COMPATDIR}/difftime.o \
+${SRC_COMPATDIR}/memset.o \
+${SRC_COMPATDIR}/memcpy.o
+
+d2cs_SBIN       = ${SRC_SBINDIR}/d2cs
+d2cs_OBJECTS	= ${SRC_D2CSDIR}/main.o \
+${SRC_D2CSDIR}/d2gs.o \
+${SRC_D2CSDIR}/handle_d2gs.o \
+${SRC_D2CSDIR}/serverqueue.o \
+${SRC_D2CSDIR}/connection.o \
+${SRC_D2CSDIR}/game.o \
+${SRC_D2CSDIR}/server.o \
+${SRC_D2CSDIR}/handle_init.o \
+${SRC_D2CSDIR}/handle_d2cs.o \
+${SRC_D2CSDIR}/d2charfile.o \
+${SRC_D2CSDIR}/xstring.o \
+${SRC_D2CSDIR}/gamequeue.o \
+${SRC_D2CSDIR}/conf.o \
+${SRC_D2CSDIR}/prefs.o \
+${SRC_D2CSDIR}/cmdline_parse.o \
+${SRC_D2CSDIR}/bnetd.o \
+${SRC_D2CSDIR}/handle_bnetd.o \
+${SRC_D2CSDIR}/s2s.o \
+${SRC_D2CSDIR}/net.o \
+${SRC_D2CSDIR}/d2ladder.o \
+${SRC_D2CSDIR}/handle_signal.o \
+${SRC_COMMONDIR}/check_alloc.o \
+${SRC_COMMONDIR}/hashtable.o \
+${SRC_COMMONDIR}/hexdump.o \
+${SRC_COMMONDIR}/eventlog.o \
+${SRC_COMMONDIR}/list.o \
+${SRC_COMMONDIR}/packet.o \
+${SRC_COMMONDIR}/bn_type.o \
+${SRC_COMMONDIR}/addr.o \
+${SRC_COMMONDIR}/util.o \
+${SRC_COMMONDIR}/queue.o \
+${SRC_COMMONDIR}/network.o \
+${SRC_COMPATDIR}/inet_aton.o \
+${SRC_COMPATDIR}/inet_ntoa.o \
+${SRC_COMPATDIR}/strdup.o \
+${SRC_COMPATDIR}/strerror.o \
+${SRC_COMPATDIR}/strtoul.o \
+${SRC_COMPATDIR}/strftime.o \
+${SRC_COMPATDIR}/strcasecmp.o \
+${SRC_COMPATDIR}/strncasecmp.o \
+${SRC_COMPATDIR}/psock.o \
+${SRC_COMPATDIR}/uname.o \
+${SRC_COMPATDIR}/gettimeofday.o \
+${SRC_COMPATDIR}/difftime.o \
+${SRC_COMPATDIR}/pdir.o \
+${SRC_COMPATDIR}/memset.o \
+${SRC_COMPATDIR}/memcpy.o \
+${SRC_COMPATDIR}/memmove.o
+
+d2dbs_SBIN      = ${SRC_SBINDIR}/d2dbs
+d2dbs_OBJECTS	= ${SRC_D2DBSDIR}/main.o \
+${SRC_D2DBSDIR}/charlock.o \
+${SRC_D2DBSDIR}/d2ladder.o \
+${SRC_D2DBSDIR}/dbserver.o \
+${SRC_D2DBSDIR}/dbspacket.o \
+${SRC_D2DBSDIR}/cmdline_parse.o \
+${SRC_D2DBSDIR}/prefs.o \
+${SRC_D2DBSDIR}/handle_signal.o \
+${SRC_D2DBSDIR}/server.o \
+${SRC_D2CSDIR}/conf.o \
+${SRC_D2CSDIR}/xstring.o \
+${SRC_COMMONDIR}/list.o \
+${SRC_COMMONDIR}/eventlog.o \
+${SRC_COMMONDIR}/bn_type.o \
+${SRC_COMMONDIR}/check_alloc.o \
+${SRC_COMMONDIR}/util.o \
+${SRC_COMPATDIR}/psock.o \
+${SRC_COMPATDIR}/strerror.o
+
+sbnetd_SBIN	= ${SRC_SBINDIR}/sbnetd
+sbnetd_OBJECTS	= ${SRC_DEBUGDIR}/sbnetd.o \
+${SRC_COMPATDIR}/strerror.o
+
+bnproxy_SBIN	= ${SRC_SBINDIR}/bnproxy
+bnproxy_OBJECTS	= ${SRC_BNPROXYDIR}/bnproxy.o \
+${SRC_BNPROXYDIR}/virtconn.o \
+${SRC_COMMONDIR}/hexdump.o \
+${SRC_COMMONDIR}/packet.o \
+${SRC_COMMONDIR}/queue.o \
+${SRC_COMMONDIR}/list.o \
+${SRC_COMMONDIR}/bn_type.o \
+${SRC_COMMONDIR}/network.o \
+${SRC_COMMONDIR}/eventlog.o \
+${SRC_COMMONDIR}/util.o \
+${SRC_COMMONDIR}/check_alloc.o \
+${SRC_COMPATDIR}/inet_ntoa.o \
+${SRC_COMPATDIR}/strerror.o \
+${SRC_COMPATDIR}/psock.o
+
+bntrackd_SBIN	= ${SRC_SBINDIR}/bntrackd
+bntrackd_OBJECTS= ${SRC_BNTRACKDDIR}/bntrackd.o \
+${SRC_COMMONDIR}/util.o \
+${SRC_COMMONDIR}/list.o \
+${SRC_COMMONDIR}/eventlog.o \
+${SRC_COMMONDIR}/check_alloc.o \
+${SRC_COMPATDIR}/inet_ntoa.o \
+${SRC_COMPATDIR}/strerror.o \
+${SRC_COMPATDIR}/psock.o \
+${SRC_COMPATDIR}/memset.o
+
+bnchat_BIN	= ${SRC_BINDIR}/bnchat
+bnchat_OBJECTS	= ${SRC_CLIENTDIR}/bnchat.o \
+${SRC_CLIENTDIR}/client.o \
+${SRC_CLIENTDIR}/client_connect.o \
+${SRC_CLIENTDIR}/udptest.o \
+${SRC_COMMONDIR}/packet.o \
+${SRC_COMMONDIR}/queue.o \
+${SRC_COMMONDIR}/bn_type.o \
+${SRC_COMMONDIR}/network.o \
+${SRC_COMMONDIR}/eventlog.o \
+${SRC_COMMONDIR}/bnethash.o \
+${SRC_COMMONDIR}/bnethashconv.o \
+${SRC_COMMONDIR}/util.o \
+${SRC_COMMONDIR}/bnettime.o \
+${SRC_COMMONDIR}/check_alloc.o \
+${SRC_COMMONDIR}/proginfo.o \
+${SRC_COMPATDIR}/inet_ntoa.o \
+${SRC_COMPATDIR}/strerror.o \
+${SRC_COMPATDIR}/psock.o \
+${SRC_COMPATDIR}/gettimeofday.o \
+${SRC_COMPATDIR}/memset.o
+
+bnpass_BIN	= ${SRC_BINDIR}/bnpass
+bnpass_OBJECTS	= ${SRC_BNPASSDIR}/bnpass.o \
+${SRC_COMMONDIR}/bnethash.o \
+${SRC_COMMONDIR}/eventlog.o \
+${SRC_COMMONDIR}/check_alloc.o \
+${SRC_COMPATDIR}/strerror.o
+
+bnftp_BIN	= ${SRC_BINDIR}/bnftp
+bnftp_OBJECTS	= ${SRC_CLIENTDIR}/bnftp.o \
+${SRC_CLIENTDIR}/client.o \
+${SRC_COMMONDIR}/hexdump.o \
+${SRC_COMMONDIR}/packet.o \
+${SRC_COMMONDIR}/queue.o \
+${SRC_COMMONDIR}/bn_type.o \
+${SRC_COMMONDIR}/network.o \
+${SRC_COMMONDIR}/eventlog.o \
+${SRC_COMMONDIR}/bnettime.o \
+${SRC_COMMONDIR}/util.o \
+${SRC_COMMONDIR}/check_alloc.o \
+${SRC_COMPATDIR}/inet_ntoa.o \
+${SRC_COMPATDIR}/strerror.o \
+${SRC_COMPATDIR}/strftime.o \
+${SRC_COMPATDIR}/psock.o \
+${SRC_COMPATDIR}/gettimeofday.o
+
+bnbot_BIN	= ${SRC_BINDIR}/bnbot
+bnbot_OBJECTS	= ${SRC_CLIENTDIR}/bnbot.o \
+${SRC_CLIENTDIR}/client.o \
+${SRC_COMMONDIR}/packet.o \
+${SRC_COMMONDIR}/bn_type.o \
+${SRC_COMMONDIR}/network.o \
+${SRC_COMMONDIR}/eventlog.o \
+${SRC_COMMONDIR}/util.o \
+${SRC_COMMONDIR}/check_alloc.o \
+${SRC_COMPATDIR}/inet_ntoa.o \
+${SRC_COMPATDIR}/strerror.o \
+${SRC_COMPATDIR}/psock.o
+
+bnstat_BIN	= ${SRC_BINDIR}/bnstat
+bnstat_OBJECTS	= ${SRC_CLIENTDIR}/bnstat.o \
+${SRC_CLIENTDIR}/client.o \
+${SRC_CLIENTDIR}/client_connect.o \
+${SRC_CLIENTDIR}/udptest.o \
+${SRC_COMMONDIR}/packet.o \
+${SRC_COMMONDIR}/queue.o \
+${SRC_COMMONDIR}/bn_type.o \
+${SRC_COMMONDIR}/network.o \
+${SRC_COMMONDIR}/eventlog.o \
+${SRC_COMMONDIR}/bnethash.o \
+${SRC_COMMONDIR}/bnethashconv.o \
+${SRC_COMMONDIR}/util.o \
+${SRC_COMMONDIR}/bnettime.o \
+${SRC_COMMONDIR}/check_alloc.o \
+${SRC_COMMONDIR}/proginfo.o \
+${SRC_COMPATDIR}/inet_ntoa.o \
+${SRC_COMPATDIR}/strerror.o \
+${SRC_COMPATDIR}/strftime.o \
+${SRC_COMPATDIR}/psock.o \
+${SRC_COMPATDIR}/gettimeofday.o \
+${SRC_COMPATDIR}/memset.o
+
+bnilist_BIN	= ${SRC_BINDIR}/bnilist
+bnilist_OBJECTS	= ${SRC_BNIUTILSDIR}/bnilist.o \
+${SRC_BNIUTILSDIR}/fileio.o \
+${SRC_BNIUTILSDIR}/tga.o \
+${SRC_COMMONDIR}/check_alloc.o \
+${SRC_COMPATDIR}/memcpy.o
+
+bni2tga_BIN	= ${SRC_BINDIR}/bni2tga
+bni2tga_OBJECTS	= ${SRC_BNIUTILSDIR}/bni2tga.o \
+${SRC_BNIUTILSDIR}/fileio.o \
+${SRC_COMMONDIR}/check_alloc.o
+
+bniextract_BIN	= ${SRC_BINDIR}/bniextract
+bniextract_OBJECTS= ${SRC_BNIUTILSDIR}/bniextract.o \
+${SRC_BNIUTILSDIR}/fileio.o \
+${SRC_BNIUTILSDIR}/tga.o \
+${SRC_BNIUTILSDIR}/bni.o \
+${SRC_COMMONDIR}/check_alloc.o \
+${SRC_COMPATDIR}/memcpy.o
+
+bnibuild_BIN	= ${SRC_BINDIR}/bnibuild
+bnibuild_OBJECTS= ${SRC_BNIUTILSDIR}/bnibuild.o \
+${SRC_BNIUTILSDIR}/fileio.o \
+${SRC_BNIUTILSDIR}/tga.o \
+${SRC_BNIUTILSDIR}/bni.o \
+${SRC_COMMONDIR}/check_alloc.o \
+${SRC_COMPATDIR}/memcpy.o
+
+tgainfo_BIN	= ${SRC_BINDIR}/tgainfo
+tgainfo_OBJECTS	= ${SRC_BNIUTILSDIR}/tgainfo.o \
+${SRC_BNIUTILSDIR}/fileio.o \
+${SRC_BNIUTILSDIR}/tga.o \
+${SRC_COMMONDIR}/check_alloc.o \
+${SRC_COMPATDIR}/memcpy.o
+
+
+OBJECTS		= ${bnetd_OBJECTS} ${bnproxy_OBJECTS} ${d2cs_OBJECTS} ${d2dbs_OBJECTS} ${bntrackd_OBJECTS} ${bnchat_OBJECTS} ${bnpass_OBJECTS} ${bnbot_OBJECTS} ${bnftp_OBJECTS} ${bnstat_OBJECTS} ${bnilist_OBJECTS} ${bni2tga_OBJECTS} ${bniextract_OBJECTS} ${bnibuild_OBJECTS} ${tgainfo_OBJECTS}
+SBINS           = ${bnetd_SBIN} ${bnproxy_SBIN} ${bntrackd_SBIN} ${d2cs_SBIN} ${d2dbs_SBIN}
+BINS            = ${bnchat_BIN} ${bnpass_BIN} ${bnftp_BIN} ${bnbot_BIN} ${bnstat_BIN} ${bnilist_BIN} ${bni2tga_BIN} ${bniextract_BIN} ${bnibuild_BIN} ${tgainfo_BIN}
+MAN1S		= bnetd.1 bnproxy.1 bntrackd.1 bnchat.1 bnpass.1 bnbot.1 bnftp.1 bnstat.1 bnetd.1 bni2tga.1 bnibuild.1 bniextract.1 bnilist.1 tgainfo.1
+MAN5S		= bnetd.conf.5 bntext.5 bnmotd.txt.5 bnissue.txt.5 bnnews.txt.5
+CONFS		= ad.list bnetd.conf bnetd_default_user bnmotd.txt bnbitsmotd.txt bnissue.txt channel.list news.txt bnban bnhelp bnbitspasswd gametrans autoupdate versioncheck realm.list d2cs.conf d2dbs.conf
+SHARES		= ad000001.pcx icons.bni tos.txt bnserver-D2DV.ini newbie.save IX86ver1.mpq
+OTHERBINS	= ${sbnetd_OBJECTS} ${sbnetd_SBIN}
+DIRS		= ${SRC_BINDIR} ${SRC_SBINDIR}
+
+# common dependencies can't be expressed this way portably...
+#${OBJECTS}: ${SRC_SRCDIR}/Makefile ${SRC_SRCDIR}/config.h ${SRC_COMMONDIR}/version.h ${SRC_COMMONDIR}/setup_before.h ${SRC_COMMONDIR}/setup_after.h ${SRC_ACDIR}/ansi2knr
+
+
+.PHONY: all
+all: @ANSI2KNR_DEP@ config ${SBINS} ${BINS}
+
+.PHONY: clean
+clean:
+	-${RMF} core
+	-${RMF} ${OBJECTS}
+	-${RMF} ${SBINS}
+	-${RMF} ${BINS}
+	-${RMF} ${OTHERBINS}
+	-${RMF} ${SRC_ACDIR}/ansi2knr ${SRC_ACDIR}/ansi2knr.o @ANSI2KNR_TMP@
+
+.PHONY: distclean
+distclean: clean
+	-${RMF} ${SRC_CONFDIR}/bnetd.conf
+	-${RMF} ${SRC_CONFDIR}/d2cs.conf
+	-${RMF} ${SRC_CONFDIR}/d2dbs.conf
+	-${RMF} ${SRC_SRCDIR}/config.cache ${SRC_SRCDIR}/config.log
+	-${RMF} ${SRC_SRCDIR}/config.status
+	-${RMF} ${SRC_SRCDIR}/Makefile ${SRC_SRCDIR}/config.h
+	-${RMDIR} ${DIRS}
+
+.PHONY: clean-compile
+clean-compile: clean all
+
+.PHONY: config
+config: ${SRC_SRCDIR}/Makefile ${SRC_SRCDIR}/config.h
+
+${SRC_SRCDIR}/configure: ${SRC_SRCDIR}/configure.in
+	@${ECHO} "The configure script is out of date; rebuilding..."
+	cd ${SRC_SRCDIR} && autoconf
+	@${ECHO} >> ${SRC_SRCDIR}/config.h.in
+	@${ECHO} >> $@
+
+${SRC_SRCDIR}/config.h.in: ${SRC_SRCDIR}/configure.in
+	@${ECHO} "The config.h.in header is out of date; rebuilding..."
+	cd ${SRC_SRCDIR} && autoheader
+	@${ECHO} >> $@
+	@${ECHO} >> ${SRC_SRCDIR}/configure
+
+${SRC_SRCDIR}/config.status: ${SRC_SRCDIR}/configure
+	@${ECHO} "The config.status script is out of date; rechecking..."
+	${SRC_SRCDIR}/config.status --recheck
+	@${ECHO} >> $@
+
+${SRC_SRCDIR}/config.h: ${SRC_SRCDIR}/config.h.in ${SRC_SRCDIR}/config.status
+	@${ECHO} "The config.h header is out of date; rewriting..."
+	${SRC_SRCDIR}/config.status
+	@${ECHO} >> ${SRC_SRCDIR}/Makefile
+	@${ECHO} >> $@
+
+${SRC_SRCDIR}/Makefile: ${SRC_SRCDIR}/Makefile.in ${SRC_SRCDIR}/config.status
+	@${ECHO} "The Makefile is out of date; rewriting..."
+	${SRC_SRCDIR}/config.status
+	@${ECHO} >> ${SRC_SRCDIR}/config.h
+	@${ECHO} >> $@
+
+${SRC_BINDIR}:
+	${INSTALL_DIRS} $@
+
+${SRC_SBINDIR}:
+	${INSTALL_DIRS} $@
+
+.PHONY: install
+install: install-sbin install-bin install-man install-conf install-share
+
+.PHONY: install-sbin
+install-sbin: ${SBINS}
+	${INSTALL_DIRS} ${sbindir}
+	@list='${SBINS}'; for p in $$list; do \
+	  if test -f $$p; then \
+	    ${ECHO} "  ${INSTALL_PROGRAM} $$p ${sbindir}"; \
+	    ${INSTALL_PROGRAM} $$p ${sbindir}; \
+	  else :; fi; \
+	done
+
+.PHONY: install-bin
+install-bin: ${BINS}
+	${INSTALL_DIRS} ${bindir}
+	@list='${BINS}'; for p in $$list; do \
+	  if test -f $$p; then \
+	    ${ECHO} "  ${INSTALL_PROGRAM} $$p ${bindir}"; \
+	    ${INSTALL_PROGRAM} $$p ${bindir}; \
+	  else :; fi; \
+	done
+
+.PHONY: install-man
+install-man:
+	${INSTALL_DIRS} ${mandir} ${mandir}/man1 ${mandir}/man5
+	@list='${MAN1S}'; for p in $$list; do \
+	  if test -f ${SRC_MANDIR}/$$p; then \
+	    ${ECHO} "  ${INSTALL_DATA} ${SRC_MANDIR}/$$p ${mandir}/man1"; \
+	    ${INSTALL_DATA} ${SRC_MANDIR}/$$p ${mandir}/man1; \
+	  else :; fi; \
+	done
+	@list='${MAN5S}'; for p in $$list; do \
+	  if test -f ${SRC_MANDIR}/$$p; then \
+	    ${ECHO} "  ${INSTALL_DATA} ${SRC_MANDIR}/$$p ${mandir}/man5"; \
+	    ${INSTALL_DATA} ${SRC_MANDIR}/$$p ${mandir}/man5; \
+	  else :; fi; \
+	done
+
+.PHONY: install-conf
+install-conf: ${SRC_CONFDIR}/bnetd.conf ${SRC_CONFDIR}/d2cs.conf ${SRC_CONFDIR}/d2dbs.conf
+	${INSTALL_DIRS} ${confdir}
+	@list='${CONFS}'; for p in $$list; do \
+	  if test -f ${SRC_CONFDIR}/$$p; then \
+	    ${ECHO} "  ${INSTALL_DATA} ${SRC_CONFDIR}/$$p ${confdir}"; \
+	    ${INSTALL_DATA} ${SRC_CONFDIR}/$$p ${confdir}; \
+	  else :; fi; \
+	done
+
+.PHONY: install-share
+install-share:
+	${INSTALL_DIRS} ${sharedir} ${filesdir} ${usersdir} ${reportsdir} \
+	${chanlogsdir} ${charinfodir} ${charsavedir} ${bak_charsavedir} \
+	${bak_charinfodir} ${ladderdir}
+	@list='${SHARES}'; for p in $$list; do \
+	  if test -f ${SRC_SHAREDIR}/$$p; then \
+	    ${ECHO} "  ${INSTALL_DATA} ${SRC_SHAREDIR}/$$p ${filesdir}"; \
+	    ${INSTALL_DATA} ${SRC_SHAREDIR}/$$p ${filesdir}; \
+	  else :; fi; \
+	done
+	-. ${SRC_SCRIPTDIR}/tos.sh ${filesdir}
+
+.PHONY: uninstall
+uninstall: uninstall-sbin uninstall-bin uninstall-man uninstall-conf uninstall-share
+
+.PHONY: uninstall-sbin
+uninstall-sbin:
+	@list='${SBINS}'; for p in $$list; do \
+	  ${ECHO} "  ${RMF} ${sbindir}/$$p"; \
+	  ${RMF} ${sbindir}/$$p; \
+	done
+
+.PHONY: uninstall-bin
+uninstall-bin:
+	@list='${BINS}'; for p in $$list; do \
+	  ${ECHO} "  ${RMF} ${bindir}/$$p"; \
+	  ${RMF} ${bindir}/$$p; \
+	done
+
+.PHONY: uninstall-man
+uinstall-man:
+	@list='${MAN1S}'; for p in $$list; do \
+	  ${ECHO} "  ${RMF} ${mandir}/man1/$$p"; \
+	  ${RMF} ${mandir}/man1/$$p; \
+	done
+	@list='${MAN5S}'; for p in $$list; do \
+	  ${ECHO} "  ${RMF} ${mandir}/man5/$$p"; \
+	  ${RMF} ${mandir}/man5/$$p; \
+	done
+
+.PHONY: uninstall-conf
+uninstall-conf:
+	@list='${CONFS}'; for p in $$list; do \
+	  ${ECHO} "  ${RMF} ${confdir}/$$p"; \
+	  ${RMF} ${confdir}/$$p; \
+	done
+
+.PHONY: uninstall-share
+uninstall-share:
+	@list='${SHARES}'; for p in $$list; do \
+	  ${ECHO} "  ${RMF} ${sharedir}/$$p"; \
+	  ${RMF} ${sharedir}/$$p; \
+	done
+
+${SRC_CONFDIR}/bnetd.conf: ${SRC_CONFDIR}/bnetd.conf.in ${SRC_SRCDIR}/config.status
+	@${RMF} $@
+	${SED} -e "s@\(= *\"*\)/usr/local/var/@\1${sharedir}/@g" -e "s@\(= *\"*\)/usr/local/etc/@\1${confdir}/@g" ${SRC_CONFDIR}/bnetd.conf.in > $@
+
+${SRC_CONFDIR}/d2cs.conf: ${SRC_CONFDIR}/d2cs.conf.in ${SRC_SRCDIR}/config.status
+	@${RMF} $@
+	${SED} -e "s@\(=[[:blank:]]*\"*\)/usr/local/var/@\1${sharedir}/@g" -e "s@\(=[[:blank:]]*\"*\)/usr/local/etc/@\1${confdir}/@g" ${SRC_CONFDIR}/d2cs.conf.in > $@
+
+${SRC_CONFDIR}/d2dbs.conf: ${SRC_CONFDIR}/d2dbs.conf.in ${SRC_SRCDIR}/config.status
+	@${RMF} $@
+	${SED} -e "s@\(=[[:blank:]]*\"*\)/usr/local/var/@\1${sharedir}/@g" -e "s@\(=[[:blank:]]*\"*\)/usr/local/etc/@\1${confdir}/@g" ${SRC_CONFDIR}/d2dbs.conf.in > $@
+
+${SRC_ACDIR}/ansi2knr: ${SRC_ACDIR}/ansi2knr.o
+	@${RMF} $@
+	${LINK} ${SRC_ACDIR}/ansi2knr.o ${LINK_LIBS} -o $@
+
+${SRC_ACDIR}/ansi2knr.o: ${SRC_ACDIR}/ansi2knr.c
+	@${RMF} $@
+	${COMPILE} ${SRC_ACDIR}/ansi2knr.c -o $@
+
+.c.o:
+	@${RMF} $@
+	@COMPILEANSI1@
+	@COMPILEANSI2@
+	@COMPILEANSI3@
+
+${bnetd_SBIN}: ${bnetd_OBJECTS}
+	@${INSTALL_DIRS} ${SRC_SBINDIR}
+	@${RMF} $@
+	${LINK} ${bnetd_OBJECTS} ${LINK_LIBS} -o $@
+
+${d2cs_SBIN}: ${d2cs_OBJECTS}
+	@${INSTALL_DIRS} ${SRC_SBINDIR}
+	@${RMF} $@
+	${LINK} ${d2cs_OBJECTS} ${LINK_LIBS} -o $@
+
+${d2dbs_SBIN}: ${d2dbs_OBJECTS}
+	@${INSTALL_DIRS} ${SRC_SBINDIR}
+	@${RMF} $@
+	${LINK} ${d2dbs_OBJECTS} ${LINK_LIBS} -o $@
+
+${sbnetd_SBIN}: ${sbnetd_OBJECTS}
+	@${INSTALL_DIRS} ${SRC_SBINDIR}
+	@${RMF} $@
+	${LINK} ${sbnetd_OBJECTS} ${LINK_LIBS} -o $@
+
+${bnproxy_SBIN}: ${bnproxy_OBJECTS}
+	@${INSTALL_DIRS} ${SRC_SBINDIR}
+	@${RMF} $@
+	${LINK} ${bnproxy_OBJECTS} ${LINK_LIBS} -o $@
+
+${bntrackd_SBIN}: ${bntrackd_OBJECTS}
+	@${INSTALL_DIRS} ${SRC_SBINDIR}
+	@${RMF} $@
+	${LINK} ${bntrackd_OBJECTS} ${LINK_LIBS} -o $@
+
+${bnchat_BIN}: ${bnchat_OBJECTS}
+	@${INSTALL_DIRS} ${SRC_BINDIR}
+	@${RMF} $@
+	${LINK} ${bnchat_OBJECTS} ${LINK_LIBS} -o $@
+
+${bnpass_BIN}: ${bnpass_OBJECTS}
+	@${INSTALL_DIRS} ${SRC_BINDIR}
+	@${RMF} $@
+	${LINK} ${bnpass_OBJECTS} ${LINK_LIBS} -o $@
+
+${bnftp_BIN}: ${bnftp_OBJECTS}
+	@${INSTALL_DIRS} ${SRC_BINDIR}
+	@${RMF} $@
+	${LINK} ${bnftp_OBJECTS} ${LINK_LIBS} -o $@
+
+${bnbot_BIN}: ${bnbot_OBJECTS}
+	@${INSTALL_DIRS} ${SRC_BINDIR}
+	@${RMF} $@
+	${LINK} ${bnbot_OBJECTS} ${LINK_LIBS} -o $@
+
+${bnstat_BIN}: ${bnstat_OBJECTS}
+	@${INSTALL_DIRS} ${SRC_BINDIR}
+	@${RMF} $@
+	${LINK} ${bnstat_OBJECTS} ${LINK_LIBS} -o $@
+
+${bnilist_BIN}: ${bnilist_OBJECTS}
+	@${INSTALL_DIRS} ${SRC_BINDIR}
+	@${RMF} $@
+	${LINK} ${bnilist_OBJECTS} ${LINK_LIBS} -o $@
+
+${bni2tga_BIN}: ${bni2tga_OBJECTS}
+	@${INSTALL_DIRS} ${SRC_BINDIR}
+	@${RMF} $@
+	${LINK} ${bni2tga_OBJECTS} ${LINK_LIBS} -o $@
+
+${bniextract_BIN}: ${bniextract_OBJECTS}
+	@${INSTALL_DIRS} ${SRC_BINDIR}
+	@${RMF} $@
+	${LINK} ${bniextract_OBJECTS} ${LINK_LIBS} -o $@
+
+${bnibuild_BIN}: ${bnibuild_OBJECTS}
+	@${INSTALL_DIRS} ${SRC_BINDIR}
+	@${RMF} $@
+	${LINK} ${bnibuild_OBJECTS} ${LINK_LIBS} -o $@
+
+${tgainfo_BIN}: ${tgainfo_OBJECTS}
+	@${INSTALL_DIRS} ${SRC_BINDIR}
+	@${RMF} $@
+	${LINK} ${tgainfo_OBJECTS} ${LINK_LIBS} -o $@
+
+
+# Tell versions (3.59,3.63) of GNU make to not export all variables.
+# Otherwise a system limit (for SysV at least) may be exceeded.
+.NOEXPORT:

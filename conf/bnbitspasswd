@@ -1,0 +1,13 @@
+################################################################################
+# Each line of this file should contain login, password type and password      #
+# seperated by a colon. BITS clients must save their uplink password in        #
+# plain text. Master servers can also save hashed passwords.                   #
+#                                                                              #
+# Type is P for plain text and H for hashed.
+#<login>:<type>:<password>
+
+#test:P:test
+#anonymous:P:	
+
+#                                                                              #
+################################################################################

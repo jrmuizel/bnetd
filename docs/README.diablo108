@@ -1,0 +1,73 @@
+DIABLO 1.08
+
+Diablo 1.08 uses a different scheme for the server selection.  It now allows
+a choice of gateway server from a list before you connect to Battle.net.
+
+This is now true of Diablo II and Starcraft/Brood War 1.08 as well.
+
+The good point about this is that you no longer need to use an external
+program like BNS each time you want to change your server.
+
+The bad point is that BNS tools can't be used to add new servers to the list.
+You can change the Reg Entry by yourself as described here or the gatesel.exe
+utility for Diablo II (I haven't tested it, but it should work for Diablo 1.08
+or Starcraft 1.08 as well).
+
+To do it yourself, you'll have to edit with regedit the key named:
+ "HKEY_CURRENT_USER\Software\Battle.net\Configuration\Battle.net gateways"
+
+It's a binary key containing the following data:
+
+ header:        [00]                 1 byte
+                "version"            NUL terminated
+                "num"                NUL terminated
+
+ entries:       "address_1"          NUL terminated
+                [tz_1]               1 byte
+                "name_1"             NUL terminated
+                   ...
+                "address_n"          NUL terminated
+                [tz_n]               1 byte
+                "name_n"             NUL terminated
+
+ footer:        [00]                1 byte
+
+
+where:
+ [00]        is always the zero byte
+ "version"   is the version number ("1000" -> 31 30 30 30 00),
+ "num"       is the number of servers with 2 ASCII digits (for example,
+             "05" is coded 30 35)
+
+ "address_i" is the Internet address of the ith server (IP or hostname)
+ [tz_i]      is the negated timezone relative to GMT of that server (in ASCII) 
+             (GMT+1 -> "-1" 2D 31)
+ "name_i"    is the display name of the ith server
+
+
+for example: 31 30 30 30 00   30 31 00                "1000" "01"
+             62 6E 65 74 2E 64 6F 6D 2E 6E 65 74 00   "bnet.dom.net"
+	     2D 31 00   4C 6F 63 61 6C 00             "-1" "Local"
+	     00					      EndMarker
+
+Mathieu Legare reported that some versions of windows (Win2K Pro SP1) use two
+byte characters where the upper byte is the normal ASCII character and the
+lower is all zeros (upper in the string, AKA byte addressed, not word
+addressed).  That means your registry entry would look like this:
+
+> 0000  31 00 30 00 30 00 31 00 1.0.0.1.
+> 0008  00 00 30 00 31 00 00 00   ..0.1...
+> 0010  73 00 65 00 72 00 69 00   s.e.r.i.
+> 0018  6E 00 66 00 39 00 39 00   n.f.9.9.
+> 0020  2E 00 75 00 71 00 74 00   ..u.q.t.
+> 0028  72 00 2E 00 75 00 71 00   r...u.q.
+> 0030  75 00 65 00 62 00 65 00   u.e.b.e.
+> 0038  63 00 2E 00 63 00 61 00   c...c.a.
+> 0040  00 00 2D 00 35 00 00 00   ..-.5...
+> 0048  42 00 4E 00 45 00 54 00   B.N.E.T.
+> 0050  44 00 00 00 75 00 73 00   D...u.s.
+> ...
+
+Note: if the number of servers is not correct, it will be adjusted by the
+      program automatically (it did so when I tested this RegKey).
+

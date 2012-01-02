@@ -1,0 +1,105 @@
+
+		BNI Utils 
+		Version 0.4
+		by Marco Ziech <mmz@gmx.net>
+		http://mrtyphoon.virtualave.net
+
+Overview
+========
+These utilities are for handling BNI files. BNI files are used in the 
+bnet for storing the icons of the diffrent games. See BNIHEADER for more
+information about th structure of BNI files.
+In these utilities are programs for
+	* extracting
+	* building
+	* listing & checking
+BNI files.   
+
+
+LICENSE
+=======
+See LICENSE (GPL)
+
+
+Installation
+============
+
+Just type 'make'.
+
+bnilist <bnifile>
+-------
+	This program simply prints out the contents of a BNI-file and does
+	some sanity checks.
+	Example:
+		$ bnilist icons.bni
+
+bni2tga <bnifile>
+-------
+	This program reads the big tga out of the bni file and writes
+	it to stdout.
+	Example:
+		$ bni2tga icons.bni > icons.tga
+
+bniextract <bnifile> <directory>
+----------
+	This program extracts the contents of the BNI file to the
+	specified directory. If this directory doesn't exist it will
+	be created.
+	Example:
+		$ bniextract icons.bni icons
+
+bnibuild <directory> <bnifile>
+--------	 
+	This program writes the content of a with bniextract created 
+	directory to a BNI file. With this program you can create your 
+	own BNI files (if you want ;-).
+	Example:
+		$ bnibuild icons icons.bni
+
+Contents of directories created by bniextract
+=============================================
+Directories created by bniextract should contain every icon in its own
+TGA file and the bniindex.lst file. The format of th bniindex.lst file
+is explained below. If the "icon id" of the icon is 0 the TGA file is 
+named by the "tag" of the icon (4 chars). If "icon id" is non-zero the 
+name of the TGA file is the "icon id" in hex filled up with zeros to 
+8 characters.
+
+
+Fields in the bniindex.lst file, created by bniextract
+======================================================
+Every line contains ...
+<EntryName> <Field1> <Field2> ... <FieldN>
+
+Comments are not allowed ...
+
+
+Field: 	unknown1 <hex int>
+	This field sets the unknown1 value to the given value. (0x10)
+
+Field: 	unknown2 <hex int>
+	This field sets the unknown2 value to the given value. (0x01)
+
+Field: 	icon !<char[4] tag> <dec int x> <dec int y> <hex int flags>
+	icon #<hex int id> <dec int x> <dec int y> <hex int flags>
+
+	This field describes one icon entry.
+
+Example: unknown1 00000010
+	This field is the unknown1 value 0x00000010.
+	 
+Example: unknown2 00000001
+	This field is the unknown1 value 0x00000001.
+
+Example: icon !DRTL 28 14 00000000
+	This field describes an icon with an empty id field and with "DRTL"
+	in the tag field.
+
+Example: icon #00000001 28 14 00000000
+	This field describes an icon with no tag field and with 0x00000001
+	in the id field.
+
+LEGAL NOTES
+===========
+	All trademarks are property of their registered owners.
+

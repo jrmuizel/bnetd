@@ -1,0 +1,1008 @@
+<html>
+ <head>
+  <title>BNETD FAQ</title>
+  <style TYPE="text/css">
+  <!--
+   A:link        { color: #C0C0C0; }
+   A:visited     { color: #909090; }
+   A:active      { color: #FF3030; }
+   A:hover       { color: #FF3030; }
+   .faq_border   { background-color: #000152; font-family: Verdana,Helvetica,Arial,sans-serif; font-size: 12pt; }
+   .faq_title    { background-color: #000152; color: #80AFFF; font-family: Verdana,Helvetica,Arial,sans-serif; font-weight: bold; font-size: 18pt; }
+   .faq_version  { background-color: #000152; color: #80AFFF; font-family: Verdana,Helvetica,Arial,sans-serif; font-size: 8pt; }
+   .faq_section  { background-color: black; color: white; font-family: Verdana,Helvetica,Arial,sans-serif; font-size: 12pt; font-weight: bold; }
+   .faq_question { background-color: black; color: white; font-family: Verdana,Helvetica,Arial,sans-serif; font-size: 12pt; }
+   .faq_table    { background-color: black; color: white; font-family: Verdana,Helvetica,Arial,sans-serif; font-size: 9pt; }
+   .faq_box      { background-color: black; color: white; font-family: Verdana,Helvetica,Arial,sans-serif; font-size: 10pt; }
+  //-->
+  </style>
+ </head>
+ <body CLASS="faq_border">
+  <table ALIGN=center BORDER=0 CELLSPACING=0 CELLPADDING=0>
+   <tr> <!-- row1 -->
+    <td ALIGN=CENTER VALIGN=TOP COLSPAN=5 NOWRAP CLASS="faq_title">
+     BNETD FAQ<br>
+    </td>
+   </tr>
+   
+   <tr> <!-- row2 -->
+    <td ALIGN=RIGHT VALIGN=TOP COLSPAN=5 NOWRAP CLASS="faq_version">
+     version 3.3, updated Aug 5, 2001<br>
+    </td>
+   </tr>
+   
+   <tr> <!-- row3 -->
+    <td>
+     &nbsp;
+    </td>
+    <td CLASS="faq_box">
+     &nbsp;
+    </td>
+    
+    <td CLASS="faq_box">
+     <br>
+     
+     <dl>
+      <dt>
+       <div CLASS="faq_section"><a HREF="#q1">1) PROJECT INFORMATION</a></div>
+      </dt>
+      <div CLASS="faq_question">
+       <dd><a HREF="#q1.1">1.1) What is the bnetd Project?</a></dd>
+       <dd><a HREF="#q1.2">1.2) What is Battle.net?</a></dd>
+       <dd><a HREF="#q1.3">1.3) What is Starcraft?</a></dd>
+       <dd><a HREF="#q1.4">1.4) Why create bnetd when Battle.net already exists?</a></dd>
+       <dd><a HREF="#q1.5">1.5) What is the history of bnetd?</a></dd>
+       <dd><a HREF="#q1.6">1.6) How can I subscribe to your mailing lists?</a></dd>
+       <dd><a HREF="#q1.7">1.7) Why is your homepage so out of date?  Is the project dead?</a></dd>
+       <br><br>
+      </div>
+      <dt>
+       <div CLASS="faq_section"><a HREF="#q2">2) DEVELOPMENT INFORMATION</a></div>
+      </dt>
+      <div CLASS="faq_question">
+       <dd><a HREF="#q2.1">2.1) How complete is bnetd right now?</a></dd>
+       <dd><a HREF="#q2.2">2.2) On what systems does bnetd work?</a></dd>
+       <dd><a HREF="#q2.3">2.3) Who is the bnetd team?</a></dd>
+       <dd><a HREF="#q2.4">2.4) How can I help?</a></dd>
+       <dd><a HREF="#q2.5">2.5) What is the versioning scheme?</a></dd>
+       <dd><a HREF="#q2.6">2.6) Where is the bnetd changelog?</a></dd>
+       <dd><a HREF="#q2.7">2.7) Is there a todo list?</a></dd>
+       <br><br>
+      </div>
+      <dt>
+       <div CLASS="faq_section"><a HREF="#q3">3) INSTALLING THE SERVER</a></div>
+      </dt>
+      <div CLASS="faq_question">
+       <dd><a HREF="#q3.1">3.1) Where can I download bnetd?</a></dd>
+       <dd><a HREF="#q3.2">3.2) What version should I use?</a></dd>
+       <dd><a HREF="#q3.3">3.3) How do I compile from the source distribution?</a></dd>
+       <dd><a HREF="#q3.4">3.4) Why does the compiler generate an error in eventlog.c line 29?</a></dd>
+       <br><br>
+      </div>
+      <dt>
+       <div CLASS="faq_section"><a HREF="#q4">4) RUNNING THE SERVER</a></div>
+      </dt>
+      <div CLASS="faq_question">
+       <dd><a HREF="#q4.1">4.1) How do I start bnetd?</a></dd>
+       <dd><a HREF="#q4.2">4.2) Why don't I see anything when I start bnetd?</a></dd>
+       <dd><a HREF="#q4.3">4.3) How do I customize the server?</a></dd>
+       <dd><a HREF="#q4.4">4.4) Why can't I start Diablo games?</a></dd>
+       <dd><a HREF="#q4.5">4.5) Why can't I connect with Diablo II?</a></dd>
+       <dd><a HREF="#q4.6">4.6) How do I enable autoupdates?</a></dd>
+       <dd><a HREF="#q4.7">4.7) How do I add admin rights to an account?</a></dd>
+       <br><br>
+      </div>
+      <dt>
+       <div CLASS="faq_section"><a HREF="#q5">5) CLIENT QUESTIONS</a></div>
+      </dt>
+      <div CLASS="faq_question">
+       <dd><a HREF="#q5.1">5.1) How do I connect to a server through my firewall?</a></dd>
+       <dd><a HREF="#q5.2">5.2) How do I choose which server to connect to?</a></dd>
+       <dd><a HREF="#q5.3">5.3) I'm using BNS but it doesn't select my server?</a></dd>
+       <dd><a HREF="#q5.4">5.4) How do I connect to the original Battle.net server?</a></dd>
+       <br>
+      </div>
+      <br>
+     </dl>
+     
+    </td>
+    
+    <td CLASS="faq_box">
+     &nbsp;
+    </td>
+    <td>
+     &nbsp;
+    </td>
+   </tr>
+   
+   <tr> <!-- row4 -->
+    <td COLSPAN=5>
+     <br>
+    </td>
+   </tr>
+   
+   <tr> <!-- row5 -->
+    <td>
+     &nbsp;
+    </td>
+    <td CLASS="faq_box">
+     &nbsp;
+    </td>
+    
+    <td CLASS="faq_box">
+     
+     <div CLASS="faq_section"><a NAME="q1"><b>1) PROJECT INFORMATION</b></a><br><br><br></div>
+     
+     <div CLASS="faq_question"><a NAME="q1.1">1.1) What is the bnetd Project?</a></div>
+      <p ALIGN=justify>
+       The project is a collaboration focusing on development of the bnetd
+       server.  This is a program that attempts to emulate
+       <a HREF="http://www.blizzard.com/">Blizzard</a>'s
+       <a HREF="http://www.battle.net/">Battle.net</a> service.  The bnetd
+       project is run by volunteers and neither supported by nor otherwise
+       affiliated with Blizzard Entertainment.
+      </p>
+      <p ALIGN=justify>
+       A major part of the effort is supporting all Bizzard's Battle.net
+       compatible games.  The server may eventually support some non-Blizzard
+       clients as well, but no work is currently being put into that.
+       Certain software in addition to the bnetd server should also be
+       considered part of the bnetd project.  This includes BNS (BNetd
+       Selector), bnchat (a text-based chat client), the BNI utilities, and
+       bntrackd (BNetd TRACKing Daemon).  The bnetd team also produces
+       documentation about these programs and the Battle.net protocol.
+      </p>
+      <br>
+ 
+     <div CLASS="faq_question"><a NAME="q1.2">1.2) What is Battle.net?</a></div>
+      <p ALIGN=justify>
+       To avoid confusion please note that Battle.net is a trademark of
+       Davidson & Associates, Inc.  The term is used here to refer to their
+       free (as in beer) online gaming services.  Their game division
+       (maybe subsidiary?) is commonly called "Blizzard Entertainment" or just
+       "Blizzard".
+      </p>
+      <p ALIGN=justify>
+       Battle.net's servers communicate with their client products like
+       Starcraft, Diablo, and Warcraft.  The servers provide chat rooms and
+       lists of multi-player games to join.  Other services they provide
+       include ladder rankings, permanant accounts, and client upgrades.
+      </p>
+      <br>
+     
+     <div CLASS="faq_question"><a NAME="q1.3">1.3) What is Starcraft?</a></div>
+      <p ALIGN=justify>
+       Starcraft is an RTS (real time strategy) game produced by Blizzard
+       Entertainment.  It is unique in the fact that the game may be played
+       from the point of view of three warring races.  The races are completely
+       different to one another, and a great deal of design and thought has
+       gone to creating a balance between the participating races.  Up to
+       eight players (people or computer-controlled AIs) may play in a game at
+       once.  The game has remained wildly popular years after it was first
+       released.
+      </p>
+      <p ALIGN=justify>
+       Quite simply it's one of the most perfect examples of an RTS game
+       currently available.
+      </p>
+      <br>
+    
+     <div CLASS="faq_question"><a NAME="q1.4">1.4) Why create bnetd when Battle.net already exists?</a></div>
+      <p ALIGN=justify>
+       Starcraft provides no method to play TCP/IP games other than using a
+       proprietary service provided by Blizzard.  This service is often slow,
+       and is sometimes down due to a crash or maintanence.
+      </p>
+      <p ALIGN=justify>
+       For some people (at LAN parties, school networks, etc.) it is not
+       possible to access Battle.net because of a lack of Internet connectivity
+       or because of a firewall.  Using Battle.net chat rooms brings attention
+       to your computer similar to using IRC.
+      </p>
+      <p ALIGN=justify>
+       With the staggering numbers of players on Battle.net, it can be
+       difficult to locate friends or other players willing to avoid using
+       cheats or disconnecting when things aren't going their way.
+      </p>
+      <p ALIGN=justify>
+       Running your own server allows you to customize the login banner, the
+       ad banners, channel names, account attributes (you can decide who is
+       an operator or admin), and the ability to delete accounts of abusive
+       players.
+      </p>
+      <p ALIGN=justify>
+       Last but not least, you have a significant chance to register an
+       account with your favorite nick.  :)
+      </p>
+      <br>
+     
+     <div CLASS="faq_question"><a NAME="q1.5">1.5) What is the history of bnetd?</a></div>
+      <p ALIGN=justify>
+       The project started around the time Starcraft was released.  It was
+       created for hack value and as a solution for the problems mentioned in
+       the reply to question <a HREF="#q1.4">1.4</a>.
+      </p>
+      <p ALIGN=justify>
+       The original work was done by Mark, who maintained releases on
+       <a HREF="http://www.starhack.ml.org/">http://www.starhack.ml.org/</a>
+       through version 0.3.  That version spawned several ports to MS-Windows,
+       most notably FSGS.  The ml.org domain went away and the original code
+       languished for a while.  Ross began working on patches to the code but
+       found it difficult to distribute them.  Then Josh and his friends set
+       up a site to revive the project on
+       <a HREF="http://bnetd.unleashed.org/">http://bnetd.unleashed.org/</a>
+       and collaboration quickly ensued producing the 0.4 release which
+       supported account passwords (yea!).  Tim set up the bnetd.org domain and
+       a permanent net connection.  Work continues, and an 0.6.x release should
+       be out soon (0.5 will be skipped, see question <a HREF="#q2.5">2.5</a>).
+      </p>
+      <br>
+     
+     <div CLASS="faq_question"><a NAME="q1.6">1.6) How can I subscribe to your mailing lists?</a></div>
+      <p ALIGN=justify>
+       There are actually two different sets of mailing lists.  The ones at
+       bnetd.org (hosted by <a HREF="http://www.igateway.net/">igateway.net</a>)
+       are older and have more subscribers.  The ones on SourceForge are nice
+       because they are archived.
+      </p>
+      <p ALIGN=justify>
+       If anyone has bnetd-dev messages before June of 2000, please contact Ross
+       so he can put together a historic archive.
+      </p>
+      <table ALIGN=center BORDER=0 CELLPADDING=2>
+       <tr> <!-- damn you netscape -->
+        <th CLASS="faq_table">list name</th>
+        <th CLASS="faq_table">host</th>
+        <th CLASS="faq_table">topic</th>
+        <th CLASS="faq_table">traffic</th>
+       </tr>
+       <tr>
+        <td CLASS="faq_table">bnetd-announce</td>
+        <td CLASS="faq_table">&nbsp;bnetd.org&nbsp;</td>
+        <td CLASS="faq_table">Announcements</td>
+        <td CLASS="faq_table">very low</td>
+       </tr>
+       <tr>
+        <td CLASS="faq_table">bnetd-dev</td>
+        <td CLASS="faq_table">&nbsp;bnetd.org&nbsp;</td>
+        <td CLASS="faq_table">Development discussion</td>
+        <td CLASS="faq_table">medium</td>
+       </tr>
+       <tr>
+        <td CLASS="faq_table">bnetd-discuss</td>
+        <td CLASS="faq_table">&nbsp;bnetd.org&nbsp;</td>
+        <td CLASS="faq_table">User discussion</td>
+        <td CLASS="faq_table">very low</td>
+       </tr>
+       <tr>
+        <td CLASS="faq_table">bnetd-announce</td>
+        <td CLASS="faq_table">&nbsp;sourceforge.net&nbsp;</td>
+        <td CLASS="faq_table">Announcements</td>
+        <td CLASS="faq_table">very low</td>
+       </tr>
+       <tr>
+        <td CLASS="faq_table">bnetd-devel</td>
+        <td CLASS="faq_table">&nbsp;sourceforge.net&nbsp;</td>
+        <td CLASS="faq_table">Development discussion</td>
+        <td CLASS="faq_table">medium</td>
+       </tr>
+       <tr>
+        <td CLASS="faq_table">bnetd-users</td>
+        <td CLASS="faq_table">&nbsp;sourceforge.net&nbsp;</td>
+        <td CLASS="faq_table">User discussion</td>
+        <td CLASS="faq_table">very low</td>
+       </tr>
+      </table>
+      <p ALIGN=justify>
+       Both list hosts use GNU Mailman which allows you to subscribe
+       an unsubscribe with a web browser.
+      </p>
+      <p ALIGN=justify>
+       The bnetd.org <a HREF="http://www.bnetd.org/mailman/listinfo/">subscribe page</a>.<br>
+       The SourceForge <a HREF="http://sourceforge.net/mail/?group_id=6933">subscribe page</a>.
+      </p>
+      <br>
+     
+     <div CLASS="faq_question"><a NAME="q1.7">1.7) Why is your homepage so out of date?  Is the project dead?</a></div>
+      <p ALIGN=justify>
+       First of all, the project is alive.  It will continue to be alive as
+       long as there are people willing to work on it.
+      </p>
+      <p ALIGN=justify>
+       Some of the main developers are very busy with their jobs, school, and
+       life in general.  Releases aren't made as often as they used to be.
+       However those who wish to be on the cutting edge can still do so via
+       preleases (which are made every few weeks) and the
+       <a HREF="http://sourceforge.net/cvs/?group_id=6933">public CVS tree</a>
+       on <a HREF="http://sourceforge.net/">SourceForge</a>
+       (which contains all the latest patches).
+      </p>
+      <br>
+     
+    </td>
+    
+    <td CLASS="faq_box">
+     &nbsp;
+    </td>
+    <td>
+     &nbsp;
+    </td>
+   </tr>
+   
+   <tr> <!-- row6 -->
+    <td COLSPAN=5>
+     <br>
+    </td>
+   </tr>
+  
+   <tr> <!-- row7 -->
+    <td>
+     &nbsp;
+    </td>
+    <td CLASS="faq_box">
+     &nbsp;
+    </td>
+    
+    <td CLASS="faq_box">
+     
+     <div CLASS="faq_section"><a NAME="q2"><b>2) DEVELOPMENT INFORMATION</b></a><br><br><br></div>
+     
+     <div CLASS="faq_question"><a NAME="q2.1">2.1) How complete is bnetd right now?</a></div>
+      <p ALIGN=justify>
+       It currently supports most Battle.net functionality.  Features include:
+      </p>
+      <ul>
+       <li>Highly configurable
+       <li>Starcraft and Brood War clients
+       <li>Diablo 1.05 and later clients
+       <li>Warcraft II BNE clients
+       <li>Diablo II (closed characters can't play) clients
+       <li>Chat and bot clients
+       <li>Account creation, login, and changing passwords
+       <li>Permanent and user-created channels
+       <li>Player record statistics for Starcraft, Brood War, and Warcraft
+       <li>Player character stats for Diablo
+       <li>Game reports
+       <li>Channel operators and server admins
+       <li>Logging of server activity
+       <li>Ladder games and rankings
+       <li>Customizable channel icons
+       <li>Customizable channel banner ads
+       <li>IP bans
+       <li>Auto-updates for clients
+      </ul>
+      <p ALIGN=justify>
+       Some things on the TODO list are:
+      </p>
+      <ul>
+       <li>Inter-server connectivity (BITS)
+       <li>Latency status reports are using TCP instead of UDP
+       <li>Idle logout
+       <li>User limit config option
+       <li>Relaxed game report checks
+       <li>User limit config option
+       <li>Improved game status tracking (interpreting STARTGAME packets)
+      </ul>
+      <br>
+     
+     <div CLASS="faq_question"><a NAME="q2.2">2.2) On what systems does bnetd work?</a></div>
+      <p ALIGN=justify>
+       The answer of course depends on the version number.  0.4 should work on
+       most systems after fixing the bug mentioned in question
+       <a HREF="#q3.4">3.4</a>.  Later 0.4.x development versions and 0.6.x
+       when it is released should work on almost any Unix-like system.
+       Systems that have been tested recently are AIX, FreeBSD, HP-UX, Irix,
+       OpenBSD, NetBSD, Solaris, SunOS (gcc only). Even Win32 works.
+      </p>
+      <p ALIGN=justify>
+       If you are installing from source, you will need an ANSI C compiler for
+       0.4.x and earlier either an ANSI or K&R compiler for 0.6.x and later.
+      </p>
+      <br>
+     
+     <div CLASS="faq_question"><a NAME="q2.3">2.3) Who is the bnetd team?</a></div>
+      <p ALIGN=justify>
+       The makeup of the team isn't set in stone.  Currently there are only a
+       few active developers, Ross and Typhoon.  Rob and Dizzy send in
+       occasional patches.  Lots of others have sent in bug reports, patches,
+       and useful information.  Tim provides a nice network connection, DNS,
+       and a machine to run our webserver on.  For more details, see the
+       CREDITS file which is included in the source tarfile.
+      </p>
+      <br>
+    
+     <div CLASS="faq_question"><a NAME="q2.4">2.4) How can I help?</a></div>
+      <p ALIGN=justify>
+       If you have experience with C programming then grab the source and hack
+       away.  Or if you don't have experience with programming go pick up some
+       books on C, Unix, sockets, or whatever you are intererested in.  We are
+       always glad to answer questions about the source or to help people
+       develop their patches.  See the TODO file included with the source
+       distribution for ideas to work on.  We are in need of a Macintosh
+       network programming person to help port bnetd to the Macintosh.
+      </p>
+      <p ALIGN=justify>
+       If you are into GUIs, you can work on the Win32 or Macintosh connection
+       utilities called BNS.
+      </p>
+      <p ALIGN=justify>
+       If you aren't into programming, download the source and compile it (or
+       install a binary package), play with it, and tell us if you find
+       problems and we'll add them to the TODO list.
+      </p>
+      <br>
+     
+     <div CLASS="faq_question"><a NAME="q2.5">2.5) What is the versioning scheme?</a></div>
+      <p ALIGN=justify>
+       There are two active releases at any point in time: "stable" and
+       "development".  The development versions eventually become the next
+       stable release and a new development branch is opened.
+      </p>
+      <p ALIGN=justify>
+       The first two numbers separated by decimal points determine the release
+       number.  So 0.3 and 0.4 are not only separate versions, but separate
+       releases (instead of being two revisions from release "0").
+      </p>
+      <p ALIGN=justify>
+       Either type of release should compile and generally work (in theory).
+       More testing and effort is put into validating stable releases.  There
+       are also "pre" releases like 0.4.22pre6.  They were introduced late in
+       the 0.4.x development cycle and are mostly intended for keeping
+       developers in sync.
+      </p>
+      <p ALIGN=justify>
+       In the past, stable releases didn't have a third component.  The next
+       development after stable release X.Y  would be X.Y.1.  The obvious
+       problem with this is that it doesn't leave any room for having new
+       versions in a stable release.  An example of the kind of problem this
+       causes is the well-known bug described in question
+       <a HREF="#q3.4">3.4</a>.  For this reason, the next stable release after
+       the 0.4.x development cycle will be 0.6.x, <b>not</b> 0.5.  The
+       development cycle after that will be 0.7.x.
+      </p>
+      <p ALIGN=justify>
+       This system is bascially be the same as the even/odd system used by
+       the Linux kernel developers.
+      </p>
+      <p ALIGN=justify>
+       If that was just too confusing, you may find this table easier to
+       understand:
+      </p>
+       <table ALIGN=center>
+        <tr>
+         <td CLASS="faq_table">0.3</td>
+         <td CLASS="faq_table">stable</td>
+        </tr>
+        <tr>
+         <td CLASS="faq_table">0.3.X</td>
+         <td CLASS="faq_table">development</td>
+        </tr>
+        <tr>
+         <td CLASS="faq_table">0.4</td>
+         <td CLASS="faq_table">stable</td>
+        </tr>
+        <tr>
+         <td CLASS="faq_table">0.4.X</td>
+         <td CLASS="faq_table">development</td>
+        </tr>
+        <tr>
+         <td CLASS="faq_table">0.4.XpreX</td>
+         <td CLASS="faq_table">prerelease</td>
+        </tr>
+        <tr>
+         <td CLASS="faq_table">0.5</td>
+         <td CLASS="faq_table">nonexistant</td>
+        </tr>
+        <tr>
+         <td CLASS="faq_table">0.5.X</td>
+         <td CLASS="faq_table">nonexistant</td>
+        </tr>
+        <tr>
+         <td CLASS="faq_table">0.6.X</td>
+         <td CLASS="faq_table">stable</td>
+        </tr>
+        <tr>
+         <td CLASS="faq_table">0.6.XpreX</td>
+         <td CLASS="faq_table">prerelease</td>
+        </tr>
+        <tr>
+         <td CLASS="faq_table">0.7.X</td>
+         <td CLASS="faq_table">development</td>
+        </tr>
+        <tr>
+         <td CLASS="faq_table">0.7.XpreX</td>
+         <td CLASS="faq_table">prerelease</td>
+        </tr>
+       </table>
+      <br>
+     
+     <div CLASS="faq_question"><a NAME="q2.6">2.6) Where is the bnetd changelog?</a></div>
+      <p ALIGN=justify>
+       You can look for the file CHANGELOG in the top level directory of the
+       source tarfile or you may read the latest version from the
+       <a HREF="http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/bnetd/bnetd/">CVS Browser</a>.
+       Use the direct link to the
+       <a HREF="http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/bnetd/bnetd/CHANGELOG?rev=HEAD&content-type=text/vnd.viewcvs-markup">CHANGELOG</a>,
+       and if you are interested in a really detailed ChangeLog, look at the 
+       <a HREF="http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/bnetd/bnetd/ChangeLog.cvs2cl?rev=HEAD&content-type=text/vnd.viewcvs-markup">ChangeLog.cvs2cl</a>,
+       which is auto-generated nightly.
+      </p>
+      <br>
+     
+     <div CLASS="faq_question"><a NAME="q2.7">2.7) Is there a todo list?</a></div>
+      <p ALIGN=justify>
+       Yes, you can see the list at
+       <a HREF="http://www.bnetd.org/doc.php?docname=TODO">TODO</a>
+       or you can look for the file TODO in the source tarfile.   You can also
+       read the latest version from the
+      <a HREF="http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/bnetd/bnetd/">CVS Browser</a>.
+       Use the direct link to the
+       <a HREF="http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/bnetd/bnetd/TODO?rev=HEAD&content-type=text/vnd.viewcvs-markup">TODO</a> file.
+       The order of the items in the list is not significant.
+      </p>
+      <br>
+     
+    </td>
+    
+    <td CLASS="faq_box">
+     &nbsp;
+    </td>
+    <td>
+     &nbsp;
+    </td>
+   </tr>
+   
+   <tr> <!-- row8 -->
+    <td COLSPAN=5>
+     <br>
+    </td>
+   </tr>
+  
+   <tr> <!-- row9 -->
+    <td>
+     &nbsp;
+    </td>
+    <td CLASS="faq_box">
+     &nbsp;
+    </td>
+    
+    <td CLASS="faq_box">
+     
+     <div CLASS="faq_section"><a NAME="q3"><b>3) INSTALLING THE SERVER</b></a><br><br><br></div>
+     
+     <div CLASS="faq_question"><a NAME="q3.1">3.1) Where can I download bnetd?</a></div>
+      <p ALIGN=justify>
+       If you wish to install from source, the main web site has a
+       <a HREF="http://www.bnetd.org/files.php">file download</a> section
+       which is usually up to date.  There is also a
+       <a HREF="http://bnetd.myip.org/files/sources/">file archive</a> on
+       Mike's box.  And as a last resort, Ross also puts recent releases on his
+       <a HREF="http://www.cs.nmsu.edu/~rocombs/sc/">CS account</a>.
+      </p>
+      <p ALIGN=justify>
+       Daily snapshots of the source can also be found at the
+       <a HREF="ftp://bnetd.sourceforge.net/pub/bnetd/bnetd/snapshot/">Anonymous FTP Space</a>
+       at sourceforge.
+      </p>
+      <p ALIGN=justify>
+       If you want an RPM, you can also find those on the main web site and
+       Mike's page.  Debian and *BSD packages are avaliable when installing
+       those systems.
+      </p>
+      <br>
+     
+     <div CLASS="faq_question"><a NAME="q3.2">3.2) What version should I use?</a></div>
+      <p ALIGN=justify>
+       The 0.4 stable release has troubles compiling on recent glibc versions
+       so I recommend not using it.  0.3 has so many features lacking that the
+       only viable option is a recent 0.4.x development release.  Typically
+       development versions are ok to use.  When 0.6.x is released, it should
+       be the "default" install option for end users.
+      </p>
+      <br>
+      
+     <div CLASS="faq_question"><a NAME="q3.3">3.3) How do I customize the server?</a></div>
+      <p ALIGN=justify>
+       The bnetd configuration file can be found in <tt>conf/bnetd.conf</tt>.
+       This contains pointers to where log and player files may be found and
+       also some tuning information so you can customize it to fit your needs.
+       See the <tt>bnetd.conf(5)</tt> manual page found in the man subdirectory
+       of the distribution for details on each possible setting.
+      </p>
+      <br>
+     
+     <div CLASS="faq_question"><a NAME="q3.4">3.4) Why does the compiler generate an error in eventlog.c line 29?</a></div>
+      <p ALIGN=justify>
+       This is due to a bug in bnetd-0.4.0 and some earlier versions.
+       Basically the code is assuming that stderr is a constant but that is
+       untrue on newer glibc systems.
+      </p>
+      <p ALIGN=justify>
+       There are several ways to fix it.  The simplest fix is to change
+       <tt>stderr</tt> to <tt>NULL</tt> at the top of <tt>eventlog.c</tt> and
+       recompile.  Upgrading to a newer version of bnetd also fixes the
+       problem.  The 0.4 series can not be patched because of the way the
+       versioning scheme works.  The <a HREF="#q2.5">new</a> scheme does not
+       have this problem.
+      </p>
+      <br>
+     
+    </td>
+    
+    <td CLASS="faq_box">
+     &nbsp;
+    </td>
+    <td>
+     &nbsp;
+    </td>
+   </tr>
+    
+   <tr> <!-- row10 -->
+    <td COLSPAN=5>
+     <br>
+    </td>
+   </tr>
+  
+   <tr> <!-- row11 -->
+    <td>
+     &nbsp;
+    </td>
+    <td CLASS="faq_box">
+     &nbsp;
+    </td>
+    
+    <td CLASS="faq_box">
+     
+     <div CLASS="faq_section"><a NAME="q4"><b>4) RUNNING THE SERVER</b></a><br><br><br></div>
+     
+     <div CLASS="faq_question"><a NAME="q4.1">4.1) How do I start bnetd?</a></div>
+      <p ALIGN=justify>
+       After you have built the source, the program binary is put into
+       sbin/bnetd.  To run the server, just type:  sbin/bnetd from the bnetd
+       main directory.
+      </p>
+      <br>
+     
+     <div CLASS="faq_question"><a NAME="q4.2">4.2) Why don't I see anything when I start bnetd?</a></div>
+      <p ALIGN=justify>
+       By default, the bnetd process runs as a daemon in the background.  If
+       you want to run it in the foreground, use the -f option when you launch
+       the server.
+      </p>
+      <p ALIGN=justify>
+       Note that when the server is run in daemon mode, the first thing it does
+       is a change directory to / so you need to make sure that all paths in
+       your bnetd.conf are absolute paths.
+      </p>
+      <br>
+      
+     <div CLASS="faq_question"><a NAME="q4.3">4.3) How do I customize the server?</a></div>
+      <p ALIGN=justify>
+       The bnetd configuration file can be found in conf/bnetd.conf.  This
+       contains pointers to where log and player files may be found and also
+       some tuning information so you can customize it to fit your needs.  See
+       the <tt>bnetd.conf(4)</tt> manual page found in the man subdirectory of
+       the distribution for details on each possible setting.
+      </p>
+      <br>
+     
+     <div CLASS="faq_question"><a NAME="q4.4">4.4) Why can't I start Diablo games?</a></div>
+      <p ALIGN=justify>
+       The support for games other than Starcraft and Brood War was in its
+       infancy at the time 0.4 was released.  So when using bnetd 0.4, some
+       versions of Diablo difficulty connecting or starting games.  Versions
+       of bnetd after 0.4.22 have good Diablo I support as long as your client
+       is upgraded to version 1.05 or greater.
+      </p>
+      <p ALIGN=justify>
+       Before 1.05, Battle.net used a completely different protocol which
+       looked liked database transactions and ran on a low port number.
+       Support for this is now difficult to add since we don't have any
+       packet traces.  If someone really wants support for this we would
+       be willing to work with them.
+      </p>
+      <br>
+      
+     <div CLASS="faq_question"><a NAME="q4.5">4.5) Why can't I connect with Diablo II?</a></div>
+      <p ALIGN=justify>
+       Diablo II uses a new connection type that was not supported before
+       bnetd version 0.4.23.  Later versions support this feature.  If you
+       are already running 0.4.23 or later but still have problems, see the
+       next paragraph.
+      </p>
+      <p ALIGN=justify>
+       With patch 1.08 of Diablo II, Blizzard changed its CD Key
+       authentification (again).  Release 0.4.25pre3 and earlier don't
+       unterstand the new packet type.  Later releases should handle this
+       properly (try the nightly CVS build if you wish to test the fix
+       before the next release).
+      </p>
+      <br>
+      
+     <div CLASS="faq_question"><a NAME="q4.6">4.6)How do I enable autoupdates?</a></div>
+      <p ALIGN=justify>
+       Autoupdates are Blizzard's method of automatically upgrading game clients
+       to the latest version when they connect to Battle.net.  Doing this ensures
+       that all users have compatible game versions and will not have
+       syncronization errors during game play.
+      </p>
+      <p ALIGN=justify>
+       Autoupdate was not easily usable with bnetd until version 0.4.22.
+       This option can now be enabled by editing two configuration files and
+       placing at a version authorization MPQ and an upgrade MPQ in the files
+       directory..
+      </p>
+      <p ALIGN=justify>
+       First open your <tt>bnetd.conf</tt> and find the "Downloadable files"
+       section.  Change the <tt>allow_autoupdate</tt> option to <tt>true</tt>.
+       This enables client version authorization.  Now change
+       <tt>mpqauthfile</tt> to be the filename of an authorization MPQ.  This
+       should just be the filename, not the full path.  An example filename is
+       IX86ver1.mpq.
+      </p>
+      <p ALIGN=justify>
+       Second, open your <tt>autoupdate</tt> configuration file and uncomment
+       the lines for the clients you wish to upgrade.  The middle column should
+       just be a filename not a complete path.  The version field can be
+       computed from the upgraded client version number.  For example 1.05
+       becomes 105 and 1.08 becomes 108.
+      </p>
+      <p ALIGN=justify>
+       The MPQ files can be obtained from Battle.net using <tt>bnftp(1)</tt> or
+       you can search for them on the world wide web or get them from an FSGS
+       distribution.
+      </p>
+      <br>
+     
+     <div CLASS="faq_question"><a NAME="q4.7">4.7)How do I add admin rights to an account?</a></div>
+      <p ALIGN=justify>
+       Find the account file with the uid of the user you want to change (you
+       can use grep from the shell or the /whois command on the server).  Then
+       shut down the server if it is running.  Using any text editor you like
+       add a line like this:<br>
+   <tt>"BNET\\auth\\admin"="true"</tt><br>
+      </p>
+      <p ALIGN=justify>
+       There are other authorizations you can enable on accounts.  Most of them
+       are documented in the bnetd_default_user configuration file.  For example,
+       you can prevent an account from ever becoming an operator by adding this
+       line:<br>
+   <tt>"BNET\\auth\\operator"="false"</tt><br>
+      </p>
+      <br>
+     
+    </td>
+    
+    <td CLASS="faq_box">
+     &nbsp;
+    </td>
+    <td>
+     &nbsp;
+    </td>
+   </tr>
+    
+   <tr> <!-- row10 -->
+    <td COLSPAN=5>
+     <br>
+    </td>
+   </tr>
+  
+   <tr> <!-- row11 -->
+    <td>
+     &nbsp;
+    </td>
+    <td CLASS="faq_box">
+     &nbsp;
+    </td>
+    
+    <td CLASS="faq_box">
+      
+     <div CLASS="faq_section"><a NAME="q5"><b>5) CLIENT QUESTIONS</b></a><br><br><br></div>
+     
+     <div CLASS="faq_question"><a NAME="q5.1">5.1) How do I connect to a server through my firewall?</a></div>
+      <p ALIGN=justify>
+       This is one of the most asked questions and also one of the hardest to
+       answer.  Of course the answer depends on your network setup and which OS
+       you use on your firewall.  If you use NAT (or masquerading) then it gets
+       even more complicated.
+      </p>
+      <p ALIGN=justify>
+       The first thing you might want is the port information.  The protocol
+       uses TCP port 6112 on the bnetd server.  It also uses UDP port 6112 on
+       both the client and the bnetd server.  If you use Diablo II, then TCP
+       port 4000 also needs to be open to the server.  The clients will also
+       talk to each other on UDP port 6112 during a game.  If port 6112 is not
+       available on the client when it binds the socket, it will receive on a
+       random port number.
+      </p>
+      <p ALIGN=justify>
+       Even if your setup works with a single machine one game or two machines
+       in two different games, that is no guarantee that more than one machine
+       will work smoothly in the same game.  The most common symptom of a setup
+       problem is "serious" lag during gameplay.  The current theory is that
+       the game is sending the traffic for all the clients through a single
+       client.
+      </p>
+      <p ALIGN=justify>
+       A thorough writeup of the issue was done by Dizzy.  It's called
+       <a HREF="http://bnetd.myip.org/files/docs/bnet-masq-howto">bnet-masq-howto</a>
+       and while it focuses on Linux 2.2, it has lots of general information as
+       well.
+      </p>
+      <p ALIGN=justify>
+       For Linux 2.4 using iptables (AKA Netfilter), there is good news.  It
+       is possible using full NAT (SNAT+DNAT) to get rid of the lag for any
+       combination of machines inside or outside the firewall.  There is a
+       <a HREF="http://msgs.SecurePoint.com/cgi-bin/get/netfilter-0102/367.html">message</a>
+       from Rick Kramer on the Netfilter mailing lists describing how to set it
+       up.  In his case, he is assuming the Battle.net server is outside the
+       local network.
+      </p>
+      <p ALIGN=justify>
+       The instructions for Linux kernels 2.0.36 have been recorded below:
+      </p>
+      <p ALIGN=justify>
+       A simple way to connect to a Battle.net-like server is to use the
+       <tt>ipautofw</tt> program to add a forwarding rule for the packets,
+       where x.x.x.x is the client machine.
+      </p>
+      <tt><pre>
+   /sbin/ipautofw -A -r tcp 6112 6112 -h x.x.x.x -v -u
+   /sbin/ipautofw -A -r udp 6112 6112 -h x.x.x.x -v -u
+      </pre></tt>
+      <p ALIGN=justify>
+       This works for single-user games or for games with only one computer
+       from the internal network or for games hosted by an external computer
+       with any number of external computers and at most one internal computer.
+       Confusing enough?
+      </p>
+      <p ALIGN=justify>
+       Normally when the bnetd server is also behind the firewall, and a game
+       is hosted by an internal computer, only other internal computers can
+       join.  The gametrans settings can use used to tell bnetd about the
+       address translation that is happening so that this does not happen.
+       This way, bnetd will know not to give out the local addresses
+       (10.x.x.x, 192.168.x.x, or whatever) to computers outside the firewall.
+      </p>
+      <p ALIGN=justify>
+       Even when you do that, as soon as you have two or more players from the
+       local network in the same externally-hosted game serious lag will occur.
+       As far as we can tell this is unavoidable on non Linux-2.4 sytems
+       without a kernel module or proxy.
+      </p>
+      <p ALIGN=justify>
+       Similarly, if two or more computers are in the same internally-hosted
+       game from outside the local network, serious lag will occur.  A solution
+       for this has been found (it worked for me).  All of the details are in
+       this message on the official Linux Masquerading list available at
+       <a href="http://home.indyramp.com/lists/masq/msg03024.html">http://home.indyramp.com/lists/masq/msg03024.html</a>.
+       What it basically says is that the kernel connection tracking will
+       get confused by multiple remote computers talking to the same port on
+       an internal computer (actually it will think the other computers are
+       trying to break through the firewall).  The solution for this is known
+       as loose UDP port management.
+      </p>
+      <p ALIGN=justify>
+       This isn't enabled by default in any Linux kernel version it is a slight
+       security risk.  If you have a UDP server running on say port 9999 and
+       your computer sends a UDP packet from port 9999 to Internet host A, then
+       Internet host B can connect back to your server on port 9999 if it
+       guesses the correct proxy port number.  This isn't an issue if the only
+       UDP traffic will come to and from bnetd.  Keep in mind that DNS requests
+       are UDP.  If you decide not to do this, you can still make things work
+       by setting up manual port forwarding entries for each client machine
+       (FIXME: I think... or does that need loose UDP as well?).
+      </p>
+      <p ALIGN=justify>
+       For 2.0.36 and below you must add two kernel patches for loose UDP.  The
+       first patch is called "LooseUDP" and updates the masquerading code to
+       include an experimental option "CONFIG_IP_MASQ_LOOSE_UDP".  FIXME: I
+       don't know what the second patch is... maybe that was a typo above in a
+       previous version of this document.
+      </p>
+      <p ALIGN=justify>
+       For 2.2.15 and later kernels, no patches are needed.  These kernels
+       include a sysctl which is accessable as
+       <tt>/proc/sys/net/ipv4/ip_masq_udp_dloose</tt>.
+       There are three possible values which can be <tt>echo</tt>ed into this
+       file.  A "0" (default) means not to allow loose UDP port management.  A
+       "1" means to allow it for unprivileged ports.  A "2" means to allow it
+       for all ports (bnetd should work fine with "1").
+      </p>
+      <p ALIGN=justify>
+       For 2.4.x, there doesn't seem to be a sysctl for Loose UDP handling.
+       This means you will need to use manual port forwarding for each machine
+       as described in the Netfilter mail list message listed above.
+      </p>
+      <br>
+     
+     <div CLASS="faq_question"><a NAME="q5.2">5.2) How do I choose which server to connect to?</a></div>
+      <p ALIGN=justify>
+       So now you've got bnetd running, how do you point your Starcraft
+       client at the server?
+      </p>
+      <p ALIGN=justify>
+       Once Starcraft, Diablo, or another client is installed, you can use a
+       program named
+       <a href="http://bnetd.myip.org/files/tools/BNSv1103.exe">BNSv1103.exe</a>
+       to switch between different bnetd servers and Blizzard's Battle.net.
+      </p>
+      <p ALIGN=justify>
+       This program has a simple interface that has a radio button that lets
+       you switch between the Blizzard Battle.net server or <tt>Other</tt>.
+       To use <tt>Other</tt> click on the radio button next to that entry and
+       type in your hostname or IP address below.
+      </p>
+      <p ALIGN=justify>
+       You can also use BNS to launch your game automatically by selecting it
+       inside the Launch box.
+      </p>
+      <p ALIGN=justify>
+       You can also change the server while the client is running.  For example,
+       with Starcraft you should return to the first screen past Multiplayer
+       where you can choose <tt>Ok</tt> or <tt>Cancel</tt> to connect to the
+       Battle.net server.  Use Alt-Tab to switch to either BNS (if it is still
+       running) or to Windows Explorer and select a new server and click
+       <tt>Apply</tt>.  Then switch back to Starcraft and click <tt>Ok</tt> to
+       connect to the new server.
+      </p>
+      <br>
+
+     <div CLASS="faq_question"><a NAME="q5.3">5.3) I'm using BNS but it doesn't select my server?</a></div>
+      <p ALIGN=justify>
+       If you are using BNS 1.1.0.3 or older with Starcraft/Brood War 1.08 or
+       newer, Diablo 1.08 or newer, or Diablo II then you are not alone.
+      </p>
+      <p ALIGN=justify>
+       This is because Blizzard has changed the registry format to support
+       client-side selection of the Battle.net gateway (USWest, USEast, etc.).
+       While this is a very nice change, BNS hasn't yet been updated to handle
+       the new format.
+      </p>
+      <p ALIGN=justify>
+       The <a HREF="http://mybnet.org/">MyBnet project</a> provides a selection
+       <a HREF="http://mybnet.org/files/BnetGCfg.exe">utility</a>
+       which is reported to work quite nicely.  Jeff has kindly offered to
+       contribute the program to the bnetd project.
+      </p>
+      <p ALIGN=justify>
+       There is a
+       <a HREF="http://bnetd.myip.org/files/tools/blizzard/GateSel.exe">gatesel.exe</a>
+       program which could be found on Blizzard's ftp site which is supposed
+       to be able to handle the new format.
+      </p>
+      <p ALIGN=justify>
+       Failing that, there are
+       <a HREF="http://bnetd.myip.org/files/docs/README.diablo108">instructions</a>
+       for how to use regedit to manually enter the server.  These instructions
+       are included in current bnetd releases as <tt>docs/README.diablo108</tt>.
+       Note that some versions of Windows use 16 bit characters in the text fields.
+      </p>
+      <br>
+     
+     <div CLASS="faq_question"><a NAME="q5.4">5.4) How do I connect to the original Battle.net server?</a></div>
+      <p ALIGN=justify>
+       For BNS users: start BNS, make sure Battle.net is selected as the server,
+       and then click <tt>Ok</tt>.
+      </p>
+      <br>
+     
+    </td>
+    
+    <td CLASS="faq_box">
+     &nbsp;
+    </td>
+    <td>
+     &nbsp;
+    </td>
+   </tr>
+   
+   <tr> <!-- row12 -->
+    <td COLSPAN=5>
+     <br>
+    </td>
+   </tr>
+   
+  </table>
+ </body>
+</html>

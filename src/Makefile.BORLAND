@@ -1,0 +1,432 @@
+# Makefile.BORLAND -
+#   Makefile for Borland's/Inprise's free command-line win32 tools
+#   Tested with Version 5.5
+
+srcdir		= .
+
+# prefix is the directory where the bnetd binary
+# distribution will be installed
+prefix		= C:\Bnetd
+exec_prefix	= C:\Bnetd
+
+bindir		= ${exec_prefix}\bin
+sbindir		= ${exec_prefix}\sbin
+mandir		= ${prefix}\man
+confdir		= ${prefix}\etc
+sharedir	= ${prefix}\var
+filesdir	= ${sharedir}\files
+usersdir	= ${sharedir}\users
+reportsdir	= ${sharedir}\reports
+chanlogsdir	= ${sharedir}\chanlogs
+
+TOPDIR		= ${srcdir}\..
+INSTALLDIR      = ${prefix}
+
+SRC_SRCDIR	= ${srcdir}
+SRC_BINDIR	= ${srcdir}\..\bin
+SRC_SBINDIR	= ${srcdir}\..\sbin
+SRC_MANDIR	= ${srcdir}\..\man
+SRC_CONFDIR	= ${SRCDIR}\..\conf
+SRC_SHAREDIR	= ${SRCDIR}\..\files
+
+SRC_ACDIR	= ${SRC_SRCDIR}\autoconf
+SRC_BNETDDIR	= ${SRC_SRCDIR}\bnetd
+SRC_BNIUTILSDIR	= ${SRC_SRCDIR}\bniutils
+SRC_BNPASSDIR	= ${SRC_SRCDIR}\bnpass
+SRC_BNPROXYDIR	= ${SRC_SRCDIR}\bnproxy
+SRC_BNTRACKDDIR	= ${SRC_SRCDIR}\bntrackd
+SRC_CLIENTDIR	= ${SRC_SRCDIR}\client
+SRC_COMMONDIR	= ${SRC_SRCDIR}\common
+SRC_COMPATDIR	= ${SRC_SRCDIR}\compat
+SRC_DEBUGDIR	= ${SRC_SRCDIR}\debug
+
+MKDIR		= md
+
+RMF		= del
+
+RMDIR		= rmdir
+
+ECHO		= echo
+
+SED		= notavailable
+
+INSTALL		= notavailable
+INSTALL_PROGRAM	= notavailable
+INSTALL_DATA	= notavailable
+INSTALL_SCRIPT	= notavailable
+INSTALL_DIRS	= mkdir
+
+CC		= bcc32
+# Grr... warning 8060 complains about if (!(var = create())) and the compiler stops
+# working correctly after 20 or 30 warnings so we have to disable it.
+# Warning 8057 is that a function parameter is unused... this is probably intentional so
+# this only makes the compile noisy.
+CFLAGS		= -v -y -O2 -d -j2 -w-8060 -w-8057
+CPPFLAGS	= -DWIN32 -DBNETD_DEFAULT_CONF_FILE=\"${confdir}\bnetd.conf\" -DHAVE_CONFIG_H -I${SRC_SRCDIR}
+#CPPFLAGS       = -DWIN32 -DBNETD_DEFAULT_CONF_FILE=\"${confdir}\bnetd.conf\" -DHAVE_CONFIG_H -I"C:\Program Files\bcc55\Include";${SRC_SRCDIR}
+COMPILE		= ${CC} ${CFLAGS} ${CPPFLAGS} -c
+#PREPROCESS	= ${CC} ${CPPFLAGS}
+LINK		= ${CC} ${CFLAGS}
+LINK_LIBS	=
+
+
+bnetd_SBIN	= ${SRC_SBINDIR}\bnetd.exe
+bnetd_OBJECTS	= ${SRC_BNETDDIR}\main.obj \
+${SRC_BNETDDIR}\server.obj \
+${SRC_BNETDDIR}\connection.obj \
+${SRC_BNETDDIR}\message.obj \
+${SRC_BNETDDIR}\handle_init.obj \
+${SRC_BNETDDIR}\handle_bnet.obj \
+${SRC_BNETDDIR}\handle_file.obj \
+${SRC_BNETDDIR}\handle_bot.obj \
+${SRC_BNETDDIR}\handle_telnet.obj \
+${SRC_BNETDDIR}\handle_bits.obj \
+${SRC_BNETDDIR}\handle_udp.obj \
+${SRC_BNETDDIR}\handle_auth.obj \
+${SRC_BNETDDIR}\channel.obj \
+${SRC_BNETDDIR}\channel_conv.obj \
+${SRC_BNETDDIR}\game.obj \
+${SRC_BNETDDIR}\command.obj \
+${SRC_BNETDDIR}\account.obj \
+${SRC_BNETDDIR}\account_wrap.obj \
+${SRC_BNETDDIR}\prefs.obj \
+${SRC_BNETDDIR}\tick.obj \
+${SRC_BNETDDIR}\file.obj \
+${SRC_BNETDDIR}\watch.obj \
+${SRC_BNETDDIR}\ladder.obj \
+${SRC_BNETDDIR}\ladder_calc.obj \
+${SRC_BNETDDIR}\adbanner.obj \
+${SRC_BNETDDIR}\timer.obj \
+${SRC_BNETDDIR}\tracker.obj \
+${SRC_BNETDDIR}\ipban.obj \
+${SRC_BNETDDIR}\game_conv.obj \
+${SRC_BNETDDIR}\gametrans.obj \
+${SRC_BNETDDIR}\autoupdate.obj \
+${SRC_BNETDDIR}\helpfile.obj \
+${SRC_BNETDDIR}\mail.obj \
+${SRC_BNETDDIR}\runprog.obj \
+${SRC_BNETDDIR}\game_rule.obj \
+${SRC_BNETDDIR}\realm.obj \
+${SRC_BNETDDIR}\character.obj \
+${SRC_BNETDDIR}\udptest_send.obj \
+${SRC_BNETDDIR}\versioncheck.obj \
+${SRC_BNETDDIR}\bits.obj \
+${SRC_BNETDDIR}\bits_va.obj \
+${SRC_BNETDDIR}\bits_query.obj \
+${SRC_BNETDDIR}\bits_packet.obj \
+${SRC_BNETDDIR}\bits_net.obj \
+${SRC_BNETDDIR}\bits_ext.obj \
+${SRC_BNETDDIR}\bits_chat.obj \
+${SRC_BNETDDIR}\bits_rconn.obj \
+${SRC_BNETDDIR}\bits_login.obj \
+${SRC_BNETDDIR}\bits_game.obj \
+${SRC_BNETDDIR}\bits_motd.obj \
+${SRC_COMMONDIR}\hexdump.obj \
+${SRC_COMMONDIR}\bn_type.obj \
+${SRC_COMMONDIR}\packet.obj \
+${SRC_COMMONDIR}\queue.obj \
+${SRC_COMMONDIR}\util.obj \
+${SRC_COMMONDIR}\network.obj \
+${SRC_COMMONDIR}\list.obj \
+${SRC_COMMONDIR}\eventlog.obj \
+${SRC_COMMONDIR}\bnettime.obj \
+${SRC_COMMONDIR}\bnethash.obj \
+${SRC_COMMONDIR}\bnethashconv.obj \
+${SRC_COMMONDIR}\addr.obj \
+${SRC_COMMONDIR}\hashtable.obj \
+${SRC_COMMONDIR}\check_alloc.obj \
+${SRC_COMMONDIR}\proginfo.obj \
+${SRC_COMPATDIR}\pdir.obj \
+${SRC_COMPATDIR}\inet_aton.obj \
+${SRC_COMPATDIR}\inet_ntoa.obj \
+${SRC_COMPATDIR}\strdup.obj \
+${SRC_COMPATDIR}\strerror.obj \
+${SRC_COMPATDIR}\strtoul.obj \
+${SRC_COMPATDIR}\strftime.obj \
+${SRC_COMPATDIR}\strcasecmp.obj \
+${SRC_COMPATDIR}\strncasecmp.obj \
+${SRC_COMPATDIR}\psock.obj \
+${SRC_COMPATDIR}\uname.obj \
+${SRC_COMPATDIR}\gettimeofday.obj \
+${SRC_COMPATDIR}\difftime.obj
+
+sbnetd_SBIN	= ${SRC_SBINDIR}\sbnetd.exe
+sbnetd_OBJECTS	= ${SRC_DEBUGDIR}\sbnetd.obj \
+${SRC_COMPATDIR}\strerror.obj
+
+bnproxy_SBIN	= ${SRC_SBINDIR}\bnproxy.exe
+bnproxy_OBJECTS	= ${SRC_BNPROXYDIR}\bnproxy.obj \
+${SRC_BNPROXYDIR}\virtconn.obj \
+${SRC_COMMONDIR}\hexdump.obj \
+${SRC_COMMONDIR}\packet.obj \
+${SRC_COMMONDIR}\queue.obj \
+${SRC_COMMONDIR}\list.obj \
+${SRC_COMMONDIR}\bn_type.obj \
+${SRC_COMMONDIR}\network.obj \
+${SRC_COMMONDIR}\eventlog.obj \
+${SRC_COMMONDIR}\util.obj \
+${SRC_COMMONDIR}\check_alloc.obj \
+${SRC_COMPATDIR}\inet_ntoa.obj \
+${SRC_COMPATDIR}\strerror.obj \
+${SRC_COMPATDIR}\psock.obj
+
+bntrackd_SBIN	= ${SRC_SBINDIR}\bntrackd.exe
+bntrackd_OBJECTS= ${SRC_BNTRACKDDIR}\bntrackd.obj \
+${SRC_COMMONDIR}\util.obj \
+${SRC_COMMONDIR}\list.obj \
+${SRC_COMMONDIR}\eventlog.obj \
+${SRC_COMMONDIR}\check_alloc.obj \
+${SRC_COMPATDIR}\inet_ntoa.obj \
+${SRC_COMPATDIR}\strerror.obj \
+${SRC_COMPATDIR}\psock.obj
+
+bnchat_BIN	= ${SRC_BINDIR}\bnchat.exe
+bnchat_OBJECTS	= ${SRC_CLIENTDIR}\bnchat.obj \
+${SRC_CLIENTDIR}\client.obj \
+${SRC_CLIENTDIR}\client_connect.obj \
+${SRC_CLIENTDIR}\udptest.obj \
+${SRC_COMMONDIR}\packet.obj \
+${SRC_COMMONDIR}\queue.obj \
+${SRC_COMMONDIR}\bn_type.obj \
+${SRC_COMMONDIR}\network.obj \
+${SRC_COMMONDIR}\eventlog.obj \
+${SRC_COMMONDIR}\bnethash.obj \
+${SRC_COMMONDIR}\bnethashconv.obj \
+${SRC_COMMONDIR}\util.obj \
+${SRC_COMMONDIR}\bnettime.obj \
+${SRC_COMMONDIR}\check_alloc.obj \
+${SRC_COMMONDIR}\proginfo.obj \
+${SRC_COMPATDIR}\inet_ntoa.obj \
+${SRC_COMPATDIR}\strerror.obj \
+${SRC_COMPATDIR}\psock.obj \
+${SRC_COMPATDIR}\gettimeofday.obj
+
+bnpass_BIN	= ${SRC_BINDIR}\bnpass.exe
+bnpass_OBJECTS	= ${SRC_BNPASSDIR}\bnpass.obj \
+${SRC_COMMONDIR}\bnethash.obj \
+${SRC_COMMONDIR}\eventlog.obj \
+${SRC_COMMONDIR}\check_alloc.obj \
+${SRC_COMPATDIR}\strerror.obj
+
+bnftp_BIN	= ${SRC_BINDIR}\bnftp.exe
+bnftp_OBJECTS	= ${SRC_CLIENTDIR}\bnftp.obj \
+${SRC_CLIENTDIR}\client.obj \
+${SRC_COMMONDIR}\hexdump.obj \
+${SRC_COMMONDIR}\packet.obj \
+${SRC_COMMONDIR}\queue.obj \
+${SRC_COMMONDIR}\bn_type.obj \
+${SRC_COMMONDIR}\network.obj \
+${SRC_COMMONDIR}\eventlog.obj \
+${SRC_COMMONDIR}\bnettime.obj \
+${SRC_COMMONDIR}\util.obj \
+${SRC_COMMONDIR}\check_alloc.obj \
+${SRC_COMPATDIR}\inet_ntoa.obj \
+${SRC_COMPATDIR}\strerror.obj \
+${SRC_COMPATDIR}\strftime.obj \
+${SRC_COMPATDIR}\psock.obj \
+${SRC_COMPATDIR}\gettimeofday.obj
+
+bnbot_BIN	= ${SRC_BINDIR}\bnbot.exe
+bnbot_OBJECTS	= ${SRC_CLIENTDIR}\bnbot.obj \
+${SRC_CLIENTDIR}\client.obj \
+${SRC_COMMONDIR}\packet.obj \
+${SRC_COMMONDIR}\bn_type.obj \
+${SRC_COMMONDIR}\network.obj \
+${SRC_COMMONDIR}\eventlog.obj \
+${SRC_COMMONDIR}\util.obj \
+${SRC_COMMONDIR}\check_alloc.obj \
+${SRC_COMPATDIR}\inet_ntoa.obj \
+${SRC_COMPATDIR}\strerror.obj \
+${SRC_COMPATDIR}\psock.obj
+
+bnstat_BIN	= ${SRC_BINDIR}\bnstat.exe
+bnstat_OBJECTS	= ${SRC_CLIENTDIR}\bnstat.obj \
+${SRC_CLIENTDIR}\client.obj \
+${SRC_CLIENTDIR}\client_connect.obj \
+${SRC_CLIENTDIR}\udptest.obj \
+${SRC_COMMONDIR}\packet.obj \
+${SRC_COMMONDIR}\queue.obj \
+${SRC_COMMONDIR}\bn_type.obj \
+${SRC_COMMONDIR}\network.obj \
+${SRC_COMMONDIR}\eventlog.obj \
+${SRC_COMMONDIR}\bnethash.obj \
+${SRC_COMMONDIR}\bnethashconv.obj \
+${SRC_COMMONDIR}\util.obj \
+${SRC_COMMONDIR}\bnettime.obj \
+${SRC_COMMONDIR}\check_alloc.obj \
+${SRC_COMMONDIR}\proginfo.obj \
+${SRC_COMPATDIR}\inet_ntoa.obj \
+${SRC_COMPATDIR}\strerror.obj \
+${SRC_COMPATDIR}\strftime.obj \
+${SRC_COMPATDIR}\psock.obj \
+${SRC_COMPATDIR}\gettimeofday.obj
+
+bnilist_BIN	= ${SRC_BINDIR}\bnilist.exe
+bnilist_OBJECTS	= ${SRC_BNIUTILSDIR}\bnilist.obj \
+${SRC_BNIUTILSDIR}\fileio.obj \
+${SRC_BNIUTILSDIR}\tga.obj \
+${SRC_COMMONDIR}\check_alloc.obj
+
+bni2tga_BIN	= ${SRC_BINDIR}\bni2tga.exe
+bni2tga_OBJECTS	= ${SRC_BNIUTILSDIR}\bni2tga.obj \
+${SRC_BNIUTILSDIR}\fileio.obj \
+${SRC_COMMONDIR}\check_alloc.obj
+
+bniextract_BIN	= ${SRC_BINDIR}\bniextract.exe
+bniextract_OBJECTS= ${SRC_BNIUTILSDIR}\bniextract.obj \
+${SRC_BNIUTILSDIR}\fileio.obj \
+${SRC_BNIUTILSDIR}\tga.obj \
+${SRC_BNIUTILSDIR}\bni.obj \
+${SRC_COMMONDIR}\check_alloc.obj
+
+bnibuild_BIN	= ${SRC_BINDIR}\bnibuild.exe
+bnibuild_OBJECTS= ${SRC_BNIUTILSDIR}\bnibuild.obj \
+${SRC_BNIUTILSDIR}\fileio.obj \
+${SRC_BNIUTILSDIR}\tga.obj \
+${SRC_BNIUTILSDIR}\bni.obj \
+${SRC_COMMONDIR}\check_alloc.obj
+
+tgainfo_BIN	= ${SRC_BINDIR}\tgainfo.exe
+tgainfo_OBJECTS	= ${SRC_BNIUTILSDIR}\tgainfo.obj \
+${SRC_BNIUTILSDIR}\fileio.obj \
+${SRC_BNIUTILSDIR}\tga.obj \
+${SRC_COMMONDIR}\check_alloc.obj
+
+
+OBJECTS		= ${bnetd_OBJECTS} ${bnproxy_OBJECTS} ${bntrackd_OBJECTS} ${bnchat_OBJECTS} ${bnpass_OBJECTS} ${bnbot_OBJECTS} ${bnftp_OBJECTS} ${bnstat_OBJECTS} ${bnilist_OBJECTS} ${bni2tga_OBJECTS} ${bniextract_OBJECTS} ${bnibuild_OBJECTS} ${tgainfo_OBJECTS}
+SBINS		= ${bnetd_SBIN} ${bnproxy_SBIN} ${bntrackd_SBIN}
+BINS		= ${bnchat_BIN} ${bnpass_BIN} ${bnftp_BIN} ${bnbot_BIN} ${bnstat_BIN} ${bnilist_BIN} ${bni2tga_BIN} ${bniextract_BIN} ${bnibuild_BIN} ${tgainfo_BIN}
+#SBINS		= ${bnetd_SBIN} ${bnproxy_SBIN}
+#BINS		= ${bnchat_BIN} ${bnpass_BIN} ${bnftp_BIN} ${bnbot_BIN} ${bnstat_BIN} ${bnilist_BIN} ${bni2tga_BIN} ${bnibuild_BIN} ${tgainfo_BIN}
+CONFS		= ad.list bnetd.conf bnetd_default_user bnmotd.txt channel.list news.txt bnban bnhelp gametrans autoupdate realm.list
+SHARES		= ad000001.pcx icons.bni tos.txt
+OTHERBINS	= ${sbnetd_OBJECTS} ${sbnetd_SBIN}
+DIRS		= ${SRC_BINDIR} ${SRC_SBINDIR}
+
+
+all: config ${SBINS} ${BINS}
+
+clean:
+	-${RMF} ${OBJECTS}
+	-${RMF} ${SBINS}
+	-${RMF} ${BINS}
+	-${RMF} ${OTHERBINS}
+
+distclean: clean
+	-${RMF} ${SRC_CONFDIR}\bnetd.conf
+	-${RMF} ${SRC_SRCDIR}\config.cache ${SRC_SRCDIR}\config.log
+	-${RMF} ${SRC_SRCDIR}\config.status
+	-${RMF} ${SRC_SRCDIR}\Makefile ${SRC_SRCDIR}\config.h
+	-${RMDIR} ${DIRS}
+
+clean-compile: clean all
+
+config: ${SRC_SRCDIR}\Makefile ${SRC_SRCDIR}\config.h
+
+${SRC_SRCDIR}\config.h: ${SRC_SRCDIR}\config.h.win32
+	copy ${SRC_SRCDIR}\config.h.win32 ${SRC_SRCDIR}\config.h
+
+${SRC_SRCDIR}\Makefile: ${SRC_SRCDIR}\Makefile.BORLAND
+	copy ${SRC_SRCDIR}\Makefile.BORLAND ${SRC_SRCDIR}\Makefile
+
+${SRC_BINDIR}:
+	${INSTALL_DIRS} $@
+
+${SRC_SBINDIR}:
+	${INSTALL_DIRS} $@
+
+install: config ${SRC_SBINDIR}\bnetd.exe
+	${INSTALL_DIRS} ${INSTALLDIR}
+	${INSTALL_DIRS} ${INSTALLDIR}\bin
+	${INSTALL_DIRS} ${INSTALLDIR}\sbin
+	${INSTALL_DIRS} ${INSTALLDIR}\var
+	${INSTALL_DIRS} ${INSTALLDIR}\var\files
+	${INSTALL_DIRS} ${INSTALLDIR}\var\users
+	${INSTALL_DIRS} ${INSTALLDIR}\var\reports
+	${INSTALL_DIRS} ${INSTALLDIR}\var\chanlogs
+	${INSTALL_DIRS} ${INSTALLDIR}\etc
+	copy ${TOPDIR}\files\*.* ${INSTALLDIR}\var\files
+	copy ${TOPDIR}\conf\*.* ${INSTALLDIR}\etc
+	copy ${INSTALLDIR}\etc\bnetd.conf.win32 ${INSTALLDIR}\etc\bnetd.conf
+	copy ${TOPDIR}\sbin\*.* ${INSTALLDIR}\sbin
+	copy ${TOPDIR}\bin\*.* ${INSTALLDIR}\bin
+	copy ${TOPDIR}\*.* ${INSTALLDIR}
+	echo @cd ${INSTALLDIR} > ${INSTALLDIR}\bnetd.bat
+	echo @.\sbin\bnetd.exe -c .\etc\bnetd.conf > ${INSTALLDIR}\bnetd.bat
+
+# The Borland compiler silently ignores -ofilename if it is after the source file
+.c.obj:
+	@${RMF} $@
+	${COMPILE} -o$@ $<
+
+# The Borland compiler silently ignores -efilename if it is after the object file
+${bnetd_SBIN}: ${bnetd_OBJECTS}
+	@${INSTALL_DIRS} ${SRC_SBINDIR}
+	@${RMF} $@
+	${LINK} -e$@ ${bnetd_OBJECTS} ${LINK_LIBS}
+
+${sbnetd_SBIN}: ${sbnetd_OBJECTS}
+	@${INSTALL_DIRS} ${SRC_SBINDIR}
+	@${RMF} $@
+	${LINK} -e$@ ${sbnetd_OBJECTS} ${LINK_LIBS}
+
+${bnproxy_SBIN}: ${bnproxy_OBJECTS}
+	@${INSTALL_DIRS} ${SRC_SBINDIR}
+	@${RMF} $@
+	${LINK} -e$@ ${bnproxy_OBJECTS} ${LINK_LIBS}
+
+${bntrackd_SBIN}: ${bntrackd_OBJECTS}
+	@${INSTALL_DIRS} ${SRC_SBINDIR}
+	@${RMF} $@
+	${LINK} -e$@ ${bntrackd_OBJECTS} ${LINK_LIBS}
+
+${bnchat_BIN}: ${bnchat_OBJECTS}
+	@${INSTALL_DIRS} ${SRC_BINDIR}
+	@${RMF} $@
+	${LINK} -e$@ ${bnchat_OBJECTS} ${LINK_LIBS}
+
+${bnpass_BIN}: ${bnpass_OBJECTS}
+	@${INSTALL_DIRS} ${SRC_BINDIR}
+	@${RMF} $@
+	${LINK} -e$@ ${bnpass_OBJECTS} ${LINK_LIBS}
+
+${bnftp_BIN}: ${bnftp_OBJECTS}
+	@${INSTALL_DIRS} ${SRC_BINDIR}
+	@${RMF} $@
+	${LINK} -e$@ ${bnftp_OBJECTS} ${LINK_LIBS}
+
+${bnbot_BIN}: ${bnbot_OBJECTS}
+	@${INSTALL_DIRS} ${SRC_BINDIR}
+	@${RMF} $@
+	${LINK} -e$@ ${bnbot_OBJECTS} ${LINK_LIBS}
+
+${bnstat_BIN}: ${bnstat_OBJECTS}
+	@${INSTALL_DIRS} ${SRC_BINDIR}
+	@${RMF} $@
+	${LINK} -e$@ ${bnstat_OBJECTS} ${LINK_LIBS}
+
+${bnilist_BIN}: ${bnilist_OBJECTS}
+	@${INSTALL_DIRS} ${SRC_BINDIR}
+	@${RMF} $@
+	${LINK} -e$@ ${bnilist_OBJECTS} ${LINK_LIBS}
+
+${bni2tga_BIN}: ${bni2tga_OBJECTS}
+	@${INSTALL_DIRS} ${SRC_BINDIR}
+	@${RMF} $@
+	${LINK} -e$@ ${bni2tga_OBJECTS} ${LINK_LIBS}
+
+${bniextract_BIN}: ${bniextract_OBJECTS}
+	@${INSTALL_DIRS} ${SRC_BINDIR}
+	@${RMF} $@
+	${LINK} -e$@ ${bniextract_OBJECTS} ${LINK_LIBS}
+
+${bnibuild_BIN}: ${bnibuild_OBJECTS}
+	@${INSTALL_DIRS} ${SRC_BINDIR}
+	@${RMF} $@
+	${LINK} -e$@ ${bnibuild_OBJECTS} ${LINK_LIBS}
+
+${tgainfo_BIN}: ${tgainfo_OBJECTS}
+	@${INSTALL_DIRS} ${SRC_BINDIR}
+	@${RMF} $@
+	${LINK} -e$@ ${tgainfo_OBJECTS} ${LINK_LIBS}
+

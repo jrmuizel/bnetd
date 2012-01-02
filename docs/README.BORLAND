@@ -1,0 +1,47 @@
+
+Overview
+=========
+This file is a step-by-step guide to install bnetd on win32
+systems with the Borland/Inprise free command-line tools.
+These tools are aviable from http://www.inprise.com/.
+Tested with Version 5.5 and 5.5.1. Currently there might
+be some problems with compiling on Windows 2000.
+
+
+Step 1: Installing the free command-line tools
+===============================================
+You can skip this step if you already have a well configured
+install of these tools.
+After you have downloaded and unpacked the tools, read the
+included readme.txt file. It explains how to create some
+important files (ilink32.cfg and bcc32.cfg).
+
+
+Step 2: Setup
+==============
+Then edit "Makefile.BORLAND" in the "src" directory to fit your
+needs.
+
+
+Step 3: Compile
+================
+Go into the "src" directory and type:
+
+make -fMakefile.BORLAND
+
+Wait till the compilation is ready.
+
+
+Step 4: Install
+================
+Simply type:
+
+make -fMakefile.BORLAND install
+
+
+Step 5: GO!
+============
+To start BnetD, call "bnetd.bat" in the install directory.
+
+Have fun! --- Typhoon (mmz@gmx.net)
+

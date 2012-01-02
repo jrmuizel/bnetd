@@ -1,0 +1,16 @@
+# This file is used to check client versions and tag it for upgrades
+#
+#
+# if you use more than entry for archtag/clienttag you must include each eqn/mpqfile/checksum
+# for all the versions
+# if exeinfo is "NULL" exeinfo check is disabled
+# if checksum is 0 checksum check is disabled
+# Versiontag is options, and it's used to identify a particular version, it's used
+# with autoupdate, here you can tag a version and identify it later for a specific upgrade
+# this is usefull, upgrading versions like 1.09c to 1.09d which have same version number
+# you can use checksum to figure out the difference
+#
+# -Equation- -Mpqfile- -Archtag- -Clienttag- -Exeinfo- -Versionid- -Checksum- -Versiontag-
+#"A=3845581634 B=880823580 C=1363937103 4 A=A-S B=B-C C=C-A A=A-B" IX86ver1.mpq IX86 D2XP "Game.exe 11/30/01 04:00:17 448675" 9 1.0.9.0 	0xfa39efbb D2XP_109d
+
+# This matches D2XP version 1.09d and tags it with "D2XP_109d"

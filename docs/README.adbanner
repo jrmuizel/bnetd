@@ -1,0 +1,77 @@
+
+README.adbanner
+
+	This file contains information about creating and using "ad" banners
+	with the bnetd server.
+
+
+DESCRIPTION
+
+	These banners are long, narrow rectangular graphics displayed at the
+	top of the client screen.  They may be animated or static pictures.
+	The real Battle.net uses the for commercial advertisements, but you can
+	use them for server logos, team logos, etc.  Or you can also put up ads
+	if you really want :)
+
+
+FORMATS
+
+	The formats that are supported are PCX and SMK.  These are the only
+	known formats that are supported by the Blizzard clients.  For animated
+	banners, you must use the SMK (Smacker) format.  The actual size of the
+	images must be 468x60 pixels in 256 indexed color mode.  Additionally,
+	only the 64 colors from index 32 to 96 seem to be avaliable for
+	modification.  The other colors should not be used at all because they
+	are used by the GUI and are not consistant between the various clients.
+	Encoding sound is also possible if you are using the SMK format.
+
+
+TOOLS
+
+	I have used Paint Shop Pro (http://www.jasc.com/index.html) for editing
+	PCX files.  It has excellent support for manipulating color pallets
+	(save, load, etc).  For creating and editing SMK files, use the Smacker
+	Tools (http://www.smacker.com/smkmain.htm) which can be downloaded at
+	no cost.  Both of these tools are only available for MS-Windows as far
+	as I know.
+
+	Under Linux, you may create the PCX files with The Gimp.  To view SMK
+	files, you may use WINE to run the SMACKPLW.EXE program from the RAD
+	tools.  I know it works with version 20000614 with no Windows registry
+	or DLLs.  I have not tried to use the authoring tools under WINE.
+
+	If you know of tools that can handle these formats under Linux or MacOS
+	let us know and we will add them to the list here.
+
+
+SETUP
+
+	Place your file with a name in the form ad000000.pcx or ad000000.smk in
+	the "files" directory.  The 000000 portion of the name should be
+	changed to a hexadecimal number six digits long.  Then edit the config
+	file spcified in bnetd.conf (conf/ad.list by default) and enter the
+	filename and link values.  You can list as many ads as you like there.
+	If the user clicks on the banner, the client will start a web browser
+	at the location set in link field.
+
+
+DOWNLOADING
+
+	A site to exchange ad banners has been generously set up by Vedge.  You
+	can visit it at:
+	 http://vedgeland.com/banners/exch.cgi
+	You may also save banners from Battle.net by using the bnftp command.
+	You will need to know the exact filename.
+
+LEGAL NOTES
+
+	Blizzard Entertainment is a trademark of Davidson & Associates, Inc.
+	Battle.net is a trademark of Davidson & Associates, Inc.
+	Smacker Video Technology is a trademark of RAD Game Tools, Inc.
+	Paint Shop Pro is a trademark of Jasc Software, Inc.
+	Windows is a registered trademark of Microsoft Corporation
+	Linux is a registered trademark of Linus Torvalds
+	MacOS is a registered trademark of Apple Computer, Inc.
+
+	The bnetd project is in no way affiliated with Blizzard Entertainment
+

@@ -1,0 +1,128 @@
+
+README
+
+	This file contains the release notes for bnetd version 0.4.25.
+
+
+DESCRIPTION
+
+	Bnetd is a program that will eventually emulate a Starcraft Battle.net
+	server.  It is distributed under the GPL so that others may contribute
+	to the development.  It currently runs on Unix and Unix like systems
+	and also Win32.  The code is based on the original bnetd-0.3 by Mark
+	Baysinger which was distributed on http://www.starhack.ml.org/ until
+	that domain went away.  Mark's work also spawned several versions for
+	MS-Windows, most notably FSGS.
+
+
+STATUS
+
+	The server currently implements most of the same functionality as the
+	real Battle.net servers.  You can chat, play games, use /-commands,
+	and things like account passwords, user icons, ad banners, channel
+	operators, ladder, and Diablo games work too.  It is by no means
+	complete, though.  Different clients may be supported to different
+	extents.  See the CHANGELOG for summaries about specific modifications.
+
+
+DOWNLOADING
+
+	The latest version of the program can be found at
+	 http://www.bnetd.org/files.php
+	 http://www.cs.nmsu.edu/~rocombs/sc
+	 http://sourceforge.net/project/showfiles.php?group_id=6933
+
+
+INSTALLING
+
+	See the INSTALL file in the distribution directory.  Other information
+	including Instructions for installing on Win32 with the Borland
+	compiler is avaliable in the docs directory.
+
+
+RUNNING
+
+	Just run ./bnetd.  It will begin waiting for connections.  Run
+	./bnetd --help for help with command-line options.  If no config file
+	is specified, it will look for a config file in a location determined
+	when the server was compiled.  If that file doesn't exist, it will use
+	some built-in default settings.
+
+
+CONFIGURING THE CLIENT
+
+	Supported client game software titles:
+	 Starcraft (and the Brood War expansion pack)
+	 Diablo (only version 1.05 and later)
+	 Warcraft II Battle.net Edition
+	 Diablo II (only open gameplay)
+
+	MS-Windows:
+
+	Download a copy of the program BNS.exe.  This program will allow you to
+	choose any bnetd, FSGS, or Battle.net server by manipulating the
+	registry.  Instead of starting your game client manually, run BNS and
+	choose which client to launch and enter the hostname or IP address of
+	the computer which you wish to connect to instead of Battle.net.  Only
+	the game clients installed on your system will be selectable.  Clicking
+	Apply will set the server and launch the selected game client, but will
+	not exit BNS.  Clicking Cancel will abort all changes and exit BNS.
+	Clicking OK will exit BNS after applying the changes.
+
+	MacOS:
+
+	There is no automated tool to modify the resources (yet).  To do it
+	manually, first locate the Starcraft (or Diablo) preference file
+	located in the Preferences folder inside the System folder.  Open the
+	file with ResEdit to check if you have the HKEY resources called:
+	 "HKEY_LOCAL_MACHINE\Software\Battle.net\Configuration\Server List"
+	 "HKEY_LOCAL_MACHINE\Software\Battle.net\Configuration\Client ID"
+	If you do not have these resources, you will have to download the demo
+	of Starcraft from Blizzard and connect to Battle.net.  The demo will
+	create the necessary resource entries for you.
+	
+	Once you have those two entries, use ResEdit to change:
+	 "HKEY_LOCAL_MACHINE\Software\Battle.net\Configuration\Server List"
+	to the IP addresses or hostnames of the server you wish to connect to.
+
+
+SUPPORT
+
+	If you have trouble with the server or setting up the clients, you
+	should check to see if the answer to your problem is in our FAQ.  The
+	current version can be found on
+	http://www.bnetd.org/doc.php?docname=FAQ.html. If that doesn't solve
+	your problem, try posting in one of the forums at
+	http://www.bnetd.org/phpBB.  You can also send email to the list
+	bnetd-discuss@bnetd.org.  See the file README.debugging in the docs
+	directory for information about submitting good bug reports.
+
+	Other documents are included in the docs directory of this
+	distribution including README.ladder and README.adbanner which
+	contain information about setting up and using those features of the
+	server.
+
+
+CONTRIBUTING
+
+	Discovered anything about the Battle.net protocol that we overlooked?
+	Have some ideas that you would like to see implemented in the server?
+	Please consider either posting in http://www.bnetd.org/phpBB/ or
+	sending mail to to the list bnetd-dev@bnetd.org.  Please note that
+	the license agreement is the GNU GPL.  See the CREDITS file for a list
+	of current contributors and TODO for a list of work that needs to be
+	done.
+
+
+LEGAL NOTES
+
+	Blizzard Entertainment is a trademark of Davidson & Associates, Inc.
+	Starcraft is a trademark of Davidson & Associates, Inc.
+	Warcraft is a trademark of Davidson & Associates, Inc.
+	Diablo is a trademark of Davidson & Associates, Inc.
+	Battle.net is a trademark of Davidson & Associates, Inc.
+	Windows is a registered trademark of Microsoft Corporation
+	MacOS is a registered trademark of Apple Computer, Inc.
+
+	The bnetd project is in no way affiliated with Blizzard Entertainment
+

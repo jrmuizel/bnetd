@@ -1,0 +1,48 @@
+
+README.debugging
+
+	This file contains information on reporting bugs so that the bnetd
+	developers have a good chance of fixing them.  We hate to see bugs in
+	the server, but we don't always know about them unless you tell us.
+	It is important to include relevant information about your hardware,
+	operating system, etc when reporting bugs because problems sometimes
+	only occur on specific setups.
+
+
+REPORTING NON-CRASHING BUGS
+
+	- First check in the bnetd forums at http://www.bnetd.org/phorum to
+	  see if it is a well known problem with the release you are using.
+	- Next check the FAQ at http://www.bnetd.org/docs.phtml?doc=faq.html
+	  to see if it is a long standing bug or "feature in disguise".
+	- If the server is hanging and not responding type
+	 "killall -SEGV bnetd" or "kill -SEGV <pid>" and use the instructions
+	  below under "REPORTING CRASHES".  Be sure to note that the server was
+	  hung in your description of the problem.
+	- Gather a short description of the problem, steps to reproduce it if
+	  you know them, and the bnetd.log if useful.
+	- Post them to the bnetd forums at http://www.bnetd.org/phorum/ and/or
+	  mail them to bnetd-dev@igateway.net.
+
+
+REPORTING CRASHES
+
+        If you suffer from bnetd core dumps and need some help then we
+        recommend you do the following:
+
+        - Add debug to loglevels in bnetd.conf (if it wasn't already on) and
+          restart the server and reproduce the core.  You will need to run the
+          server with the "-f" option from a directory which it has write
+	  permission in order to get a core file (unless it runs as root).
+        - Be sure that you compiled bnetd with the -g flag, otherwise the core
+          file will not be very useful.
+        - Make a tar file of the core, the bnetd executable, the bnetd.log, and
+          a short description of what was going on at the time.  Either send a
+          URL for these items or a COMPRESSED attachment to:
+          bnetd-dev@igateway.net
+
+        We'll try to figure out why it crashed.  If you send us anything other
+        than these things it is likely your problem will not be solved.  It is
+        difficult enough to track down problems sometimes; without the proper
+        information it is nearly impossible.
+

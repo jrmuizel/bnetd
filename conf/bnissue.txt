@@ -1,0 +1,5 @@
+Connection from [%r]
+
+Enter your account name and password.
+Sorry, there is no guest account.
+

@@ -1,0 +1,339 @@
+=============================================================================
+CHANGES log: Mon May  1 02:44:25 EDT 2000
+Modified From: bnetd-0.4.22pre5-db2
+Modified by: Otto Chan (_bucky_/Kenshin_) (kenshin_@hotmail.com)
+Total modifications count: 7
+
+-----------------------------------------------------------------------------
+FILE: bnetd-0.4.22pre5-db2/include/auth_protocol.h
+
+WHERE: to CLIENT_AUTHLOGINREQ block -> t_client_authloginreq
+ADDED: (to end of struct)
+       bn_int        unknown7; /* _bucky_ No friggin clue what it is... */
+RESULT:
+
+typedef struct
+{
+    t_auth_header h;
+    bn_int        unknown1; /* seq number? */ /* from 0x35ff packet */
+    bn_int        unknown2; /* from 0x35ff packet */
+    bn_int        unknown3; /* from 0x35ff packet */
+    bn_int        sessionkey; /* from 0x35ff packet */
+    bn_int        unknown5; /* 00 00 00 00 */ /* from 0x35ff packet */
+    bn_int        unknown6; /* hash salt? */ /* from 0x35ff packet */
+    bn_int        secret_hash[5]; /* from 0x35ff packet */
+    bn_int        unknown7; /* _bucky_ No friggin clue what it is... */
+    /* character name */
+} t_client_authloginreq;
+
+COMMENT: The original struct was misaligned by 4 bytes, this is a temp fix
+    before figuring out what exactly is what here. Currently with the
+    secret_hash defined as what it is the password doesn't hash properly,
+    but the character name no longer get 4 junk characters in front.
+
+SEE ALSO: bnetd-0.4.22pre5-db2/src/bnetd.c
+          Temp fix needed to force password acceptance
+
+-----------------------------------------------------------------------------
+FILE: bnetd-0.4.22pre5-db2/include/auth_protocol.h
+
+WHERE: to SERVER_AUTHLOGINREPLY block -> #define SERVER_AUTHLOGINREPLY_REPLY_BADPASS
+CHANGED: Clarification as to what 0x0000000c really means
+RESULT: 
+
+#define SERVER_AUTHLOGINREPLY_REPLY_BADPASS 0x0000000c /* FIXME: guess.. maybe alreadylogged in */
+                                                       /* _bucky_ D2DV v1.02 interprets as "Banned from b.net" */
+
+COMMENT: Need more trial and error to test various replies and get complete
+    list of proper reply codes.
+
+
+-----------------------------------------------------------------------------
+FILE: bnetd-0.4.22pre5-db2/include/bnet_protocol.h
+
+WHERE: to CLIENT_UNKNOWN_37 block
+       Clarification to t_client_unknown_37 struct comments (guesses at this point)
+RESULT:
+
+#define CLIENT_UNKNOWN_37 0x37ff
+typedef struct /* character list request */
+{
+    t_normal_header h;   
+    bn_int          unknown1;   /* Number of OPEN characters on user's machine!    */
+    /* unknown2 */              /* subsequent blocks of t_d2char_info or something */
+                                /* similar, so server could read this list and     */
+                                /* include in the 0x37ff reply as a choice (this   */
+                                /* makes sense cuz the server does NOT store open  */
+                                /* character details - this also explains why      */
+                                /* unknown1 is always 0 in the beta, and the 0x00  */
+                                /* of unknown2 acts as a EOF when client read the  */
+                                /* t_d2char_info strucutures                       */
+} t_client_unknown_37;
+
+-----------------------------------------------------------------------------
+FILE: bnetd-0.4.22pre5-db2/include/bnet_protocol.h
+
+WHERE: to SERVER_UNKNOWN_37 block
+       1) Clarification to t_server_unknown_37 struct comments
+       2) Added t_d2char_info struct
+RESULT:
+
+/******************************************************/ /* _bucky_ START */
+
+#define SERVER_UNKNOWN_37 0x37ff
+typedef struct /* character list reply? */
+{
+    t_normal_header h;
+    bn_int          unknown1;
+    bn_int          unknown2; /* _bucky_: max chars allowed? */
+    bn_int          count;    /* # of chars, same number of  */
+                              /* t_char_info to follow in    */
+                              /* packet                      */
+    /* char info blocks */
+} t_server_unknown_37;
+#define SERVER_UNKNOWN_37_UNKNOWN1 0x00000000
+#define SERVER_UNKNOWN_37_UNKNOWN2 0x00000008
+          
+/* The ONLY 0x00 that should appear should be the terminating NULL for */
+/* the character name string and the guild tag string, they're used as */
+/* delimiters to seperate character name and the character structure   */
+/* If you got any other NULL's in here the next character's info will  */
+/* be royally fucked up - using 0x01 or 0xff for unknowns seem to work */
+/* well                                                                */
+typedef struct
+{
+    /* "RealmName,CharacterName" - for closed characters */
+    /* - OR -                                            */
+    /* "CharacterName" - for open characters             */
+    /* - strlen(CharacterName) must be <= 15 -           */
+    bn_byte unknownb1;     /* 0x83, 0x87? */
+    bn_byte unknownb2;     /* 0x80...? */
+    bn_byte helmgfx;
+    bn_byte bodygfx;
+    bn_byte leggfx;
+    bn_byte lhandweapon;
+    bn_byte lhandgfx;
+    bn_byte rhandweapon;
+
+/* Partial weapon code list:
+          0x2f: 1H Axe
+          0x30: 1H Sword
+          0x50: 2H Staff
+          0x51: Another 2H Staff
+          0x52: Another 2H Staff
+          0x53: Another 2H Staff
+          0x54: 2H Axe
+          0x55: Scythe
+          0x56: empty?
+          0x57: Another 2H Axe
+          0x58: Halberd?
+          0x59: empty?
+          0x5a: Another 2H Axe
+          0x5b: Another Halberd
+          0x5c: empty?
+          0x5d: 1H club?
+          0x5e: empty?
+          0x5f: empty?
+*/
+
+    bn_byte rhandgfx;
+    bn_byte unknownb3;
+    bn_byte unknownb4;
+    bn_byte unknownb5;
+    bn_byte unknownb6;
+    bn_byte unknownb7;
+    bn_byte unknownb8;
+    bn_byte unknownb9;
+    bn_byte unknownb10;
+    bn_byte unknownb11;
+    bn_byte class;     /* 0x01 = Amazon, 0x02 = Sor, 3=Nec,4=Pal,5=Bar */
+    
+    bn_int  unknown1;
+    bn_int  unknown2;   
+    bn_int  unknown3;
+    bn_int  unknown4;
+          
+    bn_byte level;     /* yes, byte, not short/int/long  */
+    bn_byte status;    /* 0x01-03 = Norm & alive         */
+                       /* 0x04-07 = HC & alive           */
+                       /* 0x08-0b = Norm & "dead"?       */
+                       /* 0x0c+   = HC & dead, chat only */
+                       /* Add 0x80 to get same effect    */
+    bn_byte title;     /* 0x00-01=none 02-03=Sir/Dame 04-05=Lord 06-07=Baron */
+                       /* Add 0x80 to get same effect    */
+                       /* Same codes for HC chars                            */
+    bn_byte unknownb13;
+    bn_byte emblembgc; /* Guild emblem background colour */
+    bn_byte emblemfgc; /* Guild emblem foreground colour */
+    bn_byte emblemnum; /* Guild emblem type number       */
+          
+/* emblem number corresponds to D2DATA.MPQ/data/global/ui/Emblems/iconXXa.dc6 */
+/* where XX = emblem number - 1 (ie, 0x0A corresponds to icon09a.dc6) use     */
+/* for dummy values seem safe... 0x01 won't work, you'll get an emblem...     */
+          
+    bn_byte unknownb14;
+    /* Guild Tag */
+} t_d2char_info;
+
+/******************************************************/ /* _bucky_ END */
+
+COMMENT: Remember the 0x00 thing, it's damned important =) D2 seems to have a
+    habit of using bytes >= 0x80 as control codes (example, look at the DC6
+    graphics files). This is another case where we see similar behavior, since
+    0x00 is forbidden in the data here. The fact that 0x00 is disallowed also
+    implies that things like actual int values (experience, gold, etc) is NOT
+    transmitted here, just barebone info - enough for D2Client to draw the
+    char anim/avatar.
+
+SEE ALSO: bnetd-0.4.22pre5-db2/src/bnetd.c
+          Code added to make use of this struct
+
+-----------------------------------------------------------------------------
+FILE: bnetd-0.4.22pre5-db2/src/bnetd.c
+
+WHERE: case conn_class_normal -> case conn_state_loggedin -> packet: case CLIENT_UNKNOWN_37
+CHANGED: Complete revamp
+RESULT:
+
+/* _bucky_ START */ 
+                    
+            case CLIENT_UNKNOWN_37:
+                    
+                if (packet_get_size(packet)<sizeof(t_client_unknown_37))
+                {
+                    eventlog(eventlog_level_error,"handle_conn_packet","[%d] got bad D2_UNKNOWN_37 packet (expected %u bytes$
+                    break;
+                }
+                    
+                if ((rpacket = packet_create(packet_class_normal)))
+                {
+                    {
+                        t_d2char_info d2char_info;
+                        int d2_numchars = 5, i = 0, j;
+                        unsigned char tempname[64];
+                        
+                    packet_set_size(rpacket,sizeof(t_server_unknown_37));
+                    packet_set_type(rpacket,SERVER_UNKNOWN_37);
+                    bn_int_set(&rpacket->u.server_unknown_37.unknown1,SERVER_UNKNOWN_37_UNKNOWN1);
+                    bn_int_set(&rpacket->u.server_unknown_37.unknown2,SERVER_UNKNOWN_37_UNKNOWN2);  
+                        
+                        bn_int_set(&rpacket->u.server_unknown_37.count,d2_numchars);
+                        
+                        for( i=0; i<d2_numchars; i++ )
+                        {
+                            sprintf( tempname, "BetaWest,Char%d", i+1 );
+                            packet_append_string(rpacket,tempname);
+                        
+/*
+                                            87 80                  ..
+06 01 01 01 01 50 FF FF   02 02 FF FF FF FF FF FF    .....P..........
+02 49 50 50 50 50 FF FF   FF 50 50 FF FF FF FF FF    .IPPPP...PP.....
+FF 14 88 82 80 80 FF FF   FF 00                      ..........
+*/
+                     
+                            bn_byte_set(&d2char_info.unknownb1, 0x87);   /* 0x87, 0x83... ? */
+                            bn_byte_set(&d2char_info.unknownb2, 0x80);   /* 0x80 */
+                            bn_byte_set(&d2char_info.helmgfx, 0x01);
+                            bn_byte_set(&d2char_info.bodygfx, 0x01);
+                            bn_byte_set(&d2char_info.leggfx, 0x01);
+                            bn_byte_set(&d2char_info.lhandweapon, 0x01);
+                            bn_byte_set(&d2char_info.lhandgfx, 0x01);
+                            bn_byte_set(&d2char_info.rhandweapon, 0x01);
+                            bn_byte_set(&d2char_info.rhandgfx, 0x01);
+                            bn_byte_set(&d2char_info.unknownb3, 0x01);   /* 0xff? */
+                            bn_byte_set(&d2char_info.unknownb4, 0x01);   /* 0x02? */
+                            bn_byte_set(&d2char_info.unknownb5, 0x01);   /* 0x02? */
+                            bn_byte_set(&d2char_info.unknownb6, 0x01);   /* 0xff for next 6 */
+                            bn_byte_set(&d2char_info.unknownb7, 0x01);
+                            bn_byte_set(&d2char_info.unknownb8, 0x01);
+                            bn_byte_set(&d2char_info.unknownb9, 0x01);
+                            bn_byte_set(&d2char_info.unknownb10, 0x01);
+                            bn_byte_set(&d2char_info.unknownb11, 0x01);  
+                            bn_byte_set(&d2char_info.class, (char)i+1);
+                    
+                            bn_int_set(&d2char_info.unknown1,0x01010101);
+                            bn_int_set(&d2char_info.unknown2,0x01010101);
+                            bn_int_set(&d2char_info.unknown3,0x01010101);
+                            bn_int_set(&d2char_info.unknown4,0x01010101);
+                        
+                            bn_byte_set(&d2char_info.level, (char)20+i);
+                            
+                            /* 0x01-03 = Norm & alive   */
+                            /* 0x04-07 = HC & alive     */
+                            /* 0x08-0b = Norm & "dead"? */
+                            /* 0x0c+   = HC & dead      */
+                            /* Add 0x80, get same effect... */
+                            bn_byte_set(&d2char_info.status, 0x85);  
+
+                            /* 0x80-81=none 82-83=Sir/Dame 84-85=Lord 86-87=Baron */
+                            /* Same codes for HC chars                            */
+                            bn_byte_set(&d2char_info.title, 0x86);
+                            
+                            bn_byte_set(&d2char_info.unknownb13, 0x01);
+                            bn_byte_set(&d2char_info.emblembgc, 0xff);
+                            bn_byte_set(&d2char_info.emblemfgc, 0xff);
+                            bn_byte_set(&d2char_info.emblemnum, 0xff);  
+                            bn_byte_set(&d2char_info.unknownb14, 0xff);
+                            
+                            packet_append_data(rpacket,&d2char_info,sizeof(d2char_info));
+                            
+                            /* Guild Tag */
+                            packet_append_string(rpacket,"BNETD");
+                        } /* for() */
+                    }
+                            
+                    queue_push_packet(conn_get_out_queue(c),rpacket); 
+                    packet_del_ref(rpacket);
+                            
+                } /* if */
+                break;      
+                            
+/* _bucky_ END */
+
+COMMENT: Still just hardcoded, but gives a more elaborate char list and now
+    know what the bytes actually are (at least about half of them). Will have
+    to create an actual character storing/retrieving module for these... which
+    is on my TODO list.
+
+SEE ALSO: bnetd-0.4.22pre5-db2/include/bnet_protocol.h
+          See how the t_d2char_info is actually defined - with examples.
+
+-----------------------------------------------------------------------------
+FILE: bnetd-0.4.22pre5-db2/src/bnetd.c
+
+WHERE: case conn_class_auth -> case conn_state_connected -> packet: case CLIENT_AUTHLOGINREQ
+CHANGED: 1) Fixed segfault, see "_bucky_ FIXED". Was using bn_int_set on
+            rpacket before creating it, supposed to be reply = BLAH instead.
+         2) Temp "fix" -> Accept password no matter what for now until we got
+            the proper password hashing done. (Not that big a deal since if
+            the client got this far, they've entered the correct l/p once
+            already and this is just an extra check - need to fix nonetheless)
+ADDED: Forgot to set connection state after accepting the AUTHLOGINREQ, 
+       resulting in subsequent AUTH packets not handled properly - FIXED by
+       putting in conn_set_state(c,conn_state_loggedin);
+RESULT: (only changed lines shown - immediately after bnhash_to_hash() )
+
+/* _bucky_ FIXME: Accept password no matter what for now */
+#if 0
+                        if (hash_eq(try_hash,secret_hash)!=1)
+                        {
+                            eventlog(eventlog_level_info,"handle_conn_packet","[%d] auth login for \"%s\" refused (bad passw$
+/* _bucky_ FIXED */         reply = SERVER_AUTHLOGINREPLY_REPLY_BADPASS;
+                        }
+                        else
+#endif
+                        {   
+                            eventlog(eventlog_level_info,"handle_conn_packet","[%d] auth login for \"%s\" accepted (correct $
+/* _bucky_ FIXED */         reply = SERVER_AUTHLOGINREPLY_REPLY_SUCCESS;
+                            conn_set_charname(c,charname);
+                            conn_bind(c,normalcon);
+                    
+/* _bucky_ ADD */           conn_set_state(c,conn_state_loggedin);
+                        }
+
+-----------------------------------------------------------------------------
+ADDED FILES: d2char_file.c d2char_file.h
+COMMENT: Preliminary functions for loading/saving a Diablo 2 server side
+    closed character savefile.
+
+SEE ALSO: Makefile.in (added d2char_file.o to bnetd)

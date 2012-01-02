@@ -1,0 +1,30 @@
+This file contains information about the Win32 client registry keys.
+
+Diablo/Starcraft/Brood War<1.08, and Warcraft II BNE all use the same
+registry entry to determine the IPs to connect to.  There have been
+reports that "Server Version" must be "1" in order for things to work
+but I am unable to reproduce that problem myself.  The registry info for
+Diablo/Starcraft/Brood War>=1.08 and Diablo II are in README.diablo108.
+
+
+[HKEY_LOCAL_MACHINE\Software\Battle.net\Configuration]
+# the following 5 items are setup by Battle.net on
+# the first connection. The last one has to be there
+# for things to work properly
+"Registration Version"=dword:00000001
+"Registration Authority"=dword:aa8843d1
+"Client ID"=dword:0019ac70
+"Client Token"=dword:6b28a5da
+"Server Version"=dword:00000001
+# the server to connect to
+"Server List"="10.0.0.1"
+
+[HKEY_LOCAL_MACHINE\Software\Battle.net\Characters]
+# This contains the last login name
+"Names"=hex(7):44,65,61,64,2d,4d,61,73,74,65,72,00
+
+# not sure about this one, but this is probably for
+# game listings
+[HKEY_LOCAL_MACHINE\Software\Battle.net\Preferences]
+"Join Filter"="Show All"
+

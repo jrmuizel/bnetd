@@ -1,0 +1,55 @@
+diff -ur bnetd-0.4.24.dist/conf/bnetd.conf.in bnetd-0.4.24/conf/bnetd.conf.in
+--- bnetd-0.4.24.dist/conf/bnetd.conf.in	Thu Apr 26 17:43:53 2001
++++ bnetd-0.4.24/conf/bnetd.conf.in	Thu Jun 21 21:06:22 2001
+@@ -15,24 +15,24 @@
+ # Use absolute paths in these lines to avoid problems!                       #
+ #----------------------------------------------------------------------------#
+ 
+-filedir     = /usr/local/var/files/
+-userdir     = /usr/local/var/users/
+-reportdir   = /usr/local/var/reports/
+-chanlogdir  = /usr/local/var/chanlogs/
+-defacct     = /usr/local/etc/bnetd_default_user
+-motdfile    = /usr/local/etc/bnmotd.txt
+-issuefile   = /usr/local/etc/bnissue.txt
+-channelfile = /usr/local/etc/channel.list
+-newsfile    = /usr/local/etc/news.txt
+-adfile      = /usr/local/etc/ad.list
+-ipbanfile   = /usr/local/etc/bnban
+-helpfile    = /usr/local/etc/bnhelp
+-transfile   = /usr/local/etc/gametrans
+-mpqfile     = /usr/local/etc/autoupdate
+-logfile     = /usr/local/var/bnetd.log
+-realmfile   = /usr/local/etc/realm.list
+-issuefile   = /usr/local/etc/bnissue.txt
+-#pidfile     = /usr/local/var/bnetd.pid
++filedir     = /var/lib/games/bnetd/files/
++userdir     = /var/lib/games/bnetd/users/
++reportdir   = /var/lib/games/bnetd/reports/
++chanlogdir  = /var/lib/games/bnetd/chanlogs/
++defacct     = /etc/bnetd/bnetd_default_user
++motdfile    = /etc/bnetd/bnmotd.txt
++issuefile   = /etc/bnetd/bnissue.txt
++channelfile = /etc/bnetd/channel.list
++newsfile    = /etc/bnetd/news.txt
++adfile      = /etc/bnetd/ad.list
++ipbanfile   = /etc/bnetd/bnban
++helpfile    = /etc/bnetd/bnhelp
++transfile   = /etc/bnetd/gametrans
++mpqfile     = /etc/bnetd/autoupdate
++logfile     = /var/log/bnetd/bnetd.log
++realmfile   = /etc/bnetd/realm.list
++issuefile   = /etc/bnetd/bnissue.txt
++#pidfile     = /var/lib/games/bnetd/bnetd.pid
+ 
+ fortunecmd  = /usr/games/fortune
+ 
+@@ -249,7 +249,7 @@
+ 
+ # allow others to connect
+ #allow_uplink = false
+-#bits_password_file = "/usr/local/etc/bits_passwd"
++#bits_password_file = "/etc/bnetd/bits_passwd"
+ 
+ #bits_debug = false
+ 

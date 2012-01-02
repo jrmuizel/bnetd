@@ -1,0 +1,112 @@
+
+TODO
+
+	This file contains a list of things which we plan to fix or implement.
+	There is no real ordering to the list other than I tend to put newer
+	stuff at the top.  If you want to work on any of these items feel free
+	to do so.  It might be a good idea to post notification on the
+	bnetd.org webpage or the bnetd-dev@bnetd.org mailing list so nobody
+	else duplicates your work.
+	
+	Items marked with an asterisk are intended to be completed before the
+	next stable release.
+
+	- Attributes on channels to restrict them to certain character classes
+	* Better mail notification... at least notify at login if there is
+	  new mail.
+	- A /ping or /latency command to print client->bnetd TCP latency
+	- Implementation of the /teams command which allows clans to formalize
+	  membership and more easily moderate their channel 
+	- A configuration option to automatically purge old accounts (accounts
+	  that haven't been used in a certain period of time).
+	* Update token parser to handle backslash escapes (\\,\",\n,etc.)
+	* Change channel code to support flags instead of all the random field
+	  names and to allow proper CF bits to be set in MF_CHANNEL messages.
+	* Change channel code to support explicit "aliases" so that multiple
+	  clients can be placed in the same official channel.
+	* Change /watch with no argument to print watch list with an asterisk
+	  next to the players which are online.
+	* Change code to save the watchlist.
+	- Cleanup server.c so that it isn't so long
+	- Cleanup FD_SETSIZE usage.  Find out the portable way to redefine it
+	  and/or make an autoconf check to see if we can redefine it
+	* Convert clients to use addr.c utility functions
+	* Configuration file to create command aliases (eg:
+	  /haha -> /me laughs)
+	* Complete the versioncheck parser
+	- $TERM detection in bnchat (turn on ansi if detected)
+	- A Macintosh port (could either be Unix-style libc or native with
+          OpenTransport... maybe not important now since MacOS X can use the
+	  Unix version?)
+	- Version authentication emulation in bnchat
+	- A utility to automatically create a versioncheck configuration file
+	* Finished Diablo II closed character storage and start on a game
+	  server (and fix the playinforeq to search the character list as
+	  well as the account list) (Onlyer and crew are working on this)
+	- A hierarchical users directory to speed up directory searches
+	  (Hakan is working on it)
+	- Make ipban use list.c
+	- Use timezone bias for displayed times (ladder, last game, etc.)
+	- A ladder configuration file
+	* Add data in man pages for all config files (bnetd.conf is mostly
+	  done)
+	- Work with the FreeCraft people to get both the client and server
+	  side working
+	- A document to familiarize new coders with bnetd
+	- Allow 1.2.3.0/netbits syntax in bnban file
+	- Fix OS description reporting for Win32
+	- An optional way to ban certain words from account names, channel
+	  names, game names, and chat messages... full regexp engine?
+	- Add support for old non-ANSI compilers (ansi2knr in configure)
+	- A scheme for automatically handling game listings between different
+	  network interfaces... address translation plus spawning UDP proxy
+	  daemons?
+	- A local command mode for bnchat to implement ladder info and user
+	  info (Ross is working on it)
+	- Latency tests using the UDP pings instead of the TCP ones for DRTL,
+	  STAR, SEXP, and W2BN clients.
+	- Support for proxying game info in bnproxy; this requires munging
+	  GAMELIST packets and updating all that crufty code
+	- Support for the SESSIONADDR2 packet in bnproxy and binding to unique
+	  UDP ports for each virtual client... people with NAT could use this
+	* Add an option to have more lax checking of game reports
+	* Fixed STARTGAME gamestatus parsing, and check if the flag is really
+	  two 16 bit ones... test with all versions of StarCraft since they
+	  changed this with nearly every patch (*important to fix before next
+	  stable release!*)
+	- Command line option for bnstat to print out ladder lists
+	- Support for guest style multi-login accounts
+	- Support for anonymous style multi-login accounts
+	- Support for authentication of normal maps for ladder games (maybe
+	  fixed?)
+	- Possibly a hash table for account attribute lookup
+	- Verification of ladder equations for 7 and 8 players 
+	- A scheme to allow multiple programs to access the user files at once;
+	  a daemon which handles all reads/writes has been suggested (Onlyer is
+	  working on this)
+	- A way to block certain types/versions of clients from connecting
+	- Warcraft III support
+	- Sorting of GAMELISTs so open and newer games are first (and games of
+	  same client patch level)
+	- Support for picking ads by client and account and enforced display
+	  times
+	* Max users and/or max connections entry in config file (0==infinity)
+	* Idle logout config option (time between receiving any type of
+	  packets)
+	- Admin commands to modify account attributes
+	- Admin commands to modify channel attributes
+	- Support for server, account, and channel bans by IP/hostname
+	  (Gediminas is working on it)
+	- Comments in source code for most files, types, and functions
+	- Command to remove stale games from the list
+	- Some nice utilities for managing accounts that could be used in
+	  shell scripts, etc
+	- Use terminal settings for erase/clear in clients instead of assuming
+	  the terminal is a vt100
+	- Inter-server communication (bits protocol) (Typhoon is working on it)
+	- Latency status on STAR/SEXP game lists (which field is it?) (does
+	  this already work!?)
+	- It would be nice to have a GUI to display/edit the configuration
+	  options, user accounts, current status, and send a SIGHUP to the
+	  daemon when appropriate
+

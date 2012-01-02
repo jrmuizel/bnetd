@@ -1,0 +1,9 @@
+_bucky_'s TODO List as of Mon May  1 02:44:25 EDT 2000
+------------------------------------------------------
+
+- Finish off d2char_file.c,.h - for serverside character storage
+  to simulate closed server behaviour
+- Write d2char.c,.h - wrappers for using d2char_file
+- Make use of d2char.c to actually initialize a d2char_file for
+  the account when a diablo 2 CREATECHAR request is made
+- Tabulate findings for unknown fields in bnet_protocol.h/t_d2char_info

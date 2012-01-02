@@ -1,0 +1,42 @@
+##############################################################################
+# autoupdate  -  Auto Update Configuration		                     #
+#----------------------------------------------------------------------------#
+#                                                                            #
+# This is a list of client tags and their equivalent autoupdate files and    #
+# version information.                                                       #
+#                                                                            #
+# This file will basically be ignored unless do_versioncheck is enabled in   #
+# the bnetd.conf file.                                                       #
+#                                                                            #
+# Only the first matching line is used.  If no lines match then no upgrade   #
+# will be attempted and the client will remain at its current version.       #
+#                                                                            #
+# Do not include "/" in any of the filenames.                                #
+#                                                                            #
+# The version numbers can be in two forms.  If it does not contain a period  #
+# then 123 is assumed to mean 1.2.3.0.  Otherwise it may contain up to three #
+# periods.  If fewer than four parts are present, the latter ones will be    #
+# assumed to be zero.  For example, 1.8 would be interpreted as 1.8.0.0.     #
+# Sections will overflow if they are greater than 255.                       #
+#                                                                            #
+# The min and max versions are optional, if they are not specified they      #
+# default to 0.0.0.0 and the upgrade version respectively.                   #
+#                                                                            #
+# Note: min version is inclusive (>=), max version is exclusive (<).         #
+#
+# versiontag is used to identify a particular version is set by versioncheck
+# works this way: versioncheck identifies a version, if tag for this version
+# is enabled in versioncheck, version is tagged with a string
+# autoupdate matches versiontag and version >= version_min
+# else works normally i.e.:
+# version >= version_min and version < version_max
+# versiontag is optional
+#                                                                            #
+# -archtag- -clienttag- -------file-------  new version  min version  max version  versiontag #
+#IX86        STAR         star107b.mpq         107          000          107          
+#IX86        SEXP         brood107b.mpq        107          000          107          
+#IX86        D2DV         d2dv102d2dv107.mpq   107          000          107          
+#                                                                            #
+# an example of versiontag usage
+#IX86 D2XP d2xp_ix86_109d_109e.mpq 1.0.9.0 0.0.0.0 1.0.9.0 LOD_109d
+##############################################################################

@@ -1,0 +1,40 @@
+Changes
+=======
+0
+---
+ * initial release
+
+0.1
+---
+ * doesn't use anymore endian.h and byteswap.h which are 
+   linux specific --- thanks to Ross Combs
+ * wrote own byte order code
+ * beautified the code a little bit ;-)
+
+0.2
+---
+ * added tga compression in bni files
+
+0.3
+---
+ * original .bni files extracted with bniextract and then re-build with 
+   bnibuild should now contain the same
+
+0.4
+---
+ * bnilist should now display the same on machines with diffrent byte order
+ * Bits 4 & 5 of the "Image Desriptor" field in TGA files are now handled
+   correctly
+
+>0.4
+----
+ * Ross integrated the bni utils into the bnetd distribution and
+   corrected many bugs by rewriting a lot of the code. 
+   See bnetd CHANGELOG for further changes.
+
+Bugs
+====
+ There are no known bugs :-)
+
+ If you find a bug send it to <mmz@gmx.net>.
+

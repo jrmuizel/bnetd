@@ -1,0 +1,144 @@
+
+	 BNETD Interserver Transport System (BITS) protocol
+	 
+What's BITS ?
+-------------
+  The BITS protocol will be used to connect several BNETD servers
+  to a network. If a server is connected to a network it will share
+  account information with the other servers on this network. It will
+  also be possible to chat and play games through the network. This
+  protocol is still in its experimental state and needs some testing. 
+  NOTE: If you already run a server make sure to send in some bug reports :)
+
+News
+----
+  Account sharing  and chatting should work. Gaming still needs some testing
+  but should generally work. (NOTE: There are still many bugs!) Network-wide 
+  MOTD has been added. You can now specify IP:Port combinations for the uplink.
+  Password are now hashed by default.
+
+Compile with BITS support
+-------------------------
+  Make sure to add "--with-bits" to ./configure if you want to 
+  use BITS.
+
+Configuration
+-------------
+  There are some extra configuration variables in the bnetd.conf file:
+  
+  	do_uplink (boolean) :
+		If this variable is set to true the server tries to
+		connect to the BITS server stored in "uplink_server".
+		To run a BITS master server set this variable to
+		"false". 
+	
+	uplink_server (string) :
+		This variable contains the servername to connect to if
+		"do_uplink" is true. This might either be an IP-address 
+		or a DNS-name.
+		
+	uplink_username (string) :
+		This is the (BITS) username used to login to the BITS server.
+		The password is taken from the BITS password file (see below).
+	
+	bits_password_file (string) :
+		This variable contains the filename of the bits password file.
+		
+	allow_uplink (boolean) :
+		Set this to "true" if you want to allow other bits client to
+		connect to your server. This should always be "true" if
+		"do_uplink" is set to "false".
+
+	bits_motd_file (string) :
+		This is the network-wide MOTD file which is displayed before
+		the local MOTD file. This option is only used by master
+		servers.
+
+	bits_use_plaintext (boolean) :
+		This specifies whether a BITS client should send the
+		password in plain text or hashed. You probably wish to
+		set this to false which is also the default.
+		
+BITS password file
+------------------
+  The BITS password file is used to store the password for each bits user.
+  Each line contains three fields: user, password type, password. These
+  fields are divided by a colon.
+  A BITS password file might look like this:
+
+	username:type:password
+	test:P:test
+	gamma:P:secret
+	bob:H:19785d197ce66cdd2baf4b8bf348ed0b362587f6
+	
+  If you are running a BITS client you only have to store your own password
+  in the file in plain-text. BITS master server should store passwords for all 
+  users in this file. They can also save the hash only (like bob). This
+  makes them unable to answer plain-text password requests for that user.
+  
+BITS TODO
+---------
+ - = ToDo
+ w = currently working on
+ ? = don't know
+ + = works (well ... might work ;)
+ i = important
+ l = less important
+
+	i+ account sharing (account locking)
+	i? make all chat commands work (/stats(works),
+				       /who,
+				       /finger(works?)
+				       ...);
+	i+ bot connections
+	i+ network chat (implement sessionid stuff)	
+	iw gamelist sharing
+	i- make bits work with more than 2 servers
+	i- make it possible that 2 BITS clients connect at the same time
+	l+ bits auth encryption -> improve the "handshake" 
+	lw fix a lot of bugs and remove compiler warnings :-)
+	l+ fix the crash bug if bits_init() fails
+	l- perhaps rewrite bits_init()
+	i+ add port specification in config file to allow (ssh/ssl) tunneling
+	i+ network wide motd
+	l- network wide adbanners?
+	i? diabloII support
+	 - much more ...
+	
+Account locking (for developers)
+--------------------------------
+  If an account isn't stored on a bits client and the client needs some 
+  information about it ( does the account exist, stats ) it has to be
+  "locked" by the client. If a BITS server is not the master server and
+  receives a "lock request" from one of its clients it forwards 
+  the request to the master server (creates a bits_query/ changes qid).
+  The master server looks into its account database and if the account 
+  exists it returns a positive response with account name and uid to 
+  the client and adds the account name+uid to the "locklist" of the client.
+  The "locklist" contains the name and uid of every locked account on the
+  client. If a server sends or receives an attribute change for an account
+  with a specific uid it forwards this change to every client which has this
+  uid in its locklist and of course the master. An account could be locked
+  by more than one client.  
+
+BITS network topology
+---------------------
+
+           master server           
+           -------------
+          /      |      \
+   server1     server2   server3
+  /       \         |           \
+server4  server5  server6      server7
+   .        .        .            .
+   .        .        .            .
+   .        .        .            .
+
+There is one master server which has the following jobs: manage the account
+database, manage the channellists, handle login requests and manage all the
+games (reports/ladder calculations). The other clients just connect to this 
+server and other client can then connect to the already connected clients
+and so on. It is planned to have connections between clients of diffrent
+branches. 
+
+Feel free to drop me a line at mmz@gmx.net --- Typhoon

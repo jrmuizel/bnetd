@@ -1,0 +1,380 @@
+##############################################################################
+# bnetd.conf  -  Configuration file for the Unix Battle.net daemon           #
+#----------------------------------------------------------------------------#
+#                                                                            #
+# This file is an example configuration and may require modification to      #
+# suit your needs or your site.  Blank lines and lines starting with a "#"   #
+# are ignored.  Use quotes around values that contain spaces.                #
+#                                                                            #
+##############################################################################
+
+
+##############################################################################
+# Privileges to work under                                                   #
+# Use either the names from the corresponding files or numerical id's (with  #
+# a leading '#').  If none are specified, the userid will not be changed.    #
+#----------------------------------------------------------------------------#
+
+#effective_user  = games
+#effective_group = games
+
+# effective_user  = #12
+# effective_group = #20
+
+#                                                                            #
+##############################################################################
+
+##############################################################################
+# File section                                                               #
+# The pidfile can be set to "" to turn it off.                               #
+# Use absolute paths in these lines to avoid problems!                       #
+#----------------------------------------------------------------------------#
+
+filedir     = /usr/local/var/files/
+userdir     = /usr/local/var/users/
+reportdir   = /usr/local/var/reports/
+chanlogdir  = /usr/local/var/chanlogs/
+defacct     = /usr/local/etc/bnetd_default_user
+motdfile    = /usr/local/etc/bnmotd.txt
+issuefile   = /usr/local/etc/bnissue.txt
+channelfile = /usr/local/etc/channel.list
+newsfile    = /usr/local/etc/news.txt
+adfile      = /usr/local/etc/ad.list
+ipbanfile   = /usr/local/etc/bnban
+helpfile    = /usr/local/etc/bnhelp
+transfile   = /usr/local/etc/gametrans
+mpqfile     = /usr/local/etc/autoupdate
+logfile     = /usr/local/var/bnetd.log
+realmfile   = /usr/local/etc/realm.list
+maildir     = /usr/local/var/bnmail/
+versioncheck_file = /usr/local/etc/versioncheck
+#pidfile     = /usr/local/var/bnetd.pid
+
+fortunecmd  = /usr/games/fortune
+
+#                                                                            #
+##############################################################################
+
+
+##############################################################################
+# Message logs                                                               #
+#----------------------------------------------------------------------------#
+
+# Multiple log levels can be defined by connecting them with a comma (,)
+# Available loglevels are:
+#   none
+#   trace
+#   debug
+#   info
+#   warn
+#   error
+#   fatal
+#loglevels = fatal,error,warn,info,debug,trace
+loglevels = fatal,error,warn,info
+
+#                                                                            #
+##############################################################################
+
+
+##############################################################################
+# D2CS realm server settings                                                 #
+#----------------------------------------------------------------------------#
+
+# Version of D2CS server to connect with (set to zero to disable version check)
+d2cs_version = 0
+
+# Allow the D2CS server to change realm names?
+allow_d2cs_setname = true
+
+#                                                                            #
+##############################################################################
+
+
+##############################################################################
+# Downloadable files                                                         #
+#----------------------------------------------------------------------------#
+
+# These filenames are reported directly to the client and are relative to
+# the "filedir" directory specified above.
+iconfile = "icons.bni"
+tosfile = "tos.txt"
+
+#                                                                            #
+##############################################################################
+
+
+##############################################################################
+# Client verification and upgrades                                           #
+#----------------------------------------------------------------------------#
+
+# If this option is enabled, the verification step is skipped if possible.
+# This only works with clients < 109.  It is useful because you no longer
+# need any of the IX86AUTH?.MPQ and PMACAUTH?.MPQ files.  Note that it will
+# also skip over all the autoupdate checks effectively diabling it.
+#
+# If you disable this you must have one or more of the MPQ files.  Otherwise
+# clients will hang when they first connect because they are attempting to
+# download them.
+skip_versioncheck = true
+
+# If you enable the version checks but want to allow clients that don't pass
+# the checksum test then enable this.
+allow_bad_version = false
+
+# If you enable the version checks but want to allow clients that aren't
+# listed in the versioncheck configuration file then enable this.  Unless
+# you have a very complete file or are very paranoid about cheaters this
+# is a good idea.
+allow_unknown_version = true
+
+#                                                                            #
+##############################################################################
+
+
+##############################################################################
+# Time values                                                                #
+#----------------------------------------------------------------------------#
+
+# Time in seconds between account file updates, 0 means wait forever.
+usersync  = 300
+# Number of seconds of inactivity before file is unloaded from memory.
+# (only checked during account file updates)
+userflush = 1200
+
+# How often to send user latency tests in seconds.
+latency = 10
+
+# How often to send null or keepalive packets in seconds.
+nullmsg = 120
+
+# Amount of time to delay shutting down server in seconds.
+shutdown_delay = 300
+# Amount of time delay period is decremented by either a SIGTERM or SIGINT
+# (control-c) signal in seconds.
+shutdown_decr = 60
+
+#                                                                            #
+##############################################################################
+
+
+##############################################################################
+# Policy options                                                             #
+#----------------------------------------------------------------------------#
+
+# If you don't want people to be able to create new accounts, set this to
+# false.
+new_accounts = true
+
+# If someone attempts to log in more than once, should it kick off the old
+# login, or deny the new one?
+kick_old_login = true
+#kick_old_login = false
+
+# If a user is creating a new channel, should it be added automatically, or
+# prompt them first?
+ask_new_channel = true
+
+# Should a game report be written for every game played or just ladder
+# games?
+#report_all_games = false
+report_all_games = true
+
+# Should a diablo report be written? there are no winners/losers
+report_diablo_games = false
+
+# Should games with passwords be hidden on the game list?
+hide_pass_games = true
+
+# Should games already started be hidden on the game list? (for heavily
+# loaded servers)
+hide_started_games = false
+
+# Should non-permanent channels hidden on the channel list?
+hide_temp_channels = true
+
+# Should the extended /-commands be avaliable? (of course!)
+extra_commands = true
+
+# Should any and all disconnects to be counted as losses?
+# (Turning this on will override the user's choice in ladder games!)
+disc_is_loss = false
+
+# Should all users be able to use the /con and /connections commands?
+enable_conn_all = true
+
+# Should client IP addresses (from /con, /games, /gameinfo, /netinfo)
+# be hidden from non-admins?
+hide_addr = false
+
+# Should private channel messages be logged to files in the chanlogdir
+# directory? (see channels.list for public channels)
+chanlog = false
+
+# Do you want to use the channel quota feature?
+quota = yes
+
+# The following options deal with flood prevention.
+#
+# How many lines do you accept in quota_time seconds?
+# (The default should allow 5 lines in 5 seconds,
+# longer time periods allow "bursts" of traffic before the quota is full.)
+quota_lines = 5     # must be between 1 and 100 lines
+quota_time = 5      # must be between 1 and 60 seconds
+# "virtual wrapping", so long lines count as multiple lines
+quota_wrapline = 40 # must be between 1 to 256 chars
+# absolute maximum characters allowed in a line
+quota_maxline = 200 # must be between 1 to 256 chars
+#
+# How many lines do you accept in quota_time seconds before user is
+# disconnected?
+# (According to Jung-woo, Dobae is a Korean term for flooding the game server...
+# it originally meant "to paint the wallpaper on a new or refurbished house").
+# If it less than or equal to quota_lines, there is no warning before
+# disconnection so don't set this too low.
+quota_dobae = 10     # must be between 1 and 100 lines
+
+# Mail support
+mail_support = true
+mail_quota = 5
+
+# Channel logging message
+log_notice = "*** Please note this channel is logged! ***"
+
+#                                                                            #
+##############################################################################
+
+
+##############################################################################
+# Account configuration                                                      #
+#----------------------------------------------------------------------------#
+
+# Should account files be named by the account number or the player name? 
+savebyname = true
+
+# How man rows should the account lookup hash table have?  Servers with
+# more accounts should use a larger table for better performance.
+hashtable_size = 61
+
+#                                                                            #
+##############################################################################
+
+
+##############################################################################
+# Tracking server info                                                       #
+#----------------------------------------------------------------------------#
+
+# Set track=0 to disable tracking.  Any other number will set number
+# of seconds between sending tracking packets. This is OFF by default.
+track = 0
+#track = 150
+
+# Tracking server(s)
+# Use a comma delimited list of hostnames with optional UDP port numbers
+# after colons. (port 6114 is the default for the newer tracking protocol)
+#trackaddrs = "track.bnetd.org,localhost:9999"
+trackaddrs = "track.bnetd.org"
+
+# Change these to match your system, for example:
+#location = "San Diego, CA, USA"
+#description = "The XYZ Server"
+#url = "http://www.foo.com/xyzserver.html"
+#contact_name = "John Doe"
+#contact_email = "jd@foo.com"
+
+#                                                                            #
+##############################################################################
+
+
+##############################################################################
+# Server network info                                                        #
+#----------------------------------------------------------------------------#
+
+# Set this option to true to allow TCP to detect and close stale
+# connections.
+use_keepalive = false
+
+# This is a comma delimited list of hostnames that the server should
+# listen on.  It might be useful to make an internal-only server on a
+# gateway machine for example.  If the list is not set or if it has a
+# entry with no host component, the server will bind to that port on all
+# interfaces.
+#servaddrs = ":9999"
+#servaddrs = "myinternalname.some.com,localhost"
+#servaddrs = ":" # default interface (all) and default port (6112)
+
+# Don't change these unless you really need to!  You will need to run a proxy
+# or modify the clients.  Also note that these will not change when simply
+# sending a HUP signal to the server; they are only read on startup.
+
+# This is the port the server send the UDP test packets to by default.
+# Setting it to zero makes the server use the same port as the TCP connection
+# comes from. Newer clients can override this setting on a per connection
+# basis.
+#udptest_port = 6112
+
+#                                                                            #
+##############################################################################
+
+
+##############################################################################
+# BNETD Interserver Transport System (BITS) info                             #
+#----------------------------------------------------------------------------#
+
+# This stuff is experimental. You must configure bnetd --with-bits for these
+# settings to take effect.
+
+# connection to an existing network
+#do_uplink = false
+#uplink_server = localhost
+#uplink_username = anonymous
+
+# allow others to connect
+#allow_uplink = false
+
+# location of the BITS password file
+#bits_password_file = "/usr/local/etc/bnbitspasswd"
+
+# location of the network-wide MOTD file (bits master only)
+#bits_motd_file = "/usr/local/etc/bnbitsmotd.txt"
+
+# use plaintext password transfer (bits client only)
+#bits_use_plaintext = false
+
+#                                                                            #
+##############################################################################
+
+
+##############################################################################
+# Internet Relay Chat (IRC) configuration                                    #
+#----------------------------------------------------------------------------#
+
+# This specifies the addresses where IRC connections should be accepted. See
+# the description of servaddrs for formatting information. Leave this field
+# blank if you do not want to accept IRC connections.  If the port is not
+# specifed then 6667 will be used.
+#ircaddrs = ":6667"
+
+# This is the server name used for IRC connections. Set this to your
+# server name.
+servername = "none"
+
+# Set this to the desired IRC connection timeout in seconds.
+#irc_latency = 180
+
+#                                                                            #
+##############################################################################
+
+
+##############################################################################
+# Telnet configuration                                                       #
+#----------------------------------------------------------------------------#
+
+# This specifies the addresses where telnet connections should be accepted.
+# See the description of servaddrs for formatting information. Leave this
+# field # blank if you do not want to accept telnet connections.  If the port
+# is not specifed then 23 will be used.
+#telnetaddrs = ":23"
+
+#                                                                            #
+##############################################################################
+

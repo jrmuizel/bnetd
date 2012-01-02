@@ -1,0 +1,5 @@
+- versioncheck/autoupdate, are now complete and working, need some tests
+- message system rewrite to support correctly different clients
+- fix channellist_reload for correct moderator handling
+- fix TOSFILE req if TOSFILE is not found
+- make watch list permanent

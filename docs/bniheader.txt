@@ -1,0 +1,35 @@
+
+The .bni files are used to store the icons for the diffrent games
+in bnet. The file consists of two parts:
+	1. The BNI header, which contains information on the number of
+	   icons and the information about each icon.
+	2. A Truevision TGA (Targa) file which contains the icon data in
+	   one big image. The color depth is 24 bpp, so it's true color.
+	   Blizzard puts here a compressed TGA.
+
+At this time every icon seems to be 28x14 pixels, but the size is saved for
+each icon. The BNIfile starts with 2 32-bit little-endian integers with the
+values 0x10 and 0x01. I don't know what they are good for. The next field is an 
+integer which contains the number of icons in the file. This field is followed
+by another integer which contains the start offset of the TGA image. 
+
+File Header:
+
+	Unknown1	Unknown2	Number of icons		TGA Offset
+	0x00000010(int)	0x00000001(int)	      int                  int
+
+Now there are icon records for every icon. They are 16 or 20 bytes long:
+
+Field Name	Id	X	Y	| if (id == 0):	|	unknown
+					|	tag	|
+Field Size	int	int	int	|	int	|	int
+
+The tag field is only avail if the id field contains zero. The fields X and Y
+contain the width and the height of the icon. The unknown field seems to be
+always zero.
+
+In the TGA file the icons are put from the top to the bottom in one bar.
+
+If you know what these unknown fields mean or you discovered any errors,
+feel free to contact me 
+			--- Typhoon (mmz@gmx.net)

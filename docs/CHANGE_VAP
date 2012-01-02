@@ -1,0 +1,32 @@
+**** 10 Apr 2000 ****
+- Added 5-players ladder computations (not tested against real
+  ladder results)
+- changed type of parameters of the functions six_f* and eight_f*
+  to be integer instead of double (Ladder ranking). This should be
+  a minor improvement on the speed.
+
+**** 13 Jul 2000 ****
+- Corrected bug in /ladderactivate
+- Checked ladder-5
+- updated INSTALL to explain the configuration for Diablo 1.08
+- Added Bnetd gimp palette for ad banner generation.
+
+**** 24 Jul 2000 ****
+- New Starcraft client uses "DynKey\STAR\1\rank" and "DynKey\SEXP\1\rank"
+  keys instead of the previous "Record\STAR\1\rank" and "Record\SEXP\1\rank".
+  account_get_strattr silently returns the content of the Record key when a
+  DynKey is requested so old and new clients are both suported.
+
+**** 25 Jul 2000 ****
+- Math optimizations. 
+  - Factorisations. In ladder-8, probability function is called more than
+    6000 times less. Also many multiplications suppressed (all ladders).
+  - probability(a,b) = 1 - probability(b,a). Many probability calls suppressed
+    using this.
+
+**** 30 Jul 2000 ****
+- Ladder 7 calc. Already partially optimized. This must still be compared
+  to real ladder results to see if results are close.
+- Identified field "unknown5" in CLIENT_COUNTRYINFO packet. (Time Zone) 
+  Updated program to use it (right now, it use US-MDT TimeZone. The rest of 
+  the packet is set to that land anyway).
