@@ -74,7 +74,7 @@ CONFIGURING THE CLIENT
 	There is no automated tool to modify the resources (yet).  To do it
 	manually, first locate the Starcraft (or Diablo) preference file
 	located in the Preferences folder inside the System folder.  Open the
-	file with ResEdit to check if you have the HKEY resources called:
+	file with RegEdit to check if you have the HKEY resources called:
 	 "HKEY_LOCAL_MACHINE\Software\Battle.net\Configuration\Server List"
 	 "HKEY_LOCAL_MACHINE\Software\Battle.net\Configuration\Client ID"
 	If you do not have these resources, you will have to download the demo
